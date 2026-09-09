@@ -43,7 +43,7 @@ export function Sidebar() {
           <Icon name="water_drop" filled />
         </div>
         <div>
-          <h1 className="text-[17px] font-bold leading-tight text-primary">AquaTex AI</h1>
+          <h1 className="text-[17px] font-bold leading-tight text-primary">sustuno</h1>
           <p className="text-[9.5px] font-bold uppercase tracking-widest text-on-surface-variant">
             All Systems Operational
           </p>
