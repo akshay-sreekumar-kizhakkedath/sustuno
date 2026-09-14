@@ -1,0 +1,13 @@
+parameter,unit,inland_surface_water_limit,public_sewer_limit,zld_target,monitoring_frequency
+pH,pH Scale,6.5 - 8.5,5.5 - 9.0,6.5 - 7.5,Continuous Online
+Biological Oxygen Demand (BOD 3d @ 27°C),mg/L,30,350,< 5 (RO feed),Daily / Online BOD
+Chemical Oxygen Demand (COD),mg/L,250,250,< 30 (RO feed),Continuous Online Analyzer
+Total Suspended Solids (TSS),mg/L,100,600,< 1 (UF permeate),Daily / Online Turbidity
+Total Dissolved Solids (TDS),mg/L,2100,2100,< 100 (RO Permeate Recycled),Continuous Online EC
+Oil & Grease,mg/L,10,20,0.0,Weekly
+Total Chromium (as Cr),mg/L,2.0,2.0,< 0.05,Weekly / AAS
+Hexavalent Chromium (Cr⁺⁶),mg/L,0.1,2.0,Non-detectable,Daily
+Sulfide (as S),mg/L,2.0,5.0,0.0,Daily
+Phenolic Compounds (as C₆H₅OH),mg/L,1.0,5.0,< 0.1,Weekly
+Total Residual Chlorine,mg/L,1.0,1.0,0.0 (Pre-RO),Continuous ORP
+Color,PCU (Pt-Co),150 PCU,N/A,< 5 PCU (Colorless),Daily Spectrophotometer

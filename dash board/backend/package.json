@@ -1,0 +1,21 @@
+{
+  "name": "aquatex-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend API server for Aquatex AI Textile Dashboard",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "oxlint": "^1.75.0"
+  }
+}

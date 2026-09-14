@@ -1,0 +1,117 @@
+{
+  "machine_details": {
+    "machine_name": "Continuous Pad-Steam Dyeing Range",
+    "machine_type": "Continuous Open-Width Pad-Steam Dyeing Line",
+    "manufacturer": "K\u00fcstners Textile Machinery / Benninger",
+    "model": "PST-KUST-600",
+    "year": "2021"
+  },
+  "capacity": {
+    "minimum_batch_size": "1000 meters (Continuous run)",
+    "maximum_batch_size": "50,000+ meters continuous production run",
+    "fabric_capacity": "Continuous production line (Speed 30 - 80 m/min)",
+    "liquor_capacity": "Pad Trough 15 to 25 Liters (Low volume anti-tailing trough)"
+  },
+  "operating_limits": {
+    "minimum_temperature": "20 \u00b0C",
+    "maximum_temperature": "105 \u00b0C Saturated Steamer",
+    "minimum_pressure": "0.0 bar",
+    "maximum_pressure": "5.0 bar Pad Mangle Nip Pressure",
+    "maximum_speed": "80 m/min line speed",
+    "heating_rate": "Instantaneous Steam Injection",
+    "cooling_rate": "Continuous counter-flow wash boxes"
+  },
+  "process_compatibility": {
+    "supported_fabric_types": "100% Woven Cotton, P/C Blends, Linen, Denim, Workwear Bottom-weights",
+    "supported_dye_types": "Vat Dyes, Reactive Dyes, Sulfur Dyes",
+    "supported_chemicals": "Caustic Soda, Sodium Hydrosulfite, Salt, Soda Ash, H2O2, Migration Inhibitors",
+    "suitable_processes": "Continuous Pigment Padding, Chemical Reduction Steaming, Continuous Oxidation & Washing"
+  },
+  "machine_constraints": {
+    "maximum_load": "Continuous line operation",
+    "minimum_load": "1000 meters run to justify chemical pad trough setup",
+    "temperature_restrictions": "Steamer temp strictly 102\u00b0C - 104\u00b0C saturated steam",
+    "pressure_restrictions": "Pad mangle nip pressure 2.5 to 4.5 bar",
+    "chemical_restrictions": "Oxygen concentration inside steamer MUST be < 0.1% for Vat dyes",
+    "fabric_restrictions": "Open-width woven fabrics only",
+    "liquor_ratio_limits": "Padding Pick-up Expression 60% to 75% wet pick-up"
+  },
+  "performance": {
+    "water_consumption": "15 to 25 Liters per kg of fabric (High efficiency counter-flow washers)",
+    "steam_consumption": "1.5 to 2.2 kg steam per kg fabric",
+    "power_consumption": "65 kW total multi-drive synchronized motor line",
+    "cycle_time": "Continuous (Speed 40 m/min)",
+    "efficiency": "94% OEE on long production runs"
+  },
+  "sensors": {
+    "temperature_sensor": "Multi-point Steamer PT100 Sensors & IR Fabric Temp Sensor",
+    "pressure_sensor": "Pad Roller Nip Pneumatic Pressure Transmitters",
+    "flow_sensor": "Chemical Dosing Flow Meters & Wash Box Water Meters",
+    "ph_sensor": "Continuous Wash Box pH Transmitter",
+    "conductivity_sensor": "Wash Box Salt Conductivity Sensor",
+    "level_sensor": "Pad Trough Ultrasonic Level Sensor"
+  },
+  "operating_parameters": {
+    "recommended_temperature": "Steamer 102\u00b0C | IR Dryer 120\u00b0C | Washers 95\u00b0C",
+    "recommended_pressure": "Pad Mangle 3.5 bar pneumatic nip",
+    "recommended_speed": "40 to 60 m/min line speed",
+    "recommended_liquor_ratio": "65% Wet Pick-Up Expression"
+  },
+  "maintenance": {
+    "daily_checks": "Inspect pad mangle rubber roll surfaces, check steamer water lock seals",
+    "weekly_checks": "Inspect swimming roller deflection pneumatic seals, test IR pre-dryer sensors",
+    "monthly_checks": "Calibrate pad mangle nip pressure profile, calibrate steamer temp probes",
+    "calibration_requirements": "Semi-annual line synchronization and nip pressure calibration"
+  },
+  "failure_information": {
+    "common_faults": "Head-to-tail shade variation (tailing), center-to-selvedge shade variation, oxidation specks",
+    "alarm_conditions": "Steamer temp < 101\u00b0C, Steamer O2 > 0.2%, Pad trough level low, Line speed mismatch",
+    "failure_causes": "Trough liquor replacement time > 45s, pad roll deflection, steamer air ingress",
+    "troubleshooting": "Adjust trough volume displacement insert; re-crown swimming roll; seal steamer entry"
+  },
+  "safety": {
+    "safety_limits": "Max steamer temp 105\u00b0C, Max pad nip 5.0 bar, Emergency cord full line trip",
+    "emergency_shutdown_conditions": "Emergency trip cord pulled along line, IR pre-dryer fire alarm, steamer lock failure",
+    "ppe_requirements": "Full face shield, chemical aprons, rubber boots, gas monitor for SO2"
+  },
+  "ai_constraints": {
+    "machine_operating_rules": [
+      "ASSERT trough_liquor_replacement_time_seconds <= 30",
+      "IF dye_type == 'Vat' THEN steamer_o2_percent MUST BE < 0.1%",
+      "ASSERT wet_pick_up_percent >= 60 AND wet_pick_up_percent <= 75"
+    ],
+    "parameter_limits": {
+      "max_line_speed_m_per_min": 80,
+      "min_steamer_temp_c": 101.5,
+      "max_steamer_temp_c": 104.5,
+      "max_trough_volume_liters": 25
+    },
+    "recommended_operating_ranges": {
+      "pad_nip_pressure_bar": [
+        3.0,
+        4.0
+      ],
+      "steamer_dwell_time_seconds": [
+        45,
+        75
+      ]
+    },
+    "constraint_equations": [
+      "Replacement_Time_s = (Trough_Volume_L * 60) / (Line_Speed_m_min * Fabric_Weight_kg_m * (PickUp_Percent / 100))",
+      "ASSERT Replacement_Time_s <= 30",
+      "Wet_PickUp_Percent = ((Wet_Weight - Dry_Weight) / Dry_Weight) * 100"
+    ],
+    "interlock_conditions": [
+      "Chemical pad trough feed valve SHUTS OFF if Line_Speed < 5 m/min",
+      "IR Pre-dryer power CUT OFF automatically if Fabric_Motion_Sensor == STOPPED (fire prevention)"
+    ],
+    "decision_rules": [
+      "REJECT run IF batch_length_meters < 1000",
+      "REJECT recipe IF replacement_time_seconds > 45"
+    ],
+    "best_operating_practices": [
+      "Maintain IR pre-dryer power to ensure fabric moisture drops to 25% before cylinder dryer contact",
+      "Use swimming roll pneumatic pressure control to maintain uniform nip pick-up across 1.8m width"
+    ]
+  }
+}

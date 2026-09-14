@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SUSTUNO Dye Shade ML Feature Schema",
+  "schema_version": "v1.0.0",
+  "description": "Versioned feature schema for supervised dye shade prediction model (predicting actual measured L*a*b* from material, dye recipe, chemical recipe, and process parameters).",
+  "material_features": {
+    "fiber_composition": {
+      "name": "fiber_composition",
+      "type": "categorical",
+      "definition": "Fiber blend breakdown of the fabric substrate (e.g., 'cotton-100', 'polyester-65-cotton-35')",
+      "units": "categorical string / percentage split",
+      "source": "dye_batches.fiber_composition",
+      "reason_for_inclusion": "Fiber type dictates dye affinity, exhaustion rate, and color yield."
+    },
+    "fabric_type": {
+      "name": "fabric_type",
+      "type": "categorical",
+      "definition": "Fabric construction classification (e.g., 'woven-plain', 'knit-single-jersey')",
+      "units": "categorical string",
+      "source": "dye_batches.fabric_type",
+      "reason_for_inclusion": "Fabric structure affects liquor pickup, surface reflectance, and apparent shade depth."
+    },
+    "gsm": {
+      "name": "gsm",
+      "type": "numerical",
+      "definition": "Grams per square meter of fabric",
+      "units": "g/m²",
+      "source": "dye_batches.gsm",
+      "reason_for_inclusion": "Fabric density influences dye penetration and light absorption characteristics."
+    },
+    "fabric_weight_kg": {
+      "name": "fabric_weight_kg",
+      "type": "numerical",
+      "definition": "Total dry fabric weight loaded into the dyeing vessel",
+      "units": "kg",
+      "source": "dye_batches.fabric_weight_kg",
+      "reason_for_inclusion": "Determines total dye liquor volume and chemical dosing requirements."
+    }
+  },
+  "dye_features": {
+    "dye_class": {
+      "name": "dye_class",
+      "type": "categorical",
+      "definition": "Chemical class of dyes used (e.g., 'Reactive', 'Disperse', 'Acid', 'Vat')",
+      "units": "categorical string",
+      "source": "dye_batches.dye_class",
+      "reason_for_inclusion": "Fundamental chemical mechanism governing fixation and chromaticity."
+    },
+    "dyes": {
+      "name": "dyes",
+      "type": "array_of_objects",
+      "definition": "List of dyes in recipe with concentrations",
+      "items": {
+        "dye_id": { "type": "string", "units": "identifier" },
+        "dye_name": { "type": "string", "units": "commercial name" },
+        "concentration": { "type": "numerical", "units": "% OWF (On Weight of Fabric)" }
+      },
+      "source": "dye_batch_dyes",
+      "reason_for_inclusion": "Direct colorant inputs responsible for spectral absorption across visible wavelengths."
+    }
+  },
+  "chemical_features": {
+    "chemicals": {
+      "name": "chemicals",
+      "type": "array_of_objects",
+      "definition": "List of auxiliary chemicals (alkali, salt, leveling agents) in recipe",
+      "items": {
+        "chemical_id": { "type": "string", "units": "identifier" },
+        "chemical_name": { "type": "string", "units": "chemical name" },
+        "dosage": { "type": "numerical", "units": "g/L" },
+        "addition_stage": { "type": "string", "units": "process stage" }
+      },
+      "source": "dye_batch_chemicals",
+      "reason_for_inclusion": "Auxiliaries control bath pH, ionic strength, dye solubility, and fixation efficiency."
+    }
+  },
+  "process_features": {
+    "liquor_ratio": {
+      "name": "liquor_ratio",
+      "type": "numerical",
+      "definition": "Ratio of liquor volume (liters) to fabric dry weight (kg)",
+      "units": "L/kg (e.g., 1:10 = 10.0)",
+      "source": "dye_batch_process.liquor_ratio",
+      "reason_for_inclusion": "Determines bath dye concentration and equilibrium dye uptake."
+    },
+    "temperature": {
+      "name": "temperature",
+      "type": "numerical",
+      "definition": "Peak or hold process temperature",
+      "units": "°C",
+      "source": "dye_batch_process.temperature_actual",
+      "reason_for_inclusion": "Controls diffusion rate, kinetic energy, and covalent bonding rate of dye molecules."
+    },
+    "time_minutes": {
+      "name": "time_minutes",
+      "type": "numerical",
+      "definition": "Total dyeing duration at peak temperature",
+      "units": "minutes",
+      "source": "dye_batch_process.time_minutes",
+      "reason_for_inclusion": "Determines extent of dye exhaustion and levelness."
+    },
+    "ph": {
+      "name": "ph",
+      "type": "numerical",
+      "definition": "Measured dye bath pH during fixation stage",
+      "units": "pH scale (0-14)",
+      "source": "dye_batch_process.ph_actual",
+      "reason_for_inclusion": "Critical for cellulosics reactive dye fixation and protein fiber dye absorption."
+    },
+    "machine_type": {
+      "name": "machine_type",
+      "type": "categorical",
+      "definition": "Dyeing machine vessel category or model",
+      "units": "categorical string",
+      "source": "dye_batches.machine",
+      "reason_for_inclusion": "Vessel hydrodynamics, liquor circulation speed, and mechanical action impact levelness."
+    }
+  },
+  "target_shade_features": {
+    "target_L": { "name": "target_L", "type": "numerical", "units": "CIE L*", "definition": "Target lightness" },
+    "target_a": { "name": "target_a", "type": "numerical", "units": "CIE a*", "definition": "Target red-green coordinate" },
+    "target_b": { "name": "target_b", "type": "numerical", "units": "CIE b*", "definition": "Target yellow-blue coordinate" }
+  },
+  "prediction_targets": {
+    "measured_L": {
+      "name": "measured_L",
+      "type": "numerical",
+      "units": "CIE L* (0 to 100)",
+      "definition": "Spectrophotometer-measured lightness of resulting dyed fabric",
+      "source": "dye_batch_shade_results.measured_L"
+    },
+    "measured_a": {
+      "name": "measured_a",
+      "type": "numerical",
+      "units": "CIE a* (-128 to +127)",
+      "definition": "Spectrophotometer-measured red/green axis coordinate",
+      "source": "dye_batch_shade_results.measured_a"
+    },
+    "measured_b": {
+      "name": "measured_b",
+      "type": "numerical",
+      "units": "CIE b* (-128 to +127)",
+      "definition": "Spectrophotometer-measured yellow/blue axis coordinate",
+      "source": "dye_batch_shade_results.measured_b"
+    }
+  }
+}

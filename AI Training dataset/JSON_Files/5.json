@@ -1,0 +1,108 @@
+{
+  "title": "Textile ETP Operational Troubleshooting & Diagnostic Rule Engine",
+  "version": "1.0",
+  "diagnostic_rules": [
+    {
+      "fault_id": "FAULT-01",
+      "symptom": "Excessive White / Brown Foam in Aeration Tank",
+      "stage": "Secondary Aeration Basin",
+      "root_cause": "Un-degraded detergents/surfactants in raw dyeing effluent or low F/M ratio causing Nocardia filamentous growth.",
+      "monitoring_metrics": {
+        "DO_mg_l": "< 1.5",
+        "FM_ratio": "< 0.10",
+        "MLSS_mg_l": "< 2500"
+      },
+      "immediate_action_rule": "Spray water nozzles over aeration surface immediately to collapse foam. Dose food-grade silicone antifoam at 5-10 ppm.",
+      "preventive_rule": "Increase Wasted Activated Sludge (WAS) rate to decrease sludge age; ensure equalization tank retains surfactant shock loads."
+    },
+    {
+      "fault_id": "FAULT-02",
+      "symptom": "Sludge Bulking / Poor Settling in Secondary Clarifier (SVI > 180 mL/g)",
+      "stage": "Secondary Clarifier & Aeration Basin",
+      "root_cause": "Prolonged low DO (< 1.0 mg/L), low pH (< 6.5), or nitrogen deficiency encouraging filamentous bacterial dominance.",
+      "monitoring_metrics": {
+        "SVI_ml_g": "> 180",
+        "DO_mg_l": "< 1.0",
+        "pH": "< 6.5"
+      },
+      "immediate_action_rule": "Dose Hydrogen Peroxide (10-20 mg/L) or Sodium Hypochlorite (2-3 kg Chlorine/1000 kg MLSS) into RAS pipe to kill external filaments.",
+      "preventive_rule": "Increase aeration blower output to maintain DO > 2.5 mg/L; dose Urea/DAP to satisfy BOD:N:P = 100:5:1."
+    },
+    {
+      "fault_id": "FAULT-03",
+      "symptom": "Pin Flocs Escalating in Secondary Clarifier Overflow",
+      "stage": "Secondary Clarifier",
+      "root_cause": "Over-aeration (DO > 4.5 mg/L) shearing bio-flocs or old sludge age (MCRT > 20 days).",
+      "monitoring_metrics": {
+        "DO_mg_l": "> 4.5",
+        "MCRT_days": "> 20",
+        "Turbidity_NTU": "> 25"
+      },
+      "immediate_action_rule": "Reduce aeration blower frequency by 15-20% to decrease shear stress.",
+      "preventive_rule": "Increase sludge wasting rate to bring sludge age back down to 10-12 days."
+    },
+    {
+      "fault_id": "FAULT-04",
+      "symptom": "Sudden Drop in Aeration Tank MLSS (< 2000 mg/L)",
+      "stage": "Biological Treatment",
+      "root_cause": "Toxic chemical shock load (heavy metals, peroxide, caustic surge) killing bio-culture or excessive sludge wasting.",
+      "monitoring_metrics": {
+        "MLSS_mg_l": "< 2000",
+        "MLVSS_ratio": "< 0.50",
+        "COD_removal_pct": "< 40"
+      },
+      "immediate_action_rule": "Immediately stop sludge wasting. Divert toxic feed to emergency holding tank. Add fresh cow dung / municipal seed sludge.",
+      "preventive_rule": "Ensure strict automated pH/temperature shutdown valves at Equalization outlet."
+    },
+    {
+      "fault_id": "FAULT-05",
+      "symptom": "High Color Leakage in Primary Clarifier Overflow",
+      "stage": "Physico-Chemical Treatment",
+      "root_cause": "Incorrect coagulant pH or wrong coagulant dosage for hydrolyzed reactive dyes.",
+      "monitoring_metrics": {
+        "pH": "> 8.5 (Alum stage)",
+        "Color_PCU": "> 500"
+      },
+      "immediate_action_rule": "Adjust pH to optimum 6.8 using H2SO4; increase PAC dosage by 50 mg/L or introduce Ferrous Sulfate.",
+      "preventive_rule": "Conduct jar tests every 4 hours or upon dye bath discharge changes."
+    },
+    {
+      "fault_id": "FAULT-06",
+      "symptom": "Rapid Rise in RO Membrane Differential Pressure (\u0394P > 2.5 bar)",
+      "stage": "Reverse Osmosis (RO)",
+      "root_cause": "Bio-fouling or organic fouling on RO membrane surface due to high SDI or bacterial leak from UF.",
+      "monitoring_metrics": {
+        "SDI15": "> 3.5",
+        "Delta_P_bar": "> 2.5",
+        "Permeate_Flow_drop_pct": "> 12"
+      },
+      "immediate_action_rule": "Perform high-pH Clean-In-Place (CIP) with 0.1% NaOH + 0.1% EDTA solution at 35\u00b0C for 2 hours.",
+      "preventive_rule": "Replace UF module filters; increase SMBS dosing to ensure zero chlorine and sanitize feed lines weekly."
+    },
+    {
+      "fault_id": "FAULT-07",
+      "symptom": "Scaling on RO High-Pressure Stage Membranes",
+      "stage": "Reverse Osmosis Stage 2 / HPRO",
+      "root_cause": "Precipitation of Calcium Sulfate (CaSO4) or Silica due to depleted antiscalant dosing or exceeding recovery threshold.",
+      "monitoring_metrics": {
+        "Permeate_TDS_mg_l": "> 300",
+        "Recovery_pct": "> 92",
+        "Antiscalant_dosing_ppm": "< 2.0"
+      },
+      "immediate_action_rule": "Perform low-pH Clean-In-Place (CIP) with 2% Citric Acid or 0.5% HCl solution for 3 hours.",
+      "preventive_rule": "Check antiscalant pump flow; restrict recovery rate to maximum design envelope based on projection software."
+    },
+    {
+      "fault_id": "FAULT-08",
+      "symptom": "Severe Foaming and Boiling Instability in MEE (Multiple Effect Evaporator)",
+      "stage": "Evaporator & ZLD",
+      "root_cause": "High residual COD / organic carryover in RO Reject feed entering evaporator.",
+      "monitoring_metrics": {
+        "Reject_COD_mg_l": "> 1200",
+        "Vapor_Condensate_TDS": "> 500"
+      },
+      "immediate_action_rule": "Dose food-grade polyglycol defoamer directly into 1st effect MEE recirculation line. Lower steam supply pressure.",
+      "preventive_rule": "Ensure Fenton/Ozone tertiary treatment reduces RO Reject COD to < 300 mg/L before feed to MEE."
+    }
+  ]
+}

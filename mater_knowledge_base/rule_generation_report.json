@@ -1,0 +1,28 @@
+{
+  "summary": {
+    "total_knowledge_records": 619,
+    "approved_rule_candidates": 13,
+    "rules_generated": 13,
+    "rules_requiring_human_validation": 13,
+    "duplicate_rules": 0,
+    "source_traceability_failures": 0,
+    "generation_errors": 0
+  },
+  "rule_type_distribution": {
+    "compatibility": 13
+  },
+  "domain_distribution": {
+    "chemical": 13
+  },
+  "source_coverage": {
+    "approved_candidates_processed": 13,
+    "approved_candidates_skipped": 0,
+    "missing_source": 0
+  },
+  "validation": {
+    "schema_valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "status": "pending_human_validation"
+}

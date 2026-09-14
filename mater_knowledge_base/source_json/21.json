@@ -1,0 +1,125 @@
+{
+  "category_folder": "04_Chemical_Dosage_and_Compatibility",
+  "title": "Chemical Specifications, Dosing Calculation Rules, Compatibility & Operating Conditions",
+  "field_definitions": {
+    "1. Chemical Details": [
+      "Chemical Name",
+      "Chemical Type",
+      "Purpose",
+      "Dosage Range",
+      "Dosage Calculation Method"
+    ],
+    "2. Compatibility": [
+      "Compatible Chemicals",
+      "Incompatible Chemicals",
+      "Addition Sequence",
+      "Mixing Conditions"
+    ],
+    "3. Operating Conditions": [
+      "Required pH",
+      "Required Temperature",
+      "Contact Time"
+    ]
+  },
+  "total_records": 7,
+  "data": [
+    {
+      "Chemical Name": "Alum (Aluminum Sulfate - Al2(SO4)3\u00b718H2O)",
+      "Chemical Type": "Primary Coagulant (Inorganic Salt)",
+      "Purpose": "Colloidal charge neutralization and primary dye/TSS precipitation.",
+      "Dosage Range": "150 - 400 mg/L",
+      "Dosage Calculation Method": "Jar Test optimization: Dose (mg/L) = (Jar Opt Vol (mL) * Stock Conc (mg/mL)) / Sample Vol (L)",
+      "Compatible Chemicals": "Anionic Polyelectrolyte, Sulfuric Acid, PAC",
+      "Incompatible Chemicals": "Lime/Caustic (when dosed simultaneously prior to flash mixing)",
+      "Addition Sequence": "1st Acid pre-neutralization -> 2nd Alum dosing -> 3rd Polymer dosing",
+      "Mixing Conditions": "High-shear Rapid Flash Mix (G > 300 s\u207b\u00b9, 200 RPM)",
+      "Required pH": "6.0 - 7.5",
+      "Required Temperature": "20\u00b0C - 40\u00b0C",
+      "Contact Time": "2 - 5 Minutes"
+    },
+    {
+      "Chemical Name": "Poly Aluminum Chloride (PAC)",
+      "Chemical Type": "Pre-hydrolyzed Inorganic Coagulant",
+      "Purpose": "Rapid floc formation, effective color reduction with lower sludge volume.",
+      "Dosage Range": "100 - 300 mg/L",
+      "Dosage Calculation Method": "Dose = Feed Flow (m\u00b3/hr) * Target ppm / Active Purity %",
+      "Compatible Chemicals": "Cationic/Anionic Polymers, Sulfuric Acid",
+      "Incompatible Chemicals": "Strong Concentrated Alkalies",
+      "Addition Sequence": "Dose into Flash Mixer immediately after raw water pH adjustment",
+      "Mixing Conditions": "Rapid Mixing (G = 300-400 s\u207b\u00b9, 1-3 mins)",
+      "Required pH": "6.5 - 8.5",
+      "Required Temperature": "15\u00b0C - 45\u00b0C",
+      "Contact Time": "1 - 3 Minutes"
+    },
+    {
+      "Chemical Name": "Ferrous Sulfate (FeSO4\u00b77H2O)",
+      "Chemical Type": "Inorganic Coagulant & Fenton Catalyst",
+      "Purpose": "Decolorization of sulfur/reactive dyes and catalyst for hydrogen peroxide radical oxidation.",
+      "Dosage Range": "200 - 500 mg/L (Coagulation) / 300 - 600 mg/L (Fenton)",
+      "Dosage Calculation Method": "Molar ratio Fe\u00b2\u207a : H\u2082O\u2082 = 1:3 to 1:5 in Fenton reactor",
+      "Compatible Chemicals": "Hydrogen Peroxide, Sulfuric Acid, Lime",
+      "Incompatible Chemicals": "Oxidizers (prior to Fenton stage), High pH (> 4.0 during Fenton reaction)",
+      "Addition Sequence": "Fenton: 1st Acid to pH 3.2 -> 2nd FeSO4 -> 3rd H2O2 -> 4th Lime to pH 8.0",
+      "Mixing Conditions": "Continuous moderate agitation in acid-resistant reactor",
+      "Required pH": "3.0 - 3.5 (Fenton Catalyst) / 8.5 - 10.0 (Coagulation precipitate)",
+      "Required Temperature": "25\u00b0C - 38\u00b0C",
+      "Contact Time": "60 - 90 Minutes"
+    },
+    {
+      "Chemical Name": "Anionic Polyacrylamide (PAM Polymer)",
+      "Chemical Type": "High Molecular Weight Flocculant",
+      "Purpose": "Bridging micro-flocs into dense settleable macro-flocs in tube settlers.",
+      "Dosage Range": "0.5 - 2.0 mg/L",
+      "Dosage Calculation Method": "0.1% Stock Solution preparation with 45 min aging time",
+      "Compatible Chemicals": "Alum, PAC, Ferrous Sulfate",
+      "Incompatible Chemicals": "High concentration Oxidants, Cationic Polymers (cause mutual precipitation)",
+      "Addition Sequence": "Dose at entrance to Flocculator paddle chamber AFTER coagulant flash mixing",
+      "Mixing Conditions": "Low-shear gentle mixing (G = 20-50 s\u207b\u00b9, 15-30 RPM)",
+      "Required pH": "6.0 - 9.0",
+      "Required Temperature": "15\u00b0C - 40\u00b0C",
+      "Contact Time": "15 - 30 Minutes"
+    },
+    {
+      "Chemical Name": "Hydrogen Peroxide (H2O2 35% w/w)",
+      "Chemical Type": "Strong Oxidizing Chemical Agent",
+      "Purpose": "Generate free hydroxyl radicals (\u2022OH) for refractory dye ring destruction.",
+      "Dosage Range": "500 - 1500 mg/L",
+      "Dosage Calculation Method": "Based on residual hard COD: 1.5 - 2.5 g H2O2 per gram COD to be removed",
+      "Compatible Chemicals": "Ferrous Sulfate, Sulfuric Acid",
+      "Incompatible Chemicals": "Reducing Agents (SMBS), Alkaline Solutions, Organic Contaminants in storage",
+      "Addition Sequence": "Dose strictly AFTER FeSO4 addition under acidic conditions pH 3.2",
+      "Mixing Conditions": "Continuous uniform agitation in vented reactor tank",
+      "Required pH": "3.0 - 3.5 strictly",
+      "Required Temperature": "25\u00b0C - 35\u00b0C",
+      "Contact Time": "60 - 90 Minutes"
+    },
+    {
+      "Chemical Name": "Sodium Metabisulfite (SMBS - Na2S2O5)",
+      "Chemical Type": "Dechlorinating Reducing Agent",
+      "Purpose": "Neutralize residual free chlorine to protect polyamide RO membranes from oxidation.",
+      "Dosage Range": "2.0 - 5.0 mg/L (1.47 mg SMBS per 1.0 mg Free Chlorine)",
+      "Dosage Calculation Method": "Continuous ORP feedback dosing: Target ORP < 200 mV",
+      "Compatible Chemicals": "RO Polycarboxylate Antiscalant",
+      "Incompatible Chemicals": "Hydrogen Peroxide, Ozone, Chlorine Gas, Sodium Hypochlorite",
+      "Addition Sequence": "Dose in-line into UF Permeate pipe stream prior to RO High Pressure Pump",
+      "Mixing Conditions": "In-line Static Mixer (High Velocity)",
+      "Required pH": "6.0 - 7.5",
+      "Required Temperature": "20\u00b0C - 35\u00b0C",
+      "Contact Time": "1 - 2 Minutes Inline"
+    },
+    {
+      "Chemical Name": "RO Polycarboxylate Antiscalant",
+      "Chemical Type": "Threshold Scale Inhibitor & Dispersant",
+      "Purpose": "Prevent precipitation of CaSO4, CaCO3, BaSO4, and Silica on RO membranes.",
+      "Dosage Range": "3.0 - 6.0 mg/L",
+      "Dosage Calculation Method": "Projection software calculation based on RO feed brine ion solubility product",
+      "Compatible Chemicals": "SMBS (Dechlorinator)",
+      "Incompatible Chemicals": "Cationic Coagulants / Polymers (causes irreversible membrane fouling)",
+      "Addition Sequence": "Dose continuously into RO feed line interlocked with RO High Pressure Pump",
+      "Mixing Conditions": "Inline turbulent mixing stream",
+      "Required pH": "5.5 - 7.5",
+      "Required Temperature": "20\u00b0C - 38\u00b0C",
+      "Contact Time": "Continuous Inline"
+    }
+  ]
+}

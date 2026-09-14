@@ -1,0 +1,125 @@
+{
+  "category_folder": "02_Treatment_Units",
+  "title": "Comprehensive Specifications for ETP Physical, Chemical, Biological, and Membrane Units",
+  "field_definitions": {
+    "Unit Details": [
+      "Unit Name",
+      "Unit Function",
+      "Treatment Method",
+      "Equipment Type",
+      "Design Capacity"
+    ],
+    "Operating Parameters": [
+      "Flow Rate",
+      "Hydraulic Retention Time (HRT)",
+      "Mixing Time",
+      "Aeration Requirement",
+      "Operating Temperature",
+      "Operating pH"
+    ],
+    "Performance": [
+      "Pollutants Removed",
+      "Removal Efficiency",
+      "Expected Output Quality"
+    ]
+  },
+  "total_records": 6,
+  "data": [
+    {
+      "Unit Name": "Equalization Basin",
+      "Unit Function": "Flow homogenization & pH balancing",
+      "Treatment Method": "Physical Aerated Mixing",
+      "Equipment Type": "Submerged Coarse Diffuser & Rotary Drum Screen",
+      "Design Capacity": "2,400 m\u00b3/day (100 m\u00b3/hr)",
+      "Flow Rate": "100 m\u00b3/hr",
+      "Hydraulic Retention Time (HRT)": "16 - 24 Hours",
+      "Mixing Time": "Continuous 24/7",
+      "Aeration Requirement": "1.8 m\u00b3/m\u00b2/hr Air Supply",
+      "Operating Temperature": "30\u00b0C - 42\u00b0C",
+      "Operating pH": "8.0 - 11.0",
+      "Pollutants Removed": "Coarse Fibers, Lint, Suspended Solids > 1.5mm, Thermal Spikes",
+      "Removal Efficiency": "100% Lint > 1.5mm, 10-15% COD reduction",
+      "Expected Output Quality": "Equalized Flow, pH 8.5-9.5, Temp < 40\u00b0C"
+    },
+    {
+      "Unit Name": "Primary Coagator & Tube Settler",
+      "Unit Function": "Physico-chemical color and TSS coagulation",
+      "Treatment Method": "Chemical Coagulation & Flocculation",
+      "Equipment Type": "Flash Mixer, Paddle Flocculator & Chevron Tube Settler",
+      "Design Capacity": "100 m\u00b3/hr",
+      "Flow Rate": "100 m\u00b3/hr",
+      "Hydraulic Retention Time (HRT)": "2.5 Hours (2 min Flash, 20 min Floc, 2 hr Settling)",
+      "Mixing Time": "2 min (Rapid) + 20 min (Slow)",
+      "Aeration Requirement": "None (Mechanical Agitation)",
+      "Operating Temperature": "30\u00b0C - 38\u00b0C",
+      "Operating pH": "6.8 - 7.2 (Alum/PAC) or 9.0 (Lime)",
+      "Pollutants Removed": "Suspended Solids, Colloidal Dye Molecules, Heavy Metals",
+      "Removal Efficiency": "80% TSS, 50% COD, 70% Color",
+      "Expected Output Quality": "TSS < 150 mg/L, COD < 1000 mg/L, Clear supernatant"
+    },
+    {
+      "Unit Name": "Activated Sludge Aeration Tank",
+      "Unit Function": "Biological organic carbon bio-degradation",
+      "Treatment Method": "Aerobic Biological Activated Sludge Process (ASP)",
+      "Equipment Type": "Fine Bubble EPDM Diffusers & Roots Blowers",
+      "Design Capacity": "100 m\u00b3/hr",
+      "Flow Rate": "100 m\u00b3/hr",
+      "Hydraulic Retention Time (HRT)": "18 - 24 Hours",
+      "Mixing Time": "Continuous Aeration",
+      "Aeration Requirement": "DO maintained at 2.0 - 3.0 mg/L",
+      "Operating Temperature": "28\u00b0C - 35\u00b0C",
+      "Operating pH": "6.8 - 7.8",
+      "Pollutants Removed": "BOD5, Soluble COD, Organic Nitrogen, Surfactants",
+      "Removal Efficiency": "90-95% BOD, 75-85% COD",
+      "Expected Output Quality": "BOD < 30 mg/L, COD < 250 mg/L, MLSS 3800 mg/L"
+    },
+    {
+      "Unit Name": "Fenton Advanced Oxidation Reactor",
+      "Unit Function": "Refractory hard COD mineralization and color destruction",
+      "Treatment Method": "Advanced Chemical Oxidation (\u2022OH Radicals)",
+      "Equipment Type": "Fenton Agitated Tank, Acid/Peroxide Dosing Pumps, Neutralizer",
+      "Design Capacity": "100 m\u00b3/hr",
+      "Flow Rate": "100 m\u00b3/hr",
+      "Hydraulic Retention Time (HRT)": "1.5 - 2.0 Hours",
+      "Mixing Time": "90 Minutes Reaction Time",
+      "Aeration Requirement": "None (Chemical Hydroxyl Oxidation)",
+      "Operating Temperature": "25\u00b0C - 35\u00b0C",
+      "Operating pH": "3.0 - 3.5 (Reaction) -> 8.0 (Neutralization)",
+      "Pollutants Removed": "Refractory Azo Dyes, Phenols, Residual Hard COD",
+      "Removal Efficiency": "85-95% Color, 60-75% Hard COD",
+      "Expected Output Quality": "COD < 80 mg/L, Color < 30 PCU, Colorless Effluent"
+    },
+    {
+      "Unit Name": "High-Pressure Reverse Osmosis (RO) Unit",
+      "Unit Function": "Dissolved salt separation and high-purity water recovery",
+      "Treatment Method": "Membrane Hyper-Filtration / Desalination",
+      "Equipment Type": "Polyamide TFC Spiral Wound Membranes, High Pressure Pumps",
+      "Design Capacity": "95 m\u00b3/hr Permeate Recovery",
+      "Flow Rate": "100 m\u00b3/hr Feed",
+      "Hydraulic Retention Time (HRT)": "Continuous Inline (Seconds)",
+      "Mixing Time": "High Velocity Cross-Flow Stream",
+      "Aeration Requirement": "None",
+      "Operating Temperature": "25\u00b0C - 35\u00b0C",
+      "Operating pH": "6.0 - 7.5",
+      "Pollutants Removed": "TDS, Chloride, Sulfate, Sodium, Micro-pollutants",
+      "Removal Efficiency": "98.5-99.2% Salt Rejection",
+      "Expected Output Quality": "RO Permeate TDS < 80 mg/L, Conductivity < 150 \u00b5S/cm"
+    },
+    {
+      "Unit Name": "Multiple Effect Evaporator (MEE) & ATFD",
+      "Unit Function": "RO Reject brine concentration and dry salt powder crystallization",
+      "Treatment Method": "Thermal Vacuum Falling Film & Forced Circulation Evaporation",
+      "Equipment Type": "4-Effect MEE Evaporator & Agitated Thin Film Dryer (ATFD)",
+      "Design Capacity": "7 m\u00b3/hr RO Reject Feed",
+      "Flow Rate": "7 m\u00b3/hr",
+      "Hydraulic Retention Time (HRT)": "Evaporation Loop (4-6 Hours)",
+      "Mixing Time": "Continuous Forced Recirculation",
+      "Aeration Requirement": "Vacuum Pressure (650-680 mmHg)",
+      "Operating Temperature": "60\u00b0C - 90\u00b0C",
+      "Operating pH": "7.0 - 8.5",
+      "Pollutants Removed": "Concentrated Dissolved Salts (TDS 70,000 to 350,000 mg/L)",
+      "Removal Efficiency": "100% Water Condensate Recovery, Dry Salt Crystals",
+      "Expected Output Quality": "Condensate TDS < 50 mg/L, Dry NaCl/Na2SO4 Salt (< 2% Moisture)"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "basic_information": {
+    "recipe_id": "REC-PES-002",
+    "recipe_name": "HTHP Exhaust Dyeing of 100% Polyester Woven Fabric with Disperse Dyes",
+    "fabric_type": "100% Polyester Microfiber Woven Fabric",
+    "fabric_gsm": "140 GSM",
+    "fabric_weight": "300 kg",
+    "shade_name": "Dark Navy Blue",
+    "shade_depth": "Dark (4.0% owf)",
+    "end_use": "Activewear / Sportswear Jackets"
+  },
+  "dye_information": {
+    "dye_type": "High-Thermal Fastness Disperse Dye (SE / HW Type)",
+    "dye_name": "Disperse Blue 79 (2.8% owf) + Disperse Navy 56 (1.0% owf) + Disperse Rubine 56 (0.2% owf)",
+    "dye_concentration": "4.0% owf total dye solids",
+    "dye_combination": "Trichromatic Disperse Combination",
+    "dye_manufacturer": "Dystar Dianix / Huntsman Teratop"
+  },
+  "chemical_information": [
+    {
+      "chemical_name": "Naphthalene Sulfonate Dispersing Agent",
+      "chemical_function": "Keeps non-ionic disperse dye particles suspended in water at 130\u00b0C",
+      "dosage": "1.5 g/L",
+      "addition_sequence": "Added to dye bath at 50\u00b0C before dye dispersion addition",
+      "compatibility": "Compatible with non-ionic and anionic leveling agents",
+      "incompatible_chemicals": "Cationic surfactants"
+    },
+    {
+      "chemical_name": "Acetic Acid (80%) + Sodium Acetate Buffer",
+      "chemical_function": "Maintains acidic bath pH to prevent disperse dye reduction",
+      "dosage": "1.0 g/L Acetic Acid + 0.5 g/L Sodium Acetate",
+      "addition_sequence": "Dosed during bath setup to establish target pH 4.5 - 5.0",
+      "compatibility": "Compatible with all disperse dye auxiliaries",
+      "incompatible_chemicals": "Alkalis"
+    }
+  ],
+  "process_parameters": {
+    "temperature_profile": "Start 60\u00b0C -> Heat to 90\u00b0C @ 2.0\u00b0C/min -> Heat to 130\u00b0C @ 1.0\u00b0C/min -> Hold 130\u00b0C for 45 min -> Cool to 80\u00b0C @ 1.5\u00b0C/min",
+    "heating_rate": "1.0 \u00b0C/min through critical plasticization strike zone (90\u00b0C to 130\u00b0C)",
+    "cooling_rate": "1.5 \u00b0C/min (controlled cooling to prevent oligomer precipitation)",
+    "time": "Total Duration: 180 minutes (3.0 hours)",
+    "ph": "Dyeing pH: 4.5 - 5.0 | Reduction Clearing pH: 11.5 - 12.0",
+    "liquor_ratio": "1:6 MLR",
+    "pressure": "2.8 to 3.2 bar pressurized vessel at 130\u00b0C"
+  },
+  "process_steps": {
+    "pretreatment": "Preshrunk and heat-set woven polyester; free of silicone knitting oils",
+    "dye_addition": "Disperse dyes pasted with warm water (50\u00b0C), high-shear mixed, filtered into tank",
+    "salt_addition": "N/A (Electrolytes not used in disperse dyeing)",
+    "alkali_addition": "N/A during dyeing bath; Caustic Soda added during Reduction Clearing",
+    "washing": "Drain 130\u00b0C bath at 80\u00b0C -> Hot rinse at 70\u00b0C",
+    "soaping": "Reduction Clearing: 2.5 g/L Hydros + 2.0 g/L NaOH + 1 g/L detergent at 80\u00b0C for 20 min",
+    "neutralization": "Drain RC bath -> Rinse -> Neutralize with 1.0 g/L Acetic Acid at 50\u00b0C for 10 min",
+    "drying": "Stenter frame drying and final heat-setting at 170\u00b0C for 30 seconds",
+    "finishing": "Apply 1.0% Hydrophilic moisture-wicking finish"
+  },
+  "machine_requirement": {
+    "machine_type": "HTHP Jet / Air-Jet Dyeing Machine",
+    "machine_capacity": "350 kg nominal capacity",
+    "recommended_machine": "Thies iMaster HTHP Jet Dyeing Vessel",
+    "loading_percentage": "85.7%"
+  },
+  "quality_parameters": {
+    "shade_accuracy": "DE < 0.5 (CMC 2:1)",
+    "color_fastness": "Grade 4-5",
+    "wash_fastness": "Grade 4-5 (ISO 105-C06)",
+    "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 4",
+    "light_fastness": "Grade 5-6",
+    "uniformity": "Completely streak-free and oligomer-free fabric surface"
+  },
+  "defects": {
+    "common_defects": "Oligomer White Powder Spotting, Color Specks, Thermal Translocation Unlevelness",
+    "causes": "Rapid cooling below 100\u00b0C, dye agglomeration, unstable pH > 5.5 during dyeing",
+    "corrective_actions": "Hot drain at 80\u00b0C; add high-temp dispersing agent; maintain pH strictly at 4.5"
+  },
+  "safety": {
+    "ppe_required": "Heat-resistant safety gloves, full face shield, protective chemical suit during sampling",
+    "hazardous_chemicals": "Sodium Hydrosulfite (spontaneously combustible when damp), Caustic Soda (corrosive)",
+    "safety_precautions": "Ensure vessel pressure gauge reads 0.0 bar before unlocking pneumatic door safety pin"
+  },
+  "references": {
+    "source": "Industrial Polyester HTHP Wet Processing Standards",
+    "standard": "ISO 105-X12 / AATCC 8 / ISO 105-B02",
+    "notes": "Monitor differential pressure across filter mesh to prevent dye aggregation"
+  }
+}

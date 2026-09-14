@@ -1,0 +1,116 @@
+{
+  "title": "Textile ETP Chemical Dosing & Parameter Control Matrix",
+  "version": "1.0",
+  "chemicals": [
+    {
+      "chemical_name": "Alum (Aluminum Sulfate)",
+      "alias": "Filter Alum",
+      "dosing_stage": "Primary Coagulation",
+      "purpose": "Colloidal color and suspended solids precipitation",
+      "typical_dosage_mg_l": "150 - 400",
+      "optimum_ph_range": "6.0 - 7.5",
+      "reaction_time_min": "2 - 5",
+      "mixing_intensity": "Rapid (G > 300 s\u207b\u00b9)",
+      "rule_statement": "If raw effluent pH > 8.5, pre-neutralize with acid before alum dosing to prevent hydroxide dissolution."
+    },
+    {
+      "chemical_name": "Poly Aluminum Chloride (PAC)",
+      "alias": "PAC Liquid / Powder",
+      "dosing_stage": "Primary Coagulation",
+      "purpose": "High-density floc formation with lower sludge volume than Alum",
+      "typical_dosage_mg_l": "100 - 300",
+      "optimum_ph_range": "6.5 - 8.5",
+      "reaction_time_min": "1 - 3",
+      "mixing_intensity": "Rapid (G > 300 s\u207b\u00b9)",
+      "rule_statement": "Dose PAC directly into flash mixer; superior performance over alum at colder temperatures."
+    },
+    {
+      "chemical_name": "Ferrous Sulfate (FeSO4)",
+      "alias": "Green Vitriol",
+      "dosing_stage": "Primary Coagulation & Fenton Reaction",
+      "purpose": "Decolorization of sulfur and reactive dye effluent & Fenton catalyst",
+      "typical_dosage_mg_l": "200 - 500",
+      "optimum_ph_range": "8.5 - 10.0 (Coagulation) / 3.0 - 3.5 (Fenton)",
+      "reaction_time_min": "10 - 15",
+      "mixing_intensity": "Moderate",
+      "rule_statement": "Must add Lime/Caustic after Ferrous Sulfate to form heavy iron hydroxide precipitate."
+    },
+    {
+      "chemical_name": "Anionic Polyelectrolyte (Polyacrylamide)",
+      "alias": "PAM / Polymer",
+      "dosing_stage": "Flocculation & Sludge Dewatering",
+      "purpose": "Bridging micro-flocs into large, rapidly settling macro-flocs",
+      "typical_dosage_mg_l": "0.5 - 2.0",
+      "optimum_ph_range": "6.0 - 9.0",
+      "reaction_time_min": "15 - 30",
+      "mixing_intensity": "Slow / Gentle (G = 20-50 s\u207b\u00b9)",
+      "rule_statement": "Prepare 0.1% stock solution with aging time of 45 mins. Over-dosing causes floc dispersion and foam."
+    },
+    {
+      "chemical_name": "Hydrogen Peroxide (H2O2 35%)",
+      "alias": "Peroxide",
+      "dosing_stage": "Fenton Advanced Oxidation",
+      "purpose": "Generates hydroxyl radicals (\u2022OH) to break down recalcitrant azo dye bonds",
+      "typical_dosage_mg_l": "500 - 1500",
+      "optimum_ph_range": "3.0 - 3.5",
+      "reaction_time_min": "60 - 90",
+      "mixing_intensity": "Continuous moderate agitation",
+      "rule_statement": "Dose H2O2 strictly after adjusting pH to 3.2 and adding FeSO4. Quench residual H2O2 prior to bio-stage."
+    },
+    {
+      "chemical_name": "Sulfuric Acid (H2SO4 98%)",
+      "alias": "Concentrated Acid",
+      "dosing_stage": "Neutralization & Fenton Prep",
+      "purpose": "Lowering alkaline effluent pH",
+      "typical_dosage_mg_l": "200 - 1000 (varies with raw alkali)",
+      "optimum_ph_range": "Target pH 7.0 - 7.5",
+      "reaction_time_min": "5 - 10",
+      "mixing_intensity": "Continuous turbulent mixing",
+      "rule_statement": "Dose via automated pH feedback controller with acid-resistant PTFE lining and static mixer."
+    },
+    {
+      "chemical_name": "Hydrated Lime (Ca(OH)2)",
+      "alias": "Calcium Hydroxide / Slaked Lime",
+      "dosing_stage": "Neutralization & Primary Coagulation",
+      "purpose": "pH elevation, heavy metal precipitation, and sludge conditioning",
+      "typical_dosage_mg_l": "300 - 1200",
+      "optimum_ph_range": "Target pH 8.5 - 10.0",
+      "reaction_time_min": "10 - 20",
+      "mixing_intensity": "Continuous slurry agitation",
+      "rule_statement": "Dose as 5-10% slurry. Lime increases total primary sludge weight but yields dense, fast-dewatering sludge."
+    },
+    {
+      "chemical_name": "Urea & Di-Ammonium Phosphate (DAP)",
+      "alias": "Bio Nutrients (N & P)",
+      "dosing_stage": "Aeration Basin (Biological)",
+      "purpose": "Supplies nitrogen and phosphorus for bacterial biomass synthesis",
+      "typical_dosage_mg_l": "Maintain BOD:N:P = 100:5:1",
+      "optimum_ph_range": "6.8 - 7.8",
+      "reaction_time_min": "Continuous bio-assimilation",
+      "mixing_intensity": "Aeration diffuser mixing",
+      "rule_statement": "Monitor residual N (< 2 mg/L) and P (< 0.5 mg/L) in secondary clarifier overflow to prevent bio-starvation."
+    },
+    {
+      "chemical_name": "Sodium Metabisulfite (SMBS)",
+      "alias": "Dechlorinating Agent",
+      "dosing_stage": "RO Feed Pre-treatment",
+      "purpose": "Scavenges free chlorine to protect polyamide RO membranes from oxidation",
+      "typical_dosage_mg_l": "2.0 - 5.0 (1.4 mg SMBS per mg Chlorine)",
+      "optimum_ph_range": "6.0 - 7.5",
+      "reaction_time_min": "1 - 2 (in-line)",
+      "mixing_intensity": "Static mixer",
+      "rule_statement": "Maintain Oxidation-Reduction Potential (ORP) < 200 mV before RO membranes at all times."
+    },
+    {
+      "chemical_name": "RO Polycarboxylate Antiscalant",
+      "alias": "Membrane Antiscalant",
+      "dosing_stage": "High Pressure RO Feed",
+      "purpose": "Inhibits CaSO4, CaCO3, and Silica scale formation on membrane surface",
+      "typical_dosage_mg_l": "3.0 - 6.0",
+      "optimum_ph_range": "5.5 - 7.5",
+      "reaction_time_min": "Continuous inline injection",
+      "mixing_intensity": "High velocity feed stream",
+      "rule_statement": "Dose continuously via dosing pump interlocked with high-pressure RO pump. Never run RO without antiscalant."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "category_folder": "06_Regulatory_Compliance",
+  "title": "National and State Regulatory Frameworks, ZLD Mandates, and Statutory Compliance Standards",
+  "field_definitions": {
+    "Compliance Guidelines": [
+      "Regulation Name",
+      "Regulatory Authority",
+      "Applicable Industry",
+      "Compliance Requirements",
+      "Discharge Standards",
+      "Water Reuse Standards",
+      "Reporting Requirements",
+      "Inspection Frequency"
+    ]
+  },
+  "total_records": 4,
+  "data": [
+    {
+      "Regulation Name": "CPCB Comprehensive Environmental Pollution Index (CEPI) & ZLD Directives",
+      "Regulatory Authority": "Central Pollution Control Board (CPCB) India",
+      "Applicable Industry": "Textile Wet Processing, Dyeing & Bleaching Units",
+      "Compliance Requirements": "Mandatory installation of Zero Liquid Discharge (ZLD) systems for units discharging > 25 KLD in Ganga & Cauvery river basins.",
+      "Discharge Standards": "Zero Liquid Discharge (0.0 KLD liquid discharge outside unit premises)",
+      "Water Reuse Standards": "RO Permeate TDS < 100 mg/L (100% recycled back into dye house process)",
+      "Reporting Requirements": "Real-time Online Continuous Effluent Monitoring System (OCEMS) data streaming to CPCB server",
+      "Inspection Frequency": "Quarterly Unannounced Regulatory Inspections"
+    },
+    {
+      "Regulation Name": "Water (Prevention and Control of Pollution) Act 1974 & Consent to Operate (CTO)",
+      "Regulatory Authority": "State Pollution Control Board (SPCB / TNPCB / GPCB)",
+      "Applicable Industry": "All Textile Processing and Finishing Mills",
+      "Compliance Requirements": "Valid Consent to Establish (CTE) & Consent to Operate (CTO); compliance with flow meters and logbook records.",
+      "Discharge Standards": "BOD \u2264 30 mg/L, COD \u2264 250 mg/L, TSS \u2264 100 mg/L, pH 6.5 - 8.5",
+      "Water Reuse Standards": "Specific water consumption \u2264 80 L/kg fabric processed",
+      "Reporting Requirements": "Monthly Environmental Audit Report & Annual Environmental Statement (Form V)",
+      "Inspection Frequency": "Bi-Annual SPCB Audit"
+    },
+    {
+      "Regulation Name": "Hazardous and Other Wastes (Management and Transboundary Movement) Rules 2016",
+      "Regulatory Authority": "MoEFCC & SPCB Hazardous Waste Management Cell",
+      "Applicable Industry": "Textile ETP Operating Units",
+      "Compliance Requirements": "Safe storage, manifest tracking, and disposal of ETP chemical sludge & MEE dry salts at authorized TSDF facilities.",
+      "Discharge Standards": "Sludge Leachate heavy metal content within Schedule II TCLP limits",
+      "Water Reuse Standards": "N/A (Solid Hazardous Waste)",
+      "Reporting Requirements": "Annual Hazardous Waste Return (Form 4) & Manifest Form 10",
+      "Inspection Frequency": "Annual TSDF Manifest Audit"
+    },
+    {
+      "Regulation Name": "Standard Operating Procedure (SOP) for Issuance of ZLD Certificates",
+      "Regulatory Authority": "CPCB & State Water Resources Authorities",
+      "Applicable Industry": "Textile Clusters (Tirupur, Surat, Ludhiana, Pali, Ahmedabad)",
+      "Compliance Requirements": "Installation of magnetic flow meters on raw water intake, RO permeate line, MEE condensate line, and reject stream.",
+      "Discharge Standards": "Absolute Zero Discharge into storm drains or inland water bodies",
+      "Water Reuse Standards": "RO Recovery \u2265 90%, MEE Condensate Recovery \u2265 95%",
+      "Reporting Requirements": "Electromagnetic Flowmeter telemetry logged every 15 minutes to SPCB portal",
+      "Inspection Frequency": "Monthly ZLD Telemetry Audit"
+    }
+  ]
+}

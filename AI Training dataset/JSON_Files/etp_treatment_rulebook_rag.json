@@ -1,0 +1,96 @@
+{
+  "collection_name": "Textile ETP Treatment Rules & Operational Knowledge Base for RAG",
+  "total_documents": 6,
+  "documents": [
+    {
+      "doc_id": "RAG-ETP-001",
+      "topic": "Equalization & Screening Rules",
+      "content": "In textile effluent treatment plants (ETP), equalization is critical due to batch discharges of high pH, high temperature, and varying dye loads. Retention time must be 12-24 hours with air agitation of 1.5-2.0 m3/m2/hr to prevent anaerobic septic conditions and sludge settling. Fine rotary drum screens (1-2mm) remove lint to protect downstream centrifugal pumps.",
+      "qa_pairs": [
+        {
+          "question": "Why is equalization necessary in textile ETP?",
+          "answer": "Equalization balances flow rate, pH fluctuations (from caustic scouring to acid wash), high temperatures (>45\u00b0C), and batch dye concentrations over a 12-24 hour window."
+        },
+        {
+          "question": "What is the recommended air agitation rate in an equalization tank?",
+          "answer": "1.5 to 2.0 m\u00b3 of air per m\u00b2 of tank surface area per hour is required to keep solids suspended and prevent septic odor."
+        }
+      ]
+    },
+    {
+      "doc_id": "RAG-ETP-002",
+      "topic": "Coagulation and Flocculation Rules",
+      "content": "Physico-chemical treatment uses inorganic coagulants like Alum (150-400 mg/L), PAC (100-300 mg/L), or Ferrous Sulfate (200-500 mg/L) in a rapid flash mixer (G > 300 s-1, 1-3 mins). This is followed by slow paddle flocculation (G = 20-70 s-1, 15-30 mins) using anionic polyelectrolyte (0.5-2.0 mg/L). Optimal pH for Alum is 6.5-7.5, while Ferrous Sulfate requires pH 8.5-10.0.",
+      "qa_pairs": [
+        {
+          "question": "What is the difference between Alum and Ferrous Sulfate operating pH?",
+          "answer": "Alum requires an optimum pH range of 6.5 - 7.5, whereas Ferrous Sulfate requires an alkaline pH range of 8.5 - 10.0 along with Lime addition."
+        },
+        {
+          "question": "What is the mixing requirement for flocculation?",
+          "answer": "Flocculation requires gentle slow mixing (G-value 20-70 s\u207b\u00b9, 15-40 rpm) for 15 to 30 minutes to form settleable flocs without shearing them."
+        }
+      ]
+    },
+    {
+      "doc_id": "RAG-ETP-003",
+      "topic": "Biological Aeration Tank Operational Rules",
+      "content": "Activated Sludge Process (ASP) for textile wastewater requires Dissolved Oxygen (DO) of 2.0-3.0 mg/L, MLSS of 3000-4500 mg/L, and Sludge Volume Index (SVI) of 80-120 mL/g. Nutrients must be maintained at BOD:N:P ratio of 100:5:1 by dosing Urea and DAP. Food to Microorganism (F/M) ratio should be maintained between 0.15 and 0.30 kg BOD/kg MLVSS/day.",
+      "qa_pairs": [
+        {
+          "question": "What happens if DO in the aeration tank drops below 1.5 mg/L?",
+          "answer": "DO below 1.5 mg/L leads to filamentous bacterial growth, causing sludge bulking where bio-sludge fails to settle in the secondary clarifier."
+        },
+        {
+          "question": "What nutrient ratio is required for aerobic treatment of textile wastewater?",
+          "answer": "A ratio of BOD : Nitrogen : Phosphorus = 100 : 5 : 1 must be maintained by dosing Urea and Di-Ammonium Phosphate (DAP)."
+        }
+      ]
+    },
+    {
+      "doc_id": "RAG-ETP-004",
+      "topic": "Fenton Advanced Oxidation Process (AOP)",
+      "content": "Fenton oxidation targets recalcitrant hard COD and non-biodegradable azo dyes. The reaction requires strict pH adjustment to 3.0-3.5 using sulfuric acid, followed by adding Ferrous Sulfate (Fe2+) and Hydrogen Peroxide (H2O2 35%) in a molar ratio of 1:3 to 1:5. Reaction time is 60-120 minutes, followed by lime neutralization to pH 7.5-8.5 to precipitate ferric hydroxide sludge.",
+      "qa_pairs": [
+        {
+          "question": "What is the mandatory pH for Fenton reaction?",
+          "answer": "The Fenton reaction strictly requires an acidic pH of 3.0 to 3.5. At pH > 4.0, iron precipitates as ferric hydroxide and loses catalytic activity."
+        },
+        {
+          "question": "What chemicals are used in Fenton oxidation?",
+          "answer": "Sulfuric acid (for pH 3.0-3.5), Ferrous Sulfate (FeSO4 catalyst), Hydrogen Peroxide (H2O2 oxidant), and Lime/Caustic (for post-reaction neutralization)."
+        }
+      ]
+    },
+    {
+      "doc_id": "RAG-ETP-005",
+      "topic": "Reverse Osmosis (RO) Membrane Protection Rules",
+      "content": "Polyamide RO membranes are vulnerable to chemical oxidation from free chlorine and biological/inorganic scaling. Pre-treatment must ensure SDI15 < 3.0 via UF. Dechlorination via Sodium Metabisulfite (SMBS 2-5 ppm) maintains ORP < 200 mV. Polycarboxylate antiscalant (3-6 ppm) prevents calcium sulfate and silica scale.",
+      "qa_pairs": [
+        {
+          "question": "How do you protect RO membranes from chlorine damage?",
+          "answer": "Dose Sodium Metabisulfite (SMBS) prior to RO feed and interlock the ORP sensor (< 200 mV) to trip the high-pressure pump if free chlorine is detected."
+        },
+        {
+          "question": "When should CIP (Clean-In-Place) be performed on RO membranes?",
+          "answer": "CIP must be initiated when normalized permeate flow drops by 10%, differential pressure increases by 15%, or salt passage increases by 10%."
+        }
+      ]
+    },
+    {
+      "doc_id": "RAG-ETP-006",
+      "topic": "Zero Liquid Discharge (ZLD) Compliance Rules",
+      "content": "ZLD mandates 100% recycling of process water with zero liquid discharge into water bodies. RO system recovers 90-95% water as permeate (TDS < 100 mg/L). RO reject (TDS 70,000-100,000 mg/L) is sent to Multiple Effect Evaporator (MEE) and Agitated Thin Film Dryer (ATFD) to recover dry crystalline salt and pure condensate water.",
+      "qa_pairs": [
+        {
+          "question": "What is the water recovery target for a Textile ZLD ETP?",
+          "answer": "Overall water recovery target is > 95% (UF + RO permeate + MEE condensate), with 100% of liquid effluent recycled back to dyeing operations."
+        },
+        {
+          "question": "How is RO reject handled in ZLD?",
+          "answer": "RO reject brine is concentrated in High Pressure RO / DTRO and fed to Multiple Effect Evaporators (MEE) and ATFD to yield dry solid salt."
+        }
+      ]
+    }
+  ]
+}

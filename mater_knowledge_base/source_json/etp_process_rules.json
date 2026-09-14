@@ -1,0 +1,198 @@
+{
+  "title": "Textile Effluent Treatment Plant (ETP) - Stage-by-Stage Process Rules",
+  "version": "1.0",
+  "industry": "Textile Processing & Wet Processing Units",
+  "stages": [
+    {
+      "stage_id": 1,
+      "stage_name": "Equalization & Bar Screening",
+      "category": "Pre-treatment",
+      "objective": "Remove physical debris, equalize flow rate, balance temperature, and homogenize COD/pH variations from batch dyeing processes.",
+      "key_equipment": [
+        "Coarse Bar Screen (10-25mm)",
+        "Fine Rotary Drum Screen (1-2mm)",
+        "Equalization Tank",
+        "Submerged Air Diffusers"
+      ],
+      "operating_rules": [
+        {
+          "rule_id": "EQ-01",
+          "rule": "Maintain air agitation at 1.5 - 2.0 m\u00b3/m\u00b2/hr to prevent sludge settling and septic odor formation."
+        },
+        {
+          "rule_id": "EQ-02",
+          "rule": "Effluent retention time in Equalization Tank must be maintained between 12 to 24 hours to handle batch shock loads."
+        },
+        {
+          "rule_id": "EQ-03",
+          "rule": "Effluent temperature entering biological stage must not exceed 40\u00b0C. Operate cooling tower if raw feed > 45\u00b0C."
+        },
+        {
+          "rule_id": "EQ-04",
+          "rule": "Clean rotary fine drum screens continuously to prevent lint build-up and pump cavitation."
+        }
+      ],
+      "control_parameters": {
+        "retention_time_hours": "12 - 24",
+        "target_temperature_celsius": "< 40",
+        "mixing_type": "Continuous coarse bubble aeration",
+        "ph_range_typical": "8.0 - 10.5"
+      }
+    },
+    {
+      "stage_id": 2,
+      "stage_name": "Primary Physico-Chemical Treatment (Coagulation & Flocculation)",
+      "category": "Primary Treatment",
+      "objective": "Destabilize colloidal unfixed dyes, suspended fibers, and insolubles; remove 70-80% TSS and 40-60% COD.",
+      "key_equipment": [
+        "Flash Mixer",
+        "Flocculator Tank",
+        "Primary Tube Settler / Clarifier",
+        "Chemical Dosing Pumps"
+      ],
+      "operating_rules": [
+        {
+          "rule_id": "PC-01",
+          "rule": "Flash mixing speed (G-value > 300 s\u207b\u00b9) must be maintained for 1 to 3 minutes for rapid coagulant dispersion."
+        },
+        {
+          "rule_id": "PC-02",
+          "rule": "Maintain optimum pH 6.5 - 7.5 when using Alum or PAC; maintain pH 8.5 - 10.0 when using Ferrous Sulfate."
+        },
+        {
+          "rule_id": "PC-03",
+          "rule": "Flocculation mixing speed must be slow (G-value 20-70 s\u207b\u00b9, 15-40 rpm) for 15 to 30 minutes to form large settleable flocs without shearing."
+        },
+        {
+          "rule_id": "PC-04",
+          "rule": "Primary Clarifier surface overflow rate (SOR) must be maintained at 15 - 25 m\u00b3/m\u00b2/day."
+        }
+      ],
+      "control_parameters": {
+        "flash_mixing_time_min": "1 - 3",
+        "flocculation_time_min": "15 - 30",
+        "clarifier_overflow_rate_m3_m2_day": "15 - 25",
+        "tss_removal_efficiency_pct": "75 - 85",
+        "cod_removal_efficiency_pct": "40 - 60"
+      }
+    },
+    {
+      "stage_id": 3,
+      "stage_name": "Secondary Biological Aeration (Activated Sludge / MBBR / MBR)",
+      "category": "Secondary Treatment",
+      "objective": "Aerobic bio-degradation of soluble organic pollutants (BOD and COD) using active biomass/microorganisms.",
+      "key_equipment": [
+        "Aeration Tank",
+        "Fine Bubble Diffusers",
+        "Roots Blowers",
+        "Secondary Clarifier",
+        "RAS (Return Activated Sludge) Pumps"
+      ],
+      "operating_rules": [
+        {
+          "rule_id": "BIO-01",
+          "rule": "Maintain Dissolved Oxygen (DO) strictly between 2.0 to 3.0 mg/L in aeration basin. DO < 1.5 causes sludge bulking; DO > 4.0 wastes energy."
+        },
+        {
+          "rule_id": "BIO-02",
+          "rule": "Maintain MLSS between 3,000 - 4,500 mg/L for ASP, 5,000 - 8,000 mg/L for MBBR, and 8,000 - 12,000 mg/L for MBR."
+        },
+        {
+          "rule_id": "BIO-03",
+          "rule": "Maintain nutrient ratio BOD : N : P at 100 : 5 : 1. Dose Urea and Di-Ammonium Phosphate (DAP) if influent is nutrient-deficient."
+        },
+        {
+          "rule_id": "BIO-04",
+          "rule": "Maintain Sludge Volume Index (SVI) between 80 - 120 mL/g. SVI > 150 indicates filamentous bio-sludge bulking."
+        },
+        {
+          "rule_id": "BIO-05",
+          "rule": "Maintain RAS (Return Activated Sludge) flow rate at 50% to 100% of incoming effluent flow rate."
+        }
+      ],
+      "control_parameters": {
+        "do_mg_l": "2.0 - 3.0",
+        "mlss_mg_l": "3500 - 4500",
+        "bod_n_p_ratio": "100:5:1",
+        "svi_ml_g": "80 - 120",
+        "fm_ratio": "0.15 - 0.30 kg BOD/kg MLVSS/day",
+        "hrt_hours": "18 - 36"
+      }
+    },
+    {
+      "stage_id": 4,
+      "stage_name": "Tertiary Treatment & Advanced Oxidation Process (AOP)",
+      "category": "Tertiary Treatment",
+      "objective": "Refractory hard-COD removal, color destruction, and polishing filtration before membrane system.",
+      "key_equipment": [
+        "Fenton Reactor Tank",
+        "Ozone Generator",
+        "Dual Media Filter (DMF)",
+        "Activated Carbon Filter (ACF)"
+      ],
+      "operating_rules": [
+        {
+          "rule_id": "TT-01",
+          "rule": "For Fenton Oxidation, maintain exact reaction pH of 3.0 - 3.5 using H2SO4; dose FeSO4 and H2O2 in molar ratio 1:3 to 1:5."
+        },
+        {
+          "rule_id": "TT-02",
+          "rule": "Neutralize Fenton effluent with Caustic/Lime to pH 7.5 - 8.5 to precipitate ferric hydroxide sludge before filtration."
+        },
+        {
+          "rule_id": "TT-03",
+          "rule": "Backwash Dual Media Filter (DMF) and Activated Carbon Filter (ACF) daily or when differential pressure exceeds 0.8 bar."
+        },
+        {
+          "rule_id": "TT-04",
+          "rule": "Ensure Silt Density Index (SDI15) of ACF permeate is strictly < 3.0 prior to feeding Ultrafiltration (UF) and Reverse Osmosis (RO)."
+        }
+      ],
+      "control_parameters": {
+        "fenton_ph": "3.0 - 3.5",
+        "fenton_reaction_time_min": "60 - 120",
+        "sdi15_target": "< 3.0",
+        "color_removal_efficiency_pct": "85 - 98",
+        "dmf_filtration_rate_m_hr": "8 - 12"
+      }
+    },
+    {
+      "stage_id": 5,
+      "stage_name": "Ultrafiltration (UF), Reverse Osmosis (RO) & Zero Liquid Discharge (ZLD)",
+      "category": "Membrane & ZLD",
+      "objective": "Recover high-purity permeate water (> 90-95%) for textile process reuse and concentrate salt brine for evaporation/crystallization.",
+      "key_equipment": [
+        "UF Membrane System",
+        "High-Pressure RO System",
+        "Disc Tube RO (DTRO)",
+        "Multiple Effect Evaporator (MEE)",
+        "Agitated Thin Film Dryer (ATFD)"
+      ],
+      "operating_rules": [
+        {
+          "rule_id": "ZLD-01",
+          "rule": "Dose Antiscalant (3-5 ppm) and Sodium Metabisulfite (SMBS 2-5 ppm) prior to RO feed to prevent silica/calcium scaling and chlorine membrane damage."
+        },
+        {
+          "rule_id": "ZLD-02",
+          "rule": "Maintain RO Feed Operating Pressure between 15-25 bar (Stage 1) and up to 60-80 bar for High-Pressure RO Reject recovery."
+        },
+        {
+          "rule_id": "ZLD-03",
+          "rule": "Clean-In-Place (CIP) for RO membranes must be initiated when permeate flow drops by 10% or differential pressure increases by 15%."
+        },
+        {
+          "rule_id": "ZLD-04",
+          "rule": "Feed high TDS RO Reject brine (TDS 70,000 - 100,000 mg/L) to Multiple Effect Evaporator (MEE) to crystallize dry salt and recover 100% water."
+        }
+      ],
+      "control_parameters": {
+        "uf_recovery_pct": "90 - 95",
+        "ro_recovery_pct": "90 - 94",
+        "ro_permeate_tds_mg_l": "< 100",
+        "mee_steam_economy": "3.5 - 4.5",
+        "overall_zld_water_recovery_pct": "> 95"
+      }
+    }
+  ]
+}

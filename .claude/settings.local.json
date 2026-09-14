@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --version && npm --version)",
+      "Bash(npm install:*)",
+      "Bash(node server.js 2>&1)",
+      "Bash(curl -s http://localhost:5000/api/health | head -c 200)",
+      "Bash(curl -v http://localhost:5000/api/health 2>&1 | head -20)",
+      "Bash(node tests/dye_optimizer_tests.js)",
+      "Bash(node -e \"const {loadRules} = require\\('./dash board/backend/services/dyeOptimization/constraintEngine'\\); loadRules\\(\\).then\\(r => console.log\\('rules:', r.length\\)\\);\")",
+      "Bash(node -e \"const p=require\\('path'\\); console.log\\(p.resolve\\('dash board/backend/services/dyeOptimization','..','..','..','..','..','mater_knowledge_base','rule_base.json'\\)\\)\")",
+      "Bash(node -e \"\nconst {deltaE76} = require\\('./dash board/backend/services/dyeOptimization/deltaE'\\);\nconsole.log\\('target=pred:', deltaE76\\(50,20,30,50,20,30\\)\\);\nconsole.log\\('offset 5:', deltaE76\\(50,20,30,55,25,35\\)\\);\n\")",
+      "Bash(find \"D:/SUSTUNO/dash board/backend\" -maxdepth 1 -name \"*.js\" 2>/dev/null | head -20)",
+      "Bash(cd \"D:/SUSTUNO\" && node tests/dye_batch_tests.js 2>&1)"
+    ]
+  }
+}

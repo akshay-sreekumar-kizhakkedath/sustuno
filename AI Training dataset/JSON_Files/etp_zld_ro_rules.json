@@ -1,0 +1,56 @@
+{
+  "title": "Zero Liquid Discharge (ZLD) & Membrane Operating Rules",
+  "version": "1.0",
+  "subsystems": [
+    {
+      "subsystem": "Ultrafiltration (UF)",
+      "membrane_type": "Hollow Fiber PVDF / Polyethersulfone (PES)",
+      "operating_parameters": {
+        "pore_size_micron": "0.01 - 0.05",
+        "transmembrane_pressure_bar": "0.5 - 2.0",
+        "design_flux_lmh": "50 - 70",
+        "backwash_frequency_min": "20 - 30",
+        "backwash_duration_sec": "30 - 60",
+        "chemically_enhanced_backwash_ceb": "Daily with NaOCl (200 ppm) & Citric Acid (1000 ppm)"
+      },
+      "mandatory_rules": [
+        "Pre-filtration through 100-micron auto-backwash screen filter is mandatory before UF.",
+        "UF Permeate SDI15 must be logged every 4 hours; if SDI15 > 3.0, trigger CEB cycle.",
+        "Air scouring at 1.2 bar must run during every backwash cycle to loosen surface cake layer."
+      ]
+    },
+    {
+      "subsystem": "Reverse Osmosis (RO Primary & Secondary)",
+      "membrane_type": "Thin Film Composite (TFC) Polyamide Spiral Wound",
+      "operating_parameters": {
+        "stage_1_pressure_bar": "14 - 18",
+        "stage_2_pressure_bar": "22 - 28",
+        "salt_rejection_pct": "> 98.5%",
+        "permeate_tds_target": "< 80 mg/L",
+        "max_feed_turbidity_ntu": "< 0.5",
+        "max_feed_sdi15": "< 3.0"
+      },
+      "mandatory_rules": [
+        "ORP sensor interlock: Automatically shut down RO high pressure pump if feed ORP > 250 mV to prevent chlorine oxidation of membranes.",
+        "Antiscalant dosing pump interlock: High pressure pump will not start unless antiscalant flow switch confirms positive chemical flow.",
+        "Maintain minimum concentrated brine cross-flow velocity to prevent concentration polarization."
+      ]
+    },
+    {
+      "subsystem": "Multiple Effect Evaporator (MEE) & Crystallizer",
+      "equipment_type": "Falling Film + Forced Circulation Evaporator with ATFD",
+      "operating_parameters": {
+        "feed_brine_tds_mg_l": "70,000 - 100,000",
+        "concentrate_discharge_tds_mg_l": "300,000 - 350,000 (Slurry)",
+        "steam_pressure_bar": "2.5 - 4.0",
+        "vacuum_last_effect_mmHg": "650 - 680",
+        "condensate_tds_mg_l": "< 50 mg/L"
+      },
+      "mandatory_rules": [
+        "Operate 1st and 2nd effects under falling film configuration for thermal efficiency, followed by forced circulation for crystallizing stage.",
+        "Clean heat exchanger tubes with sulfamic acid flush when overall heat transfer coefficient (U-value) drops by > 15%.",
+        "Recovered salt (NaCl/Na2SO4) from Agitated Thin Film Dryer (ATFD) must be tested for moisture (< 2%) before bagging."
+      ]
+    }
+  ]
+}

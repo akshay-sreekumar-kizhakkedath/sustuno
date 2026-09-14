@@ -1,0 +1,103 @@
+{
+  "review_version": "1.0",
+  "status": "pending_human_review",
+  "reviewer": {
+    "name": null,
+    "role": null,
+    "organization": null,
+    "review_date": null
+  },
+  "decisions": [
+    {
+      "rule_id": "RULE-0001",
+      "knowledge_id": "KB-00075",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0002",
+      "knowledge_id": "KB-00142",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0003",
+      "knowledge_id": "KB-00139",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0004",
+      "knowledge_id": "KB-00072",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0005",
+      "knowledge_id": "KB-00008",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0006",
+      "knowledge_id": "KB-00110",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0007",
+      "knowledge_id": "KB-00005",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0008",
+      "knowledge_id": "KB-00107",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0009",
+      "knowledge_id": "KB-00069",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0010",
+      "knowledge_id": "KB-00040",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0011",
+      "knowledge_id": "KB-00037",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0012",
+      "knowledge_id": "KB-00104",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    },
+    {
+      "rule_id": "RULE-0013",
+      "knowledge_id": "KB-00145",
+      "decision": "pending",
+      "reviewer_notes": null,
+      "modification_requested": null
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "basic_information": {
+    "recipe_id": "REC-COT-001",
+    "recipe_name": "Standard Exhaust Dyeing of Cotton Knits with Bifunctional Reactive Dyes",
+    "fabric_type": "100% Cotton Single Jersey Knit",
+    "fabric_gsm": "180 GSM",
+    "fabric_weight": "250 kg",
+    "shade_name": "Royal Blue",
+    "shade_depth": "Medium (2.0% owf)",
+    "end_use": "Apparel / T-Shirts"
+  },
+  "dye_information": {
+    "dye_type": "Bifunctional Reactive Dye (VS / MCT Chemistry)",
+    "dye_name": "Reactive Blue 19 (1.2% owf) + Reactive Red 195 (0.5% owf) + Reactive Yellow 145 (0.3% owf)",
+    "dye_concentration": "2.0% owf total dye solids",
+    "dye_combination": "Trichromatic Combination (Blue/Red/Yellow)",
+    "dye_manufacturer": "Dystar / Huntsman Chemical"
+  },
+  "chemical_information": [
+    {
+      "chemical_name": "Glauber's Salt (Sodium Sulfate Na2SO4)",
+      "chemical_function": "Electrolyte to drive dye exhaustion onto fiber surface",
+      "dosage": "45 g/L",
+      "addition_sequence": "Added in 2 equal splits at 40\u00b0C prior to alkali dosing",
+      "compatibility": "Compatible with non-ionic and anionic wetting agents",
+      "incompatible_chemicals": "Cationic fixing agents, strong concentrated acids"
+    },
+    {
+      "chemical_name": "Soda Ash (Sodium Carbonate Na2CO3)",
+      "chemical_function": "Alkali buffer to generate cellulosate ions for covalent dye fixation",
+      "dosage": "15 g/L",
+      "addition_sequence": "Dosed exponentially over 30 min after 20 min salt exhaustion hold",
+      "compatibility": "Compatible with standard reactive dye auxiliaries",
+      "incompatible_chemicals": "Direct acids, oxidizing agents"
+    }
+  ],
+  "process_parameters": {
+    "temperature_profile": "Start 40\u00b0C -> Heat to 60\u00b0C @ 1.5\u00b0C/min -> Hold 60 min -> Cool to 50\u00b0C @ 2.0\u00b0C/min -> Soap @ 95\u00b0C",
+    "heating_rate": "1.5 \u00b0C/min",
+    "cooling_rate": "2.0 \u00b0C/min",
+    "time": "Total Duration: 210 minutes (3.5 hours)",
+    "ph": "Exhaustion pH: 6.8 - 7.2 | Fixation pH: 10.8 - 11.2 | Neutralized pH: 6.0 - 6.5",
+    "liquor_ratio": "1:8 MLR",
+    "pressure": "1.0 bar (Atmospheric)"
+  },
+  "process_steps": {
+    "pretreatment": "Scoured & bleached cotton; core pH 6.5; residual H2O2 < 5 ppm",
+    "dye_addition": "Dissolve dyes in warm water (50\u00b0C), strain through mesh, dose over 10 min at 40\u00b0C",
+    "salt_addition": "Dose Glauber's salt (45 g/L) in two portions (50% at 40\u00b0C, 50% at 60\u00b0C)",
+    "alkali_addition": "Dose Soda Ash (15 g/L) exponentially over 30 min once 60\u00b0C is reached",
+    "washing": "Drain fixation bath -> Cold rinse (10 min) -> Hot rinse at 70\u00b0C (10 min)",
+    "soaping": "Neutralize with Acetic Acid (1.0 g/L) -> Soap with Polymeric Agent at 95\u00b0C for 15 min",
+    "neutralization": "Final rinse with Acetic Acid (0.5 g/L) to bring core fabric pH to 6.0 - 6.5",
+    "drying": "Relaxation dryer or Stenter frame at 120\u00b0C to target 6% moisture",
+    "finishing": "Apply 1.5% Bio-softener via padding or exhaust at 40\u00b0C"
+  },
+  "machine_requirement": {
+    "machine_type": "HTHP Soft-Flow / Jet Dyeing Machine",
+    "machine_capacity": "300 kg nominal capacity",
+    "recommended_machine": "Fong's / Thies Soft-Flow Jet Dyeing Vessel",
+    "loading_percentage": "83.3%"
+  },
+  "quality_parameters": {
+    "shade_accuracy": "DE < 0.6 (CMC 2:1 against standard master swatch)",
+    "color_fastness": "Grade 4-5",
+    "wash_fastness": "Grade 4-5 (ISO 105-C06 at 60\u00b0C)",
+    "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 3-4",
+    "light_fastness": "Grade 4 (ISO 105-B02)",
+    "uniformity": "Zero end-to-end or streakiness unlevelness"
+  },
+  "defects": {
+    "common_defects": "Patchiness / Unlevelness, Crease Marks, Low Wet Fastness",
+    "causes": "Rapid alkali addition, turn time > 120 s, incomplete removal of hydrolyzed dye",
+    "corrective_actions": "Leveling agent strip & redye; optimize exponential alkali dosing; ensure soaping at 95\u00b0C"
+  },
+  "safety": {
+    "ppe_required": "Chemical splash goggles, neoprene gloves, rubber apron, dust mask during dye powder weighing",
+    "hazardous_chemicals": "Sodium Carbonate (irritant), Glacial Acetic Acid (corrosive)",
+    "safety_precautions": "Operate eye wash station nearby; store acids and alkalis in separate bunded areas"
+  },
+  "references": {
+    "source": "SDC / AATCC Standard Reactive Dyeing Guidelines",
+    "standard": "ISO 105 / AATCC Test Method 61",
+    "notes": "Ensure total dissolved solids (TDS) of input water < 250 ppm and hardness < 10 ppm"
+  }
+}

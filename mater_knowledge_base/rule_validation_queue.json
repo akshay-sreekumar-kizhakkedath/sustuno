@@ -1,0 +1,175 @@
+{
+  "validation_queue_version": "1.0",
+  "status": "pending_human_validation",
+  "rules_pending_validation": [
+    {
+      "rule_id": "RULE-0001",
+      "knowledge_id": "KB-00075",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Non-ionic surfactants"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0002",
+      "knowledge_id": "KB-00142",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Strong electrolytes"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0003",
+      "knowledge_id": "KB-00139",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Air / Oxygen, acids"
+      },
+      "review_status": "pending",
+      "notes": "This rule was semantically corrected during the rule quality audit."
+    },
+    {
+      "rule_id": "RULE-0004",
+      "knowledge_id": "KB-00072",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Cationic softeners"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0005",
+      "knowledge_id": "KB-00008",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Direct acids, oxidizing agents"
+      },
+      "review_status": "pending",
+      "notes": "This rule was semantically corrected during the rule quality audit."
+    },
+    {
+      "rule_id": "RULE-0006",
+      "knowledge_id": "KB-00110",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Disperse dyes"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0007",
+      "knowledge_id": "KB-00005",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Cationic fixing agents, strong concentrated acids"
+      },
+      "review_status": "pending",
+      "notes": "This rule was semantically corrected during the rule quality audit."
+    },
+    {
+      "rule_id": "RULE-0008",
+      "knowledge_id": "KB-00107",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Acids"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0009",
+      "knowledge_id": "KB-00069",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Alkalis"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0010",
+      "knowledge_id": "KB-00040",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Alkalis"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0011",
+      "knowledge_id": "KB-00037",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Cationic surfactants"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0012",
+      "knowledge_id": "KB-00104",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Strong alkalis"
+      },
+      "review_status": "pending",
+      "notes": ""
+    },
+    {
+      "rule_id": "RULE-0013",
+      "knowledge_id": "KB-00145",
+      "reason_for_review": "Human expert validation required before production use",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "excerpt": "Reducing agents (Hydros)"
+      },
+      "review_status": "pending",
+      "notes": ""
+    }
+  ]
+}

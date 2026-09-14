@@ -1,0 +1,115 @@
+{
+  "machine_details": {
+    "machine_name": "Aerodynamic Airflow HTHP Dyeing Machine",
+    "machine_type": "Air-Jet Aerodynamic Transport Dyeing Vessel",
+    "manufacturer": "Fong's / THEN Maschinen GmbH",
+    "model": "AIR-FONG-400",
+    "year": "2023"
+  },
+  "capacity": {
+    "minimum_batch_size": "200 kg (50% rated load)",
+    "maximum_batch_size": "400 kg (4 chamber tubes @ 100 kg each)",
+    "fabric_capacity": "400 kg dry fabric weight",
+    "liquor_capacity": "1200 to 1600 Liters (Ultra-low liquor volume)"
+  },
+  "operating_limits": {
+    "minimum_temperature": "20 \u00b0C",
+    "maximum_temperature": "140 \u00b0C",
+    "minimum_pressure": "0.0 bar",
+    "maximum_pressure": "4.0 bar",
+    "maximum_speed": "500 m/min fabric velocity via air stream",
+    "heating_rate": "1.0 \u00b0C/min to 4.0 \u00b0C/min",
+    "cooling_rate": "1.5 \u00b0C/min to 3.0 \u00b0C/min"
+  },
+  "process_compatibility": {
+    "supported_fabric_types": "Sensitive knits, Lycra/Spandex blends, Tencel, Viscose, Microfiber PES",
+    "supported_dye_types": "Reactive Dyes, Disperse Dyes, Acid Dyes",
+    "supported_chemicals": "Dyes, Salt, Soda Ash, Acetic Acid, Anti-foaming agents",
+    "suitable_processes": "Ultra-low liquor exhaust dyeing, Scouring, Washing-off"
+  },
+  "machine_constraints": {
+    "maximum_load": "400 kg (100 kg per chamber tube)",
+    "minimum_load": "200 kg",
+    "temperature_restrictions": "Max 140\u00b0C",
+    "pressure_restrictions": "Air injection blower operating pressure 0.6 bar",
+    "chemical_restrictions": "Silicon-free anti-foaming agent mandatory to prevent air lock",
+    "fabric_restrictions": "Fabric weight must be > 80 GSM to prevent rope collapse inside air stream",
+    "liquor_ratio_limits": "1:3 to 1:5 MLR (Ultra-low ratio)"
+  },
+  "performance": {
+    "water_consumption": "25 to 35 Liters per kg of fabric (40% water savings vs soft-flow)",
+    "steam_consumption": "1.8 to 2.4 kg steam per kg of fabric",
+    "power_consumption": "30 kW high-pressure air blower + 15 kW liquor pump",
+    "cycle_time": "150 to 210 minutes",
+    "efficiency": "92% OEE"
+  },
+  "sensors": {
+    "temperature_sensor": "Dual PT100 Sensors",
+    "pressure_sensor": "Vessel & Air Blower Pressure Sensors",
+    "flow_sensor": "Air Velocity Meter (m/s) & Liquor Flow Meter",
+    "ph_sensor": "In-line Industrial pH Sensor",
+    "conductivity_sensor": "Salt Concentration Conductivity Sensor",
+    "level_sensor": "Low-volume Hydrostatic Level Sensor"
+  },
+  "operating_parameters": {
+    "recommended_temperature": "60\u00b0C (Reactive) / 130\u00b0C (Disperse)",
+    "recommended_pressure": "2.8 bar at 130\u00b0C",
+    "recommended_speed": "Air Velocity 35 m/s | Fabric Speed 350 m/min",
+    "recommended_liquor_ratio": "1:3.5 MLR"
+  },
+  "maintenance": {
+    "daily_checks": "Clean air blower lint filter screen, inspect atomization nozzles",
+    "weekly_checks": "Check air blower belt and bearings, calibrate level sensor",
+    "monthly_checks": "Inspect heat exchanger for lint build-up, calibrate temp sensors",
+    "calibration_requirements": "Bi-annual air velocity sensor and temperature calibration"
+  },
+  "failure_information": {
+    "common_faults": "Air-lock due to excessive foam, lint clogging in air recirculation tube",
+    "alarm_conditions": "Air pressure drop < 0.3 bar, foam sensor trip, high turn time",
+    "failure_causes": "Omission of defoamer, high linting fabric without pre-singeing",
+    "troubleshooting": "Dose 1 g/L silicon-free defoamer; auto-flush air filter screen"
+  },
+  "safety": {
+    "safety_limits": "Max temp 140\u00b0C, Max pressure 4.0 bar",
+    "emergency_shutdown_conditions": "Air blower failure, vessel overpressure, main door seal pressure loss",
+    "ppe_requirements": "Ear defenders (high blower noise), safety glasses, heat gloves"
+  },
+  "ai_constraints": {
+    "machine_operating_rules": [
+      "ASSERT liquor_ratio >= 3.0 AND liquor_ratio <= 5.0",
+      "IF foam_level > HIGH THEN AUTO_DOSE defoamer_g_per_l = 0.8",
+      "IF fabric_gsm < 80 THEN REJECT (rope collapse risk)"
+    ],
+    "parameter_limits": {
+      "min_air_velocity_m_per_s": 25,
+      "max_air_velocity_m_per_s": 45,
+      "min_liquor_ratio": 3.0,
+      "max_liquor_ratio": 5.0
+    },
+    "recommended_operating_ranges": {
+      "air_blower_rpm": [
+        1800,
+        2400
+      ],
+      "fabric_speed_m_per_min": [
+        300,
+        450
+      ]
+    },
+    "constraint_equations": [
+      "Air_Power_kW = Blower_Flow_m3_h * Pressure_bar / 3600 * 1.2",
+      "ASSERT MLR >= 3.0 AND MLR <= 5.0"
+    ],
+    "interlock_conditions": [
+      "Liquor atomization spray CANNOT start unless Air_Blower_Status == RUNNING"
+    ],
+    "decision_rules": [
+      "REJECT recipe IF requested_mlr > 1:5.5",
+      "REQUIRE silicon_free_defoamer >= 0.5 g/L FOR ALL RECIPES"
+    ],
+    "best_operating_practices": [
+      "Pre-dissolve defoamer in feed tank before introducing air stream",
+      "Run continuous air filter flushing cycle during high-speed heating phases"
+    ]
+  }
+}

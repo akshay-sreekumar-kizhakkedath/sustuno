@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"/d/SUSTUNO/dash board/aquatex-ai-react\" && npm run dev)",
+      "Bash(npm --prefix \"D:/SUSTUNO/dash board/aquatex-ai-react\" run dev)",
+      "Bash(start \"\" \"http://localhost:5173/\")",
+      "Bash(node --version && npm --version)"
+    ]
+  }
+}

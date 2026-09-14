@@ -1,0 +1,129 @@
+{
+  "category_folder": "05_Water_Quality_Standards",
+  "title": "Regulatory and Industry Water Quality Standards and Parameter Threshold Limits",
+  "field_definitions": {
+    "Standard Specifications": [
+      "Parameter Name",
+      "Acceptable Range",
+      "Maximum Limit",
+      "Minimum Limit",
+      "Unit of Measurement",
+      "Sampling Method",
+      "Testing Frequency",
+      "Applicable Standard"
+    ]
+  },
+  "total_records": 11,
+  "data": [
+    {
+      "Parameter Name": "pH",
+      "Acceptable Range": "6.5 - 8.5",
+      "Maximum Limit": "8.5",
+      "Minimum Limit": "6.5",
+      "Unit of Measurement": "pH Units",
+      "Sampling Method": "Continuous Sensor / Grab",
+      "Testing Frequency": "Continuous Online / Hourly",
+      "Applicable Standard": "CPCB Inland Surface Water / IS 2490"
+    },
+    {
+      "Parameter Name": "Chemical Oxygen Demand (COD)",
+      "Acceptable Range": "0 - 250",
+      "Maximum Limit": "250.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "24-hr Composite Auto Sampler",
+      "Testing Frequency": "Continuous Online / Daily",
+      "Applicable Standard": "CPCB Environmental Standards 1986"
+    },
+    {
+      "Parameter Name": "Biological Oxygen Demand (BOD 3d @ 27\u00b0C)",
+      "Acceptable Range": "0 - 30",
+      "Maximum Limit": "30.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "24-hr Composite Sampler",
+      "Testing Frequency": "Daily Incubation",
+      "Applicable Standard": "CPCB Gazette Notification 2016"
+    },
+    {
+      "Parameter Name": "Total Suspended Solids (TSS)",
+      "Acceptable Range": "0 - 100",
+      "Maximum Limit": "100.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Composite / Gravimetric",
+      "Testing Frequency": "Daily Gravimetric / Online Turbidity",
+      "Applicable Standard": "CPCB Discharge Norms"
+    },
+    {
+      "Parameter Name": "Total Dissolved Solids (TDS)",
+      "Acceptable Range": "0 - 2100",
+      "Maximum Limit": "2100.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Continuous Conductivity probe",
+      "Testing Frequency": "Continuous Online",
+      "Applicable Standard": "SPCB Inland Discharge Limit"
+    },
+    {
+      "Parameter Name": "Oil & Grease",
+      "Acceptable Range": "0 - 10",
+      "Maximum Limit": "10.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Grab (Glass Bottle)",
+      "Testing Frequency": "Weekly Solvent Extraction",
+      "Applicable Standard": "IS 3025 Part 39"
+    },
+    {
+      "Parameter Name": "Color",
+      "Acceptable Range": "0 - 150",
+      "Maximum Limit": "150.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "PCU (Pt-Co Units)",
+      "Sampling Method": "Grab Sample",
+      "Testing Frequency": "Daily Spectrophotometer",
+      "Applicable Standard": "CPCB Color Standard"
+    },
+    {
+      "Parameter Name": "Total Chromium (as Cr)",
+      "Acceptable Range": "0 - 2.0",
+      "Maximum Limit": "2.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Composite Sample",
+      "Testing Frequency": "Weekly Atomic Absorption (AAS)",
+      "Applicable Standard": "CPCB Heavy Metal Norms"
+    },
+    {
+      "Parameter Name": "Sulfide (as S)",
+      "Acceptable Range": "0 - 2.0",
+      "Maximum Limit": "2.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Preserved Titrametric Grab",
+      "Testing Frequency": "Daily Iodometric Titration",
+      "Applicable Standard": "IS 3025 Part 29"
+    },
+    {
+      "Parameter Name": "Phenolic Compounds (as C6H5OH)",
+      "Acceptable Range": "0 - 1.0",
+      "Maximum Limit": "1.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Composite Glass Bottle",
+      "Testing Frequency": "Weekly Colorimetric Method",
+      "Applicable Standard": "CPCB Environmental Protection Rules"
+    },
+    {
+      "Parameter Name": "Zero Liquid Discharge (ZLD) RO Permeate TDS",
+      "Acceptable Range": "0 - 100",
+      "Maximum Limit": "100.0",
+      "Minimum Limit": "0.0",
+      "Unit of Measurement": "mg/L",
+      "Sampling Method": "Continuous EC Analyzer",
+      "Testing Frequency": "Continuous 24/7",
+      "Applicable Standard": "State Pollution Control Board ZLD Mandate"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "correction_version": "1.0",
+  "rules_examined": 6,
+  "corrections": [
+    {
+      "rule_id": "RULE-0003",
+      "knowledge_id": "KB-00139",
+      "issue": "Original rule split a multi-chemical incompatibility into separate rules, causing each rule to miss other chemicals from the source list in its title/message.",
+      "original_rule": {},
+      "corrected_rule": {
+        "rule_id": "RULE-0003",
+        "rule_type": "compatibility",
+        "domain": "chemical",
+        "title": "Incompatibility: Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé vs Air / Oxygen, acids in recipe REC-VAT-005",
+        "description": "The chemical Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé is incompatible with Air / Oxygen, acids when used in recipe REC-VAT-005.",
+        "conditions": [
+          {
+            "parameter": "recipe_id",
+            "operator": "==",
+            "value": "REC-VAT-005"
+          }
+        ],
+        "action": {
+          "type": "prohibit",
+          "message": "Do not use Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé together with Air / Oxygen, acids in recipe REC-VAT-005."
+        },
+        "applicability": {
+          "fiber": [
+            "100% Cotton Heavy Canvas / Twill Woven"
+          ],
+          "dye_class": [
+            "Insoluble Anthraquinone Vat Dye Pigment"
+          ],
+          "fabric": [],
+          "chemical": [
+            "Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé"
+          ],
+          "machine_type": [],
+          "process_stage": [],
+          "shade": [
+            "Khaki Drab"
+          ]
+        },
+        "source": {
+          "knowledge_id": "KB-00139",
+          "file_name": "Standard_Recipes_Master_Dataset.json",
+          "page": null,
+          "section": "chemical_information",
+          "table": null,
+          "row": null,
+          "column": null,
+          "excerpt": "Air / Oxygen, acids"
+        },
+        "validation": {
+          "source_verified": true,
+          "expert_review_decision": "approved_for_rule_generation",
+          "human_validation_status": "pending",
+          "confidence": "high"
+        },
+        "notes": null
+      },
+      "correction_reason": "The source lists multiple incompatible chemicals for a single subject in one knowledge record. The corrected rule preserves the exact list of incompatible chemicals as provided by the source, ensuring the rule title and message reflect the complete source evidence.",
+      "source_verified": true,
+      "human_validation_required": true
+    },
+    {
+      "rule_id": "RULE-0005",
+      "knowledge_id": "KB-00008",
+      "issue": "Original rule split a multi-chemical incompatibility into separate rules, causing each rule to miss other chemicals from the source list in its title/message.",
+      "original_rule": {},
+      "corrected_rule": {
+        "rule_id": "RULE-0005",
+        "rule_type": "compatibility",
+        "domain": "chemical",
+        "title": "Incompatibility: Soda Ash (Sodium Carbonate Na2CO3) vs Direct acids, oxidizing agents in recipe REC-COT-001",
+        "description": "The chemical Soda Ash (Sodium Carbonate Na2CO3) is incompatible with Direct acids, oxidizing agents when used in recipe REC-COT-001.",
+        "conditions": [
+          {
+            "parameter": "recipe_id",
+            "operator": "==",
+            "value": "REC-COT-001"
+          }
+        ],
+        "action": {
+          "type": "prohibit",
+          "message": "Do not use Soda Ash (Sodium Carbonate Na2CO3) together with Direct acids, oxidizing agents in recipe REC-COT-001."
+        },
+        "applicability": {
+          "fiber": [
+            "100% Cotton Single Jersey Knit"
+          ],
+          "dye_class": [
+            "Bifunctional Reactive Dye (VS / MCT Chemistry)"
+          ],
+          "fabric": [],
+          "chemical": [
+            "Soda Ash (Sodium Carbonate Na2CO3)"
+          ],
+          "machine_type": [],
+          "process_stage": [],
+          "shade": [
+            "Royal Blue"
+          ]
+        },
+        "source": {
+          "knowledge_id": "KB-00008",
+          "file_name": "Standard_Recipes_Master_Dataset.json",
+          "page": null,
+          "section": "chemical_information",
+          "table": null,
+          "row": null,
+          "column": null,
+          "excerpt": "Direct acids, oxidizing agents"
+        },
+        "validation": {
+          "source_verified": true,
+          "expert_review_decision": "approved_for_rule_generation",
+          "human_validation_status": "pending",
+          "confidence": "high"
+        },
+        "notes": null
+      },
+      "correction_reason": "The source lists multiple incompatible chemicals for a single subject in one knowledge record. The corrected rule preserves the exact list of incompatible chemicals as provided by the source, ensuring the rule title and message reflect the complete source evidence.",
+      "source_verified": true,
+      "human_validation_required": true
+    },
+    {
+      "rule_id": "RULE-0007",
+      "knowledge_id": "KB-00005",
+      "issue": "Original rule split a multi-chemical incompatibility into separate rules, causing each rule to miss other chemicals from the source list in its title/message.",
+      "original_rule": {},
+      "corrected_rule": {
+        "rule_id": "RULE-0007",
+        "rule_type": "compatibility",
+        "domain": "chemical",
+        "title": "Incompatibility: Glauber's Salt (Sodium Sulfate Na2SO4) vs Cationic fixing agents, strong concentrated acids in recipe REC-COT-001",
+        "description": "The chemical Glauber's Salt (Sodium Sulfate Na2SO4) is incompatible with Cationic fixing agents, strong concentrated acids when used in recipe REC-COT-001.",
+        "conditions": [
+          {
+            "parameter": "recipe_id",
+            "operator": "==",
+            "value": "REC-COT-001"
+          }
+        ],
+        "action": {
+          "type": "prohibit",
+          "message": "Do not use Glauber's Salt (Sodium Sulfate Na2SO4) together with Cationic fixing agents, strong concentrated acids in recipe REC-COT-001."
+        },
+        "applicability": {
+          "fiber": [
+            "100% Cotton Single Jersey Knit"
+          ],
+          "dye_class": [
+            "Bifunctional Reactive Dye (VS / MCT Chemistry)"
+          ],
+          "fabric": [],
+          "chemical": [
+            "Glauber's Salt (Sodium Sulfate Na2SO4)"
+          ],
+          "machine_type": [],
+          "process_stage": [],
+          "shade": [
+            "Royal Blue"
+          ]
+        },
+        "source": {
+          "knowledge_id": "KB-00005",
+          "file_name": "Standard_Recipes_Master_Dataset.json",
+          "page": null,
+          "section": "chemical_information",
+          "table": null,
+          "row": null,
+          "column": null,
+          "excerpt": "Cationic fixing agents, strong concentrated acids"
+        },
+        "validation": {
+          "source_verified": true,
+          "expert_review_decision": "approved_for_rule_generation",
+          "human_validation_status": "pending",
+          "confidence": "high"
+        },
+        "notes": null
+      },
+      "correction_reason": "The source lists multiple incompatible chemicals for a single subject in one knowledge record. The corrected rule preserves the exact list of incompatible chemicals as provided by the source, ensuring the rule title and message reflect the complete source evidence.",
+      "source_verified": true,
+      "human_validation_required": true
+    }
+  ],
+  "summary": {
+    "rules_corrected": 3,
+    "rules_unchanged": 10,
+    "rules_requiring_human_validation": 13,
+    "unsupported_corrections": 0
+  }
+}

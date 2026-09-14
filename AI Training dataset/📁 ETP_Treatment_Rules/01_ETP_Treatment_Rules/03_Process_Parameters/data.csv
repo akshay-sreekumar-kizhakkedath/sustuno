@@ -1,0 +1,10 @@
+Parameter Name,pH Range,Temperature Range,Flow Rate,COD Range (mg/L),BOD Range (mg/L),TDS Range (mg/L),TSS Range (mg/L),Turbidity (NTU),DO (mg/L),ORP (mV),Conductivity (µS/cm),Retention Time
+Raw Effluent Feed,8.0 - 11.5,35°C - 48°C,100 m³/hr,"1,200 - 3,500",300 - 900,"4,000 - 12,000",400 - 900,150 - 400,0.0 - 0.5,-150 to -50,"6,000 - 18,000",1 - 2 Hours (Sump)
+Equalization Basin Outlet,8.5 - 9.5,32°C - 38°C,100 m³/hr,"1,500 - 2,500",400 - 650,"5,000 - 9,000",350 - 600,100 - 250,0.5 - 1.0,-50 to +50,"8,000 - 14,000",16 - 24 Hours
+Primary Clarifier Supernatant,6.8 - 7.5,30°C - 36°C,100 m³/hr,"800 - 1,400",250 - 450,"5,200 - 9,500",80 - 150,30 - 60,0.8 - 1.5,+50 to +100,"8,200 - 14,500",2.5 Hours
+Aeration Basin Mixed Liquor,6.8 - 7.8,28°C - 34°C,100 m³/hr (+75 m³/hr RAS),300 - 600 (Tank ML),50 - 120 (Tank ML),"5,000 - 9,200","3,000 - 4,500 (MLSS)",N/A (Mixed Liquor),2.0 - 3.0 strictly,+150 to +250,"8,000 - 14,000",18 - 24 Hours
+Secondary Clarifier Overflow,7.0 - 7.6,28°C - 33°C,100 m³/hr,150 - 250,15 - 30,"5,000 - 9,000",20 - 40,10 - 20,2.0 - 2.5,+180 to +220,"8,000 - 14,000",3 - 4 Hours
+Fenton & Tertiary ACF Filter Outlet,6.8 - 7.4,26°C - 32°C,100 m³/hr,40 - 80,< 5,"5,500 - 9,800",< 5,< 2.0,3.5 - 5.0,+200 to +300,"8,500 - 15,000",1.5 Hours
+Ultrafiltration (UF) Permeate,6.5 - 7.5,25°C - 35°C,95 m³/hr,< 30,0.0,"5,500 - 9,800",0.0 (SDI15 < 2.5),< 0.2,4.0 - 5.5,+150 to +200,"8,500 - 15,000",Continuous Inline
+RO Stage 1 & Stage 2 Permeate,6.5 - 7.2,25°C - 35°C,93 m³/hr,0.0,0.0,30 - 80,0.0,< 0.05,5.0 - 6.5,+150 to +180,50 - 120,Continuous Inline
+RO Reject Brine,7.2 - 8.2,28°C - 38°C,7 m³/hr,300 - 600,< 20,"70,000 - 100,000",10 - 30,5 - 15,1.0 - 2.0,+100 to +150,"95,000 - 140,000",Continuous Stream

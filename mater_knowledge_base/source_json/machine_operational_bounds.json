@@ -1,0 +1,51 @@
+{
+  "fabric_soft_flow_dyeing": {
+    "liquor_ratio_bounds": [
+      3.5,
+      8.0
+    ],
+    "max_temperature_degC": 140,
+    "max_heating_rate_degC_min": 3.5,
+    "max_pressure_bar": 3.8,
+    "water_consumption_L_per_kg_range": [
+      25,
+      45
+    ],
+    "steam_consumption_kg_per_kg_range": [
+      1.5,
+      2.8
+    ]
+  },
+  "yarn_package_dyeing": {
+    "winding_density_g_cm3_cotton": [
+      0.35,
+      0.42
+    ],
+    "winding_density_g_cm3_polyester": [
+      0.38,
+      0.44
+    ],
+    "differential_pressure_bar_max": 2.5,
+    "flow_reversal_ratio_in_out": "4 min : 2 min"
+  },
+  "stenter_drying_curing": {
+    "max_temperature_degC": 220,
+    "spandex_heat_set_temp_max_degC": 192,
+    "overfeed_range_percent": [
+      -10,
+      50
+    ],
+    "dwell_time_curing_sec_range": [
+      30,
+      90
+    ]
+  },
+  "jigger_flatbed_dyeing": {
+    "max_tension_N": 400,
+    "rayon_viscose_tension_max_N": 100,
+    "speed_range_m_min": [
+      20,
+      120
+    ]
+  }
+}

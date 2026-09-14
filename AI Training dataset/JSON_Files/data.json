@@ -1,0 +1,103 @@
+{
+  "category_folder": "01_ETP_Process_Flow",
+  "title": "ETP Stage-by-Stage Process Flow, Unit Operations, and Flow Sequences",
+  "field_definitions": {
+    "1. Process Information": [
+      "Process Name",
+      "Process Type",
+      "Purpose",
+      "Input Water Characteristics",
+      "Output Water Characteristics"
+    ],
+    "2. Process Sequence": [
+      "Previous Unit",
+      "Current Unit",
+      "Next Unit",
+      "Flow Direction",
+      "Operating Sequence"
+    ],
+    "3. Unit Operations": [
+      "Treatment Stage",
+      "Equipment Used",
+      "Process Objective"
+    ]
+  },
+  "total_records": 5,
+  "data": [
+    {
+      "Process Name": "Equalization and Screening",
+      "Process Type": "Physical",
+      "Purpose": "Remove coarse lint/fibers and smooth out pH/COD/flow spikes from batch dyeing.",
+      "Input Water Characteristics": "High pH (8.0-11.5), COD (1200-3500 mg/L), Temp (35-45\u00b0C), Variable flow & high color.",
+      "Output Water Characteristics": "Homogenized effluent, pH (8.5-10.0), Temp (< 40\u00b0C), Free of lint > 1.5mm.",
+      "Previous Unit": "Raw Effluent Collection Pit / Sump",
+      "Current Unit": "Equalization Tank & Bar/Drum Screen",
+      "Next Unit": "Flash Mixer / Primary Coagulation Tank",
+      "Flow Direction": "Continuous Gravity / Pumping",
+      "Operating Sequence": "Continuous 24/7 Screening & Air Agitation",
+      "Treatment Stage": "Pre-treatment",
+      "Equipment Used": "Coarse Bar Screen (15-20mm), Fine Rotary Drum Screen (1.5mm), Submerged Diffuser Blowers",
+      "Process Objective": "Protect downstream pumps, homogenize shock loads, prevent septic anaerobic conditions."
+    },
+    {
+      "Process Name": "Primary Coagulation & Flocculation",
+      "Process Type": "Chemical / Physical",
+      "Purpose": "Destabilize colloidal dye molecules and suspended solids to form settleable micro-flocs.",
+      "Input Water Characteristics": "Equalized effluent, High TSS (400-800 mg/L), High Color (1000-2500 PCU), COD (1500-2500 mg/L).",
+      "Output Water Characteristics": "Neutralized flocs, TSS reduction by 75-85%, COD reduction by 40-60%, Color reduced to < 500 PCU.",
+      "Previous Unit": "Equalization Tank Pump Stream",
+      "Current Unit": "Flash Mixer & Paddle Flocculator",
+      "Next Unit": "Primary Clarifier / Tube Settler",
+      "Flow Direction": "Continuous Overflow / Gravity",
+      "Operating Sequence": "Rapid Flash Mix (2 min) -> Slow Flocculation (20 min)",
+      "Treatment Stage": "Primary Treatment",
+      "Equipment Used": "High-speed Flash Mixer (200 RPM), Slow Paddle Flocculator (25 RPM), Dosing Pumps (Alum/PAC/Polyelectrolyte)",
+      "Process Objective": "Precipitate colloidal dyes and TSS prior to biological oxidation."
+    },
+    {
+      "Process Name": "Activated Sludge Aerobic Biological Oxidation",
+      "Process Type": "Biological",
+      "Purpose": "Bio-degrade dissolved organic pollutants (BOD & COD) using active bacterial biomass.",
+      "Input Water Characteristics": "Primary clarifier overflow, COD (800-1500 mg/L), BOD (300-600 mg/L), pH (6.8-7.5).",
+      "Output Water Characteristics": "BOD < 30 mg/L, COD < 250 mg/L, TSS < 100 mg/L, High DO (2-3 mg/L).",
+      "Previous Unit": "Primary Clarifier Supernatant Outlet",
+      "Current Unit": "Aeration Basin (ASP/MBBR/MBR)",
+      "Next Unit": "Secondary Clarifier / Membrane Bioreactor",
+      "Flow Direction": "Continuous Hydraulic Displacement",
+      "Operating Sequence": "Continuous Aeration & Bio-assimilation with RAS Recycle (75%)",
+      "Treatment Stage": "Secondary Treatment",
+      "Equipment Used": "Fine Bubble Membrane Diffusers, Roots Air Blowers, RAS/WAS Sludge Pumps, DO Controllers",
+      "Process Objective": "Convert soluble organic carbon into microbial biomass, CO2, and water."
+    },
+    {
+      "Process Name": "Advanced Oxidation Process (Fenton Reaction)",
+      "Process Type": "Chemical",
+      "Purpose": "Break down non-biodegradable refractory COD and residual azo dye chromophores.",
+      "Input Water Characteristics": "Secondary clarifier overflow, Hard COD (150-300 mg/L), Residual Color (100-300 PCU), Low BOD.",
+      "Output Water Characteristics": "COD < 100 mg/L, Color < 30 PCU, Clear aqueous liquid.",
+      "Previous Unit": "Secondary Clarifier Outlet",
+      "Current Unit": "Fenton Reaction Tank & Neutralization Basin",
+      "Next Unit": "Tertiary Clarifier & Dual Media Filter",
+      "Flow Direction": "Gravity Flow",
+      "Operating Sequence": "Acidification to pH 3.2 -> FeSO4/H2O2 Injection (90 min) -> Lime Neutralization to pH 8.0",
+      "Treatment Stage": "Tertiary Treatment",
+      "Equipment Used": "Acid-proof Dosing Pumps, Static Mixers, Agitated Fenton Reactor, Lime Slurry Unit",
+      "Process Objective": "Generate hydroxyl radicals (\u2022OH) to mineralize toxic complex organic structures."
+    },
+    {
+      "Process Name": "Membrane Desalination & ZLD (UF -> RO -> MEE)",
+      "Process Type": "Physical / Thermal",
+      "Purpose": "Recover 93-95% high-purity water for textile process reuse and crystallize zero discharge dry salt.",
+      "Input Water Characteristics": "Tertiary filtered effluent, TDS (4000-8000 mg/L), Turbidity < 0.5 NTU, SDI15 < 3.0.",
+      "Output Water Characteristics": "RO Permeate TDS < 80 mg/L (Reused in Dye House), Dry Salt Powder (NaCl/Na2SO4).",
+      "Previous Unit": "Activated Carbon Filter Outlet",
+      "Current Unit": "UF Unit -> High Pressure RO -> MEE Evaporator & ATFD",
+      "Next Unit": "Dye House Process Water Storage & TSDF Landfill",
+      "Flow Direction": "Pressurized Cross-Flow -> Evaporative Concentration",
+      "Operating Sequence": "UF Filtration -> 2-Stage RO -> 4-Effect Evaporator -> ATFD Crystallizer",
+      "Treatment Stage": "Advanced ZLD Stage",
+      "Equipment Used": "Hollow Fiber UF, Polyamide Spiral RO Modules, High Pressure Pumps (60 bar), MEE Evaporator, ATFD Dryer",
+      "Process Objective": "Achieve Zero Liquid Discharge (ZLD) and 100% water recovery."
+    }
+  ]
+}

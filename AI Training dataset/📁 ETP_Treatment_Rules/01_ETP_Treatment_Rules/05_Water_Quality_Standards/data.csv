@@ -1,0 +1,12 @@
+Parameter Name,Acceptable Range,Maximum Limit,Minimum Limit,Unit of Measurement,Sampling Method,Testing Frequency,Applicable Standard
+pH,6.5 - 8.5,8.5,6.5,pH Units,Continuous Sensor / Grab,Continuous Online / Hourly,CPCB Inland Surface Water / IS 2490
+Chemical Oxygen Demand (COD),0 - 250,250.0,0.0,mg/L,24-hr Composite Auto Sampler,Continuous Online / Daily,CPCB Environmental Standards 1986
+Biological Oxygen Demand (BOD 3d @ 27°C),0 - 30,30.0,0.0,mg/L,24-hr Composite Sampler,Daily Incubation,CPCB Gazette Notification 2016
+Total Suspended Solids (TSS),0 - 100,100.0,0.0,mg/L,Composite / Gravimetric,Daily Gravimetric / Online Turbidity,CPCB Discharge Norms
+Total Dissolved Solids (TDS),0 - 2100,2100.0,0.0,mg/L,Continuous Conductivity probe,Continuous Online,SPCB Inland Discharge Limit
+Oil & Grease,0 - 10,10.0,0.0,mg/L,Grab (Glass Bottle),Weekly Solvent Extraction,IS 3025 Part 39
+Color,0 - 150,150.0,0.0,PCU (Pt-Co Units),Grab Sample,Daily Spectrophotometer,CPCB Color Standard
+Total Chromium (as Cr),0 - 2.0,2.0,0.0,mg/L,Composite Sample,Weekly Atomic Absorption (AAS),CPCB Heavy Metal Norms
+Sulfide (as S),0 - 2.0,2.0,0.0,mg/L,Preserved Titrametric Grab,Daily Iodometric Titration,IS 3025 Part 29
+Phenolic Compounds (as C6H5OH),0 - 1.0,1.0,0.0,mg/L,Composite Glass Bottle,Weekly Colorimetric Method,CPCB Environmental Protection Rules
+Zero Liquid Discharge (ZLD) RO Permeate TDS,0 - 100,100.0,0.0,mg/L,Continuous EC Analyzer,Continuous 24/7,State Pollution Control Board ZLD Mandate

@@ -1,0 +1,591 @@
+[
+  {
+    "machine_details": {
+      "machine_name": "HTHP Soft-Flow Jet Dyeing Machine",
+      "machine_type": "High Temperature High Pressure Rope Dyeing Machine",
+      "manufacturer": "Fong's National Engineering / Thies GmbH",
+      "model": "TECWIN HTHP-300",
+      "year": "2022"
+    },
+    "capacity": {
+      "minimum_batch_size": "150 kg (50% rated load)",
+      "maximum_batch_size": "300 kg (100% rated load)",
+      "fabric_capacity": "300 kg dry fabric weight",
+      "liquor_capacity": "1800 to 2400 Liters total vessel volume"
+    },
+    "operating_limits": {
+      "minimum_temperature": "20 \u00b0C",
+      "maximum_temperature": "140 \u00b0C",
+      "minimum_pressure": "0.0 bar (atmospheric)",
+      "maximum_pressure": "4.0 bar (design rating)",
+      "maximum_speed": "450 m/min winch reel fabric velocity",
+      "heating_rate": "0.5 \u00b0C/min to 3.5 \u00b0C/min",
+      "cooling_rate": "1.0 \u00b0C/min to 2.5 \u00b0C/min"
+    },
+    "process_compatibility": {
+      "supported_fabric_types": "Cotton knits, Polyester knits & wovens, Polyamide, Viscose, T/C Blends",
+      "supported_dye_types": "Reactive Dyes, Disperse Dyes, Acid Dyes, Direct Dyes",
+      "supported_chemicals": "Salt, Soda Ash, Caustic Soda, Hydros, Acetic Acid, Leveling Agents",
+      "suitable_processes": "Scouring, Bleaching, Exhaust Dyeing, Soaping, Reduction Clearing, Softening"
+    },
+    "machine_constraints": {
+      "maximum_load": "300 kg (Overloading >320 kg causes turn time >120s and severe rope marks)",
+      "minimum_load": "150 kg (Underloading <120 kg alters liquor ratio and causes liquor foaming)",
+      "temperature_restrictions": "Do not exceed 135\u00b0C for elastomeric Lycra blends to avoid heat damage",
+      "pressure_restrictions": "Main safety valve trips at 4.2 bar",
+      "chemical_restrictions": "Strictly prohibit Sodium Hypochlorite or free Chlorine (corrodes 316L stainless steel)",
+      "fabric_restrictions": "Not suitable for delicate silk satins or ultra-high tension sensitive wovens",
+      "liquor_ratio_limits": "Minimum 1:5 | Maximum 1:10 (Optimal 1:6 to 1:8)"
+    },
+    "performance": {
+      "water_consumption": "35 to 50 Liters per kg of fabric processed (total process water)",
+      "steam_consumption": "2.8 to 3.5 kg steam per kg of fabric",
+      "power_consumption": "18.5 kW main pump motor + 5.5 kW winch reel motor",
+      "cycle_time": "180 to 240 minutes per batch",
+      "efficiency": "88% overall equipment effectiveness (OEE)"
+    },
+    "sensors": {
+      "temperature_sensor": "Dual PT100 Resistance Temperature Detectors (Accuracy \u00b10.1\u00b0C)",
+      "pressure_sensor": "Piezo-resistive Vessel Pressure Transmitter (0 to 6 bar)",
+      "flow_sensor": "Electromagnetic Main Liquor Flow Meter (Liters/min)",
+      "ph_sensor": "In-line Industrial Gel-filled Glass Electrode pH Sensor (pH 0-14)",
+      "conductivity_sensor": "Inductive Bath Salt/Conductivity Transmitter (0-200 mS/cm)",
+      "level_sensor": "Differential Pressure Hydrostatic Level Transmitter (0-100% tank volume)"
+    },
+    "operating_parameters": {
+      "recommended_temperature": "60\u00b0C for Reactive Dyeing | 130\u00b0C for Disperse Dyeing",
+      "recommended_pressure": "2.8 bar at 130\u00b0C operating temperature",
+      "recommended_speed": "250 to 350 m/min winch reel speed (Turn time 50 to 75 seconds)",
+      "recommended_liquor_ratio": "1:6 MLR"
+    },
+    "maintenance": {
+      "daily_checks": "Inspect main pump shaft seal, clean lint filter basket, check pneumatic door seal",
+      "weekly_checks": "Inspect heat exchanger steam traps, calibrate pH electrode, check reel belt tension",
+      "monthly_checks": "Calibrate PT100 temp sensors, inspect safety burst disc, check main valve actuators",
+      "calibration_requirements": "Quarterly calibration of PT100 sensors and pressure transmitters with certified calibrator"
+    },
+    "failure_information": {
+      "common_faults": "Rope entanglement/tangle, high differential pressure across filter, steam trap waterlog",
+      "alarm_conditions": "Turn time > 120s, Temp deviation > \u00b12\u00b0C, Vessel pressure > 3.8 bar, Door safety open",
+      "failure_causes": "Fabric knot formation, clogged filter screen, steam supply pressure drop < 5 bar",
+      "troubleshooting": "Reverse winch reel manually; flush filter basket; verify boiler steam pressure"
+    },
+    "safety": {
+      "safety_limits": "Max temp 140\u00b0C, Max pressure 4.0 bar, Door opening temp limit < 80\u00b0C",
+      "emergency_shutdown_conditions": "Vessel overpressure > 4.1 bar, main circulation pump dry-run, power outage",
+      "ppe_requirements": "Heat-resistant gloves, safety goggles, steel-toe boots, ear protection"
+    },
+    "ai_constraints": {
+      "machine_operating_rules": [
+        "IF fabric_type == 'Polyester' THEN max_temperature = 130\u00b0C AND min_pressure = 2.8 bar",
+        "IF fabric_type == 'Cotton' THEN max_temperature = 98\u00b0C AND pressure = 0.0 bar",
+        "IF fabric_gsm < 150 THEN max_nozzle_pressure = 0.5 bar (prevent pilling)"
+      ],
+      "parameter_limits": {
+        "max_turn_time_seconds": 90,
+        "min_turn_time_seconds": 45,
+        "max_heating_rate_c_per_min": 3.0,
+        "min_liquor_ratio": 5.0,
+        "max_liquor_ratio": 10.0
+      },
+      "recommended_operating_ranges": {
+        "reactive_dyeing_temp_c": [
+          58,
+          62
+        ],
+        "disperse_dyeing_temp_c": [
+          128,
+          132
+        ],
+        "winch_speed_m_per_min": [
+          250,
+          350
+        ]
+      },
+      "constraint_equations": [
+        "Turn_Time_Seconds = (Fabric_Weight_kg * 1000 / (GSM * Width_m)) / Fabric_Speed_m_per_min * 60",
+        "ASSERT Turn_Time_Seconds <= 90",
+        "Liquor_Volume_L = Fabric_Weight_kg * MLR",
+        "ASSERT Liquor_Volume_L >= 1500 AND Liquor_Volume_L <= 2400"
+      ],
+      "interlock_conditions": [
+        "Pneumatic door lock MUST remain ENGAGED while Vessel_Temperature > 80\u00b0C OR Vessel_Pressure > 0.2 bar",
+        "Heating valve MUST CLOSE if Main_Pump_Flow < 200 L/min (dry run prevention)"
+      ],
+      "decision_rules": [
+        "REJECT recipe IF requested_load_kg > 300 kg",
+        "REJECT recipe IF liquor_ratio < 1:5 OR liquor_ratio > 1:10",
+        "FLAG WARNING IF heating_rate > 1.5\u00b0C/min between 90\u00b0C and 130\u00b0C on Polyester"
+      ],
+      "best_operating_practices": [
+        "Perform hot drain at 80\u00b0C after disperse dyeing to keep oligomers in emulsion state",
+        "Dose alkali exponentially over 30 min for reactive dyes to prevent strike unlevelness"
+      ]
+    }
+  },
+  {
+    "machine_details": {
+      "machine_name": "HTHP Package Yarn Dyeing Machine",
+      "machine_type": "Pressurized Vertical Spindle Package Dyeing Vessel",
+      "manufacturer": "Loris Bellini / Ugolini",
+      "model": "RBP-200",
+      "year": "2021"
+    },
+    "capacity": {
+      "minimum_batch_size": "100 kg (50% spindle loading)",
+      "maximum_batch_size": "200 kg yarn weight",
+      "fabric_capacity": "200 kg yarn packages (approx 200 packages @ 1.0 kg each)",
+      "liquor_capacity": "1400 to 1800 Liters"
+    },
+    "operating_limits": {
+      "minimum_temperature": "20 \u00b0C",
+      "maximum_temperature": "135 \u00b0C",
+      "minimum_pressure": "0.0 bar",
+      "maximum_pressure": "4.5 bar",
+      "maximum_speed": "Pump Flow Rate 40 L/kg/min",
+      "heating_rate": "1.0 \u00b0C/min to 3.0 \u00b0C/min",
+      "cooling_rate": "1.5 \u00b0C/min to 2.5 \u00b0C/min"
+    },
+    "process_compatibility": {
+      "supported_fabric_types": "Cotton yarn packages, Polyester textured yarn, Wool cones, Acrylic yarn",
+      "supported_dye_types": "Reactive Dyes, Disperse Dyes, Acid Dyes, Indanthrene Vat Dyes",
+      "supported_chemicals": "Salt, Soda Ash, Caustic, Hydros, Acetic Acid, Dispersing agents",
+      "suitable_processes": "Yarn Package Bleaching, Dyeing, Soaping, Rewinding preparation"
+    },
+    "machine_constraints": {
+      "maximum_load": "200 kg yarn weight",
+      "minimum_load": "100 kg (Requires dummy packages on empty spindles to prevent bypass)",
+      "temperature_restrictions": "Max 135\u00b0C for polyester yarn",
+      "pressure_restrictions": "Differential pressure Delta P must stay between 0.8 and 1.5 bar",
+      "chemical_restrictions": "No free chlorine",
+      "fabric_restrictions": "Requires rigid perforated plastic or stainless steel spring dye tubes",
+      "liquor_ratio_limits": "1:6 to 1:9 MLR"
+    },
+    "performance": {
+      "water_consumption": "40 to 55 Liters per kg of yarn",
+      "steam_consumption": "3.0 to 4.0 kg steam per kg of yarn",
+      "power_consumption": "22 kW main reversible centrifugal pump motor",
+      "cycle_time": "210 to 270 minutes",
+      "efficiency": "90% OEE"
+    },
+    "sensors": {
+      "temperature_sensor": "PT100 Resistance Temperature Probe",
+      "pressure_sensor": "Dual Differential Pressure Sensor (Spindle vs Vessel)",
+      "flow_sensor": "Reversible Flow Meter (L/min)",
+      "ph_sensor": "In-line pH probe",
+      "conductivity_sensor": "TDS / Salt Conductivity Probe",
+      "level_sensor": "Hydrostatic Level Transmitter"
+    },
+    "operating_parameters": {
+      "recommended_temperature": "60\u00b0C (Reactive) / 130\u00b0C (Disperse)",
+      "recommended_pressure": "Spindle Pressure 2.5 bar | Vessel Pressure 1.5 bar (Delta P 1.0 bar)",
+      "recommended_speed": "Reversal Cycle: 4 min In-Out / 2 min Out-In",
+      "recommended_liquor_ratio": "1:7 MLR"
+    },
+    "maintenance": {
+      "daily_checks": "Inspect spindle seals, check carrier locking nuts, clean main filter screen",
+      "weekly_checks": "Inspect reversal valve pneumatic cylinders, test safety relief valve",
+      "monthly_checks": "Calibrate differential pressure transmitter, inspect carrier spindles for bowing",
+      "calibration_requirements": "Bi-annual calibration of flow meter and PT100 temperature sensors"
+    },
+    "failure_information": {
+      "common_faults": "Liquor bypass channel formation, package tube collapsing, flow reversal valve jamming",
+      "alarm_conditions": "Delta P < 0.5 bar (bypass), Delta P > 1.8 bar (clogging), Temp deviation",
+      "failure_causes": "Uneven winding density (<0.30 g/cm\u00b3), excessive column compaction pressure",
+      "troubleshooting": "Verify package winding density (0.35 \u00b1 0.015 g/cm\u00b3); check spindle column torque"
+    },
+    "safety": {
+      "safety_limits": "Max temp 135\u00b0C, Max vessel pressure 4.5 bar, Safety valve set at 4.2 bar",
+      "emergency_shutdown_conditions": "Delta P spike > 2.2 bar, pneumatic door seal pressure drop, main pump overload",
+      "ppe_requirements": "Safety glasses, heat resistant gloves, safety shoes, hard hat near overhead crane"
+    },
+    "ai_constraints": {
+      "machine_operating_rules": [
+        "ASSERT package_density >= 0.32 AND package_density <= 0.38 FOR Cotton yarn",
+        "ASSERT package_density >= 0.38 AND package_density <= 0.42 FOR Polyester yarn",
+        "IF empty_spindles > 0 THEN dummy_blanking_tubes MUST BE INSTALLED"
+      ],
+      "parameter_limits": {
+        "min_delta_p_bar": 0.8,
+        "max_delta_p_bar": 1.5,
+        "min_flow_rate_l_per_kg_min": 35,
+        "max_flow_rate_l_per_kg_min": 50
+      },
+      "recommended_operating_ranges": {
+        "in_out_time_minutes": [
+          4,
+          5
+        ],
+        "out_in_time_minutes": [
+          2,
+          3
+        ]
+      },
+      "constraint_equations": [
+        "Delta_P = Spindle_Pressure - Vessel_Pressure",
+        "ASSERT Delta_P >= 0.8 AND Delta_P <= 1.5",
+        "Package_Density = Yarn_Weight_g / (PI * (R_outer^2 - R_inner^2) * Height_cm)"
+      ],
+      "interlock_conditions": [
+        "Flow reversal valve CANNOT actuate unless Main_Pump_RPM < 20% (prevents water hammer)",
+        "Door safety lock ENGAGED while Temperature > 80\u00b0C"
+      ],
+      "decision_rules": [
+        "REJECT package lot IF winding_density_variation > \u00b15%",
+        "REJECT recipe IF pump_flow_rate_per_kg < 30 L/kg/min"
+      ],
+      "best_operating_practices": [
+        "Maintain 12-15% axial compaction when securing spindle locking nuts",
+        "Use expandable stainless spring tubes for polyester package dyeing to allow shrinkage"
+      ]
+    }
+  },
+  {
+    "machine_details": {
+      "machine_name": "Aerodynamic Airflow HTHP Dyeing Machine",
+      "machine_type": "Air-Jet Aerodynamic Transport Dyeing Vessel",
+      "manufacturer": "Fong's / THEN Maschinen GmbH",
+      "model": "AIR-FONG-400",
+      "year": "2023"
+    },
+    "capacity": {
+      "minimum_batch_size": "200 kg (50% rated load)",
+      "maximum_batch_size": "400 kg (4 chamber tubes @ 100 kg each)",
+      "fabric_capacity": "400 kg dry fabric weight",
+      "liquor_capacity": "1200 to 1600 Liters (Ultra-low liquor volume)"
+    },
+    "operating_limits": {
+      "minimum_temperature": "20 \u00b0C",
+      "maximum_temperature": "140 \u00b0C",
+      "minimum_pressure": "0.0 bar",
+      "maximum_pressure": "4.0 bar",
+      "maximum_speed": "500 m/min fabric velocity via air stream",
+      "heating_rate": "1.0 \u00b0C/min to 4.0 \u00b0C/min",
+      "cooling_rate": "1.5 \u00b0C/min to 3.0 \u00b0C/min"
+    },
+    "process_compatibility": {
+      "supported_fabric_types": "Sensitive knits, Lycra/Spandex blends, Tencel, Viscose, Microfiber PES",
+      "supported_dye_types": "Reactive Dyes, Disperse Dyes, Acid Dyes",
+      "supported_chemicals": "Dyes, Salt, Soda Ash, Acetic Acid, Anti-foaming agents",
+      "suitable_processes": "Ultra-low liquor exhaust dyeing, Scouring, Washing-off"
+    },
+    "machine_constraints": {
+      "maximum_load": "400 kg (100 kg per chamber tube)",
+      "minimum_load": "200 kg",
+      "temperature_restrictions": "Max 140\u00b0C",
+      "pressure_restrictions": "Air injection blower operating pressure 0.6 bar",
+      "chemical_restrictions": "Silicon-free anti-foaming agent mandatory to prevent air lock",
+      "fabric_restrictions": "Fabric weight must be > 80 GSM to prevent rope collapse inside air stream",
+      "liquor_ratio_limits": "1:3 to 1:5 MLR (Ultra-low ratio)"
+    },
+    "performance": {
+      "water_consumption": "25 to 35 Liters per kg of fabric (40% water savings vs soft-flow)",
+      "steam_consumption": "1.8 to 2.4 kg steam per kg of fabric",
+      "power_consumption": "30 kW high-pressure air blower + 15 kW liquor pump",
+      "cycle_time": "150 to 210 minutes",
+      "efficiency": "92% OEE"
+    },
+    "sensors": {
+      "temperature_sensor": "Dual PT100 Sensors",
+      "pressure_sensor": "Vessel & Air Blower Pressure Sensors",
+      "flow_sensor": "Air Velocity Meter (m/s) & Liquor Flow Meter",
+      "ph_sensor": "In-line Industrial pH Sensor",
+      "conductivity_sensor": "Salt Concentration Conductivity Sensor",
+      "level_sensor": "Low-volume Hydrostatic Level Sensor"
+    },
+    "operating_parameters": {
+      "recommended_temperature": "60\u00b0C (Reactive) / 130\u00b0C (Disperse)",
+      "recommended_pressure": "2.8 bar at 130\u00b0C",
+      "recommended_speed": "Air Velocity 35 m/s | Fabric Speed 350 m/min",
+      "recommended_liquor_ratio": "1:3.5 MLR"
+    },
+    "maintenance": {
+      "daily_checks": "Clean air blower lint filter screen, inspect atomization nozzles",
+      "weekly_checks": "Check air blower belt and bearings, calibrate level sensor",
+      "monthly_checks": "Inspect heat exchanger for lint build-up, calibrate temp sensors",
+      "calibration_requirements": "Bi-annual air velocity sensor and temperature calibration"
+    },
+    "failure_information": {
+      "common_faults": "Air-lock due to excessive foam, lint clogging in air recirculation tube",
+      "alarm_conditions": "Air pressure drop < 0.3 bar, foam sensor trip, high turn time",
+      "failure_causes": "Omission of defoamer, high linting fabric without pre-singeing",
+      "troubleshooting": "Dose 1 g/L silicon-free defoamer; auto-flush air filter screen"
+    },
+    "safety": {
+      "safety_limits": "Max temp 140\u00b0C, Max pressure 4.0 bar",
+      "emergency_shutdown_conditions": "Air blower failure, vessel overpressure, main door seal pressure loss",
+      "ppe_requirements": "Ear defenders (high blower noise), safety glasses, heat gloves"
+    },
+    "ai_constraints": {
+      "machine_operating_rules": [
+        "ASSERT liquor_ratio >= 3.0 AND liquor_ratio <= 5.0",
+        "IF foam_level > HIGH THEN AUTO_DOSE defoamer_g_per_l = 0.8",
+        "IF fabric_gsm < 80 THEN REJECT (rope collapse risk)"
+      ],
+      "parameter_limits": {
+        "min_air_velocity_m_per_s": 25,
+        "max_air_velocity_m_per_s": 45,
+        "min_liquor_ratio": 3.0,
+        "max_liquor_ratio": 5.0
+      },
+      "recommended_operating_ranges": {
+        "air_blower_rpm": [
+          1800,
+          2400
+        ],
+        "fabric_speed_m_per_min": [
+          300,
+          450
+        ]
+      },
+      "constraint_equations": [
+        "Air_Power_kW = Blower_Flow_m3_h * Pressure_bar / 3600 * 1.2",
+        "ASSERT MLR >= 3.0 AND MLR <= 5.0"
+      ],
+      "interlock_conditions": [
+        "Liquor atomization spray CANNOT start unless Air_Blower_Status == RUNNING"
+      ],
+      "decision_rules": [
+        "REJECT recipe IF requested_mlr > 1:5.5",
+        "REQUIRE silicon_free_defoamer >= 0.5 g/L FOR ALL RECIPES"
+      ],
+      "best_operating_practices": [
+        "Pre-dissolve defoamer in feed tank before introducing air stream",
+        "Run continuous air filter flushing cycle during high-speed heating phases"
+      ]
+    }
+  },
+  {
+    "machine_details": {
+      "machine_name": "Atmospheric High Capacity Jigger Dyeing Machine",
+      "machine_type": "Constant Tension Constant Speed Open-Width Jigger",
+      "manufacturer": "Benninger AG / Mezzera",
+      "model": "JIG-BEN-500",
+      "year": "2020"
+    },
+    "capacity": {
+      "minimum_batch_size": "200 kg (approx 800 meters)",
+      "maximum_batch_size": "500 kg woven fabric (approx 2000 meters @ 250 GSM)",
+      "fabric_capacity": "500 kg woven fabric",
+      "liquor_capacity": "1500 to 2000 Liters pad trough & bath"
+    },
+    "operating_limits": {
+      "minimum_temperature": "20 \u00b0C",
+      "maximum_temperature": "98 \u00b0C (Atmospheric hood enclosed)",
+      "minimum_pressure": "0.0 bar",
+      "maximum_pressure": "0.0 bar (Atmospheric)",
+      "maximum_speed": "150 m/min fabric winding speed",
+      "heating_rate": "1.0 \u00b0C/min to 2.5 \u00b0C/min",
+      "cooling_rate": "1.5 \u00b0C/min"
+    },
+    "process_compatibility": {
+      "supported_fabric_types": "100% Woven Cotton, Linen, Viscose, Silk, Heavy Canvas & Denim",
+      "supported_dye_types": "Reactive Dyes, Direct Dyes, Vat Dyes, Sulfur Dyes",
+      "supported_chemicals": "Salt, Soda Ash, Caustic, Hydros, Sodium Sulfide",
+      "suitable_processes": "Open-width Scouring, Bleaching, Dyeing, Soaping"
+    },
+    "machine_constraints": {
+      "maximum_load": "500 kg (Maximum roll diameter 1100 mm)",
+      "minimum_load": "150 kg",
+      "temperature_restrictions": "Max 98\u00b0C at sea level (Cannot dye 100% Polyester without carriers)",
+      "pressure_restrictions": "Atmospheric operation only",
+      "chemical_restrictions": "Corrosive acids must be diluted prior to trough addition",
+      "fabric_restrictions": "Woven fabrics only (Strictly NO knit fabrics due to selvedge curling)",
+      "liquor_ratio_limits": "1:3 to 1:5 MLR (Ultra-short liquor bath)"
+    },
+    "performance": {
+      "water_consumption": "30 to 45 Liters per kg of fabric",
+      "steam_consumption": "2.2 to 3.0 kg steam per kg",
+      "power_consumption": "15 kW DC drive motors with regenerative braking",
+      "cycle_time": "240 to 360 minutes",
+      "efficiency": "85% OEE"
+    },
+    "sensors": {
+      "temperature_sensor": "PT100 Trough Temperature Sensor",
+      "pressure_sensor": "Pneumatic Roll Tension Sensor (N)",
+      "flow_sensor": "Trough Water Feed Flow Meter",
+      "ph_sensor": "Bath pH Probe",
+      "conductivity_sensor": "Conductivity Sensor",
+      "level_sensor": "Trough Level Sensor"
+    },
+    "operating_parameters": {
+      "recommended_temperature": "60\u00b0C (Reactive) / 95\u00b0C (Vat / Direct)",
+      "recommended_pressure": "0.0 bar",
+      "recommended_speed": "60 to 100 m/min (Warp tension 150 to 350 N)",
+      "recommended_liquor_ratio": "1:4 MLR"
+    },
+    "maintenance": {
+      "daily_checks": "Inspect main drive roller rubbers, check expander bar alignment",
+      "weekly_checks": "Inspect tension load cells, check hood door steam seals",
+      "monthly_checks": "Calibrate warp tension load cells and temperature sensor",
+      "calibration_requirements": "Quarterly tension load cell calibration"
+    },
+    "failure_information": {
+      "common_faults": "Selvedge curling, end-to-end shade variation, warp streakiness",
+      "alarm_conditions": "Tension limit exceeded (>500N), passage count error, hood open during 95\u00b0C",
+      "failure_causes": "Uneven winding tension between main rollers, speed variation",
+      "troubleshooting": "Zero load cell sensors; adjust bowing expander roller"
+    },
+    "safety": {
+      "safety_limits": "Max temp 98\u00b0C, Max roll diameter 1100 mm",
+      "emergency_shutdown_conditions": "Emergency stop bar triggered by operator, roll overrun",
+      "ppe_requirements": "Safety glasses, heat gloves, chemical boots"
+    },
+    "ai_constraints": {
+      "machine_operating_rules": [
+        "IF fabric_structure == 'Knit' THEN REJECT (selvedge curling hazard)",
+        "ASSERT warp_tension_N >= 100 AND warp_tension_N <= 400",
+        "IF process == 'Vat_Dyeing' THEN closed_hood_steam_injection MUST BE ACTIVE"
+      ],
+      "parameter_limits": {
+        "max_warp_tension_N": 450,
+        "min_warp_tension_N": 80,
+        "max_fabric_speed_m_per_min": 120,
+        "max_roll_diameter_mm": 1100
+      },
+      "recommended_operating_ranges": {
+        "fabric_speed_m_per_min": [
+          60,
+          90
+        ],
+        "trough_liquor_ratio": [
+          3.0,
+          4.5
+        ]
+      },
+      "constraint_equations": [
+        "Passage_Time_Minutes = Total_Fabric_Length_m / Running_Speed_m_per_min",
+        "ASSERT Warp_Tension_N <= 450"
+      ],
+      "interlock_conditions": [
+        "Main rollers CANNOT reverse direction unless Speed < 5 m/min",
+        "Steam valve closes if Enclosure_Hood is OPEN"
+      ],
+      "decision_rules": [
+        "REJECT recipe IF target_temperature > 98\u00b0C",
+        "REJECT recipe IF fabric_type contains 'Knit'"
+      ],
+      "best_operating_practices": [
+        "Keep enclosure hood tightly closed during 95\u00b0C holds to prevent edge cooling and listing defects",
+        "Ensure equal number of passages (ends) are run for dye addition and washing phases"
+      ]
+    }
+  },
+  {
+    "machine_details": {
+      "machine_name": "Continuous Pad-Steam Dyeing Range",
+      "machine_type": "Continuous Open-Width Pad-Steam Dyeing Line",
+      "manufacturer": "K\u00fcstners Textile Machinery / Benninger",
+      "model": "PST-KUST-600",
+      "year": "2021"
+    },
+    "capacity": {
+      "minimum_batch_size": "1000 meters (Continuous run)",
+      "maximum_batch_size": "50,000+ meters continuous production run",
+      "fabric_capacity": "Continuous production line (Speed 30 - 80 m/min)",
+      "liquor_capacity": "Pad Trough 15 to 25 Liters (Low volume anti-tailing trough)"
+    },
+    "operating_limits": {
+      "minimum_temperature": "20 \u00b0C",
+      "maximum_temperature": "105 \u00b0C Saturated Steamer",
+      "minimum_pressure": "0.0 bar",
+      "maximum_pressure": "5.0 bar Pad Mangle Nip Pressure",
+      "maximum_speed": "80 m/min line speed",
+      "heating_rate": "Instantaneous Steam Injection",
+      "cooling_rate": "Continuous counter-flow wash boxes"
+    },
+    "process_compatibility": {
+      "supported_fabric_types": "100% Woven Cotton, P/C Blends, Linen, Denim, Workwear Bottom-weights",
+      "supported_dye_types": "Vat Dyes, Reactive Dyes, Sulfur Dyes",
+      "supported_chemicals": "Caustic Soda, Sodium Hydrosulfite, Salt, Soda Ash, H2O2, Migration Inhibitors",
+      "suitable_processes": "Continuous Pigment Padding, Chemical Reduction Steaming, Continuous Oxidation & Washing"
+    },
+    "machine_constraints": {
+      "maximum_load": "Continuous line operation",
+      "minimum_load": "1000 meters run to justify chemical pad trough setup",
+      "temperature_restrictions": "Steamer temp strictly 102\u00b0C - 104\u00b0C saturated steam",
+      "pressure_restrictions": "Pad mangle nip pressure 2.5 to 4.5 bar",
+      "chemical_restrictions": "Oxygen concentration inside steamer MUST be < 0.1% for Vat dyes",
+      "fabric_restrictions": "Open-width woven fabrics only",
+      "liquor_ratio_limits": "Padding Pick-up Expression 60% to 75% wet pick-up"
+    },
+    "performance": {
+      "water_consumption": "15 to 25 Liters per kg of fabric (High efficiency counter-flow washers)",
+      "steam_consumption": "1.5 to 2.2 kg steam per kg fabric",
+      "power_consumption": "65 kW total multi-drive synchronized motor line",
+      "cycle_time": "Continuous (Speed 40 m/min)",
+      "efficiency": "94% OEE on long production runs"
+    },
+    "sensors": {
+      "temperature_sensor": "Multi-point Steamer PT100 Sensors & IR Fabric Temp Sensor",
+      "pressure_sensor": "Pad Roller Nip Pneumatic Pressure Transmitters",
+      "flow_sensor": "Chemical Dosing Flow Meters & Wash Box Water Meters",
+      "ph_sensor": "Continuous Wash Box pH Transmitter",
+      "conductivity_sensor": "Wash Box Salt Conductivity Sensor",
+      "level_sensor": "Pad Trough Ultrasonic Level Sensor"
+    },
+    "operating_parameters": {
+      "recommended_temperature": "Steamer 102\u00b0C | IR Dryer 120\u00b0C | Washers 95\u00b0C",
+      "recommended_pressure": "Pad Mangle 3.5 bar pneumatic nip",
+      "recommended_speed": "40 to 60 m/min line speed",
+      "recommended_liquor_ratio": "65% Wet Pick-Up Expression"
+    },
+    "maintenance": {
+      "daily_checks": "Inspect pad mangle rubber roll surfaces, check steamer water lock seals",
+      "weekly_checks": "Inspect swimming roller deflection pneumatic seals, test IR pre-dryer sensors",
+      "monthly_checks": "Calibrate pad mangle nip pressure profile, calibrate steamer temp probes",
+      "calibration_requirements": "Semi-annual line synchronization and nip pressure calibration"
+    },
+    "failure_information": {
+      "common_faults": "Head-to-tail shade variation (tailing), center-to-selvedge shade variation, oxidation specks",
+      "alarm_conditions": "Steamer temp < 101\u00b0C, Steamer O2 > 0.2%, Pad trough level low, Line speed mismatch",
+      "failure_causes": "Trough liquor replacement time > 45s, pad roll deflection, steamer air ingress",
+      "troubleshooting": "Adjust trough volume displacement insert; re-crown swimming roll; seal steamer entry"
+    },
+    "safety": {
+      "safety_limits": "Max steamer temp 105\u00b0C, Max pad nip 5.0 bar, Emergency cord full line trip",
+      "emergency_shutdown_conditions": "Emergency trip cord pulled along line, IR pre-dryer fire alarm, steamer lock failure",
+      "ppe_requirements": "Full face shield, chemical aprons, rubber boots, gas monitor for SO2"
+    },
+    "ai_constraints": {
+      "machine_operating_rules": [
+        "ASSERT trough_liquor_replacement_time_seconds <= 30",
+        "IF dye_type == 'Vat' THEN steamer_o2_percent MUST BE < 0.1%",
+        "ASSERT wet_pick_up_percent >= 60 AND wet_pick_up_percent <= 75"
+      ],
+      "parameter_limits": {
+        "max_line_speed_m_per_min": 80,
+        "min_steamer_temp_c": 101.5,
+        "max_steamer_temp_c": 104.5,
+        "max_trough_volume_liters": 25
+      },
+      "recommended_operating_ranges": {
+        "pad_nip_pressure_bar": [
+          3.0,
+          4.0
+        ],
+        "steamer_dwell_time_seconds": [
+          45,
+          75
+        ]
+      },
+      "constraint_equations": [
+        "Replacement_Time_s = (Trough_Volume_L * 60) / (Line_Speed_m_min * Fabric_Weight_kg_m * (PickUp_Percent / 100))",
+        "ASSERT Replacement_Time_s <= 30",
+        "Wet_PickUp_Percent = ((Wet_Weight - Dry_Weight) / Dry_Weight) * 100"
+      ],
+      "interlock_conditions": [
+        "Chemical pad trough feed valve SHUTS OFF if Line_Speed < 5 m/min",
+        "IR Pre-dryer power CUT OFF automatically if Fabric_Motion_Sensor == STOPPED (fire prevention)"
+      ],
+      "decision_rules": [
+        "REJECT run IF batch_length_meters < 1000",
+        "REJECT recipe IF replacement_time_seconds > 45"
+      ],
+      "best_operating_practices": [
+        "Maintain IR pre-dryer power to ensure fabric moisture drops to 25% before cylinder dryer contact",
+        "Use swimming roll pneumatic pressure control to maintain uniform nip pick-up across 1.8m width"
+      ]
+    }
+  }
+]

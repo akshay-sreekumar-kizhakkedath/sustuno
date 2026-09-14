@@ -1,0 +1,32 @@
+{
+  "active_version": "dye_shade_model_v001",
+  "status": "available",
+  "meta": {
+    "model_version": "dye_shade_model_v001",
+    "dataset_version": "demo_synthetic_dataset_v001",
+    "feature_schema_version": "v1.0.0",
+    "training_timestamp": "2026-09-14T05:57:06.252042+00:00",
+    "model_type": "MultiOutputRegressor(RandomForestRegressor)",
+    "number_of_training_samples": 320,
+    "metrics": {
+      "mae": {
+        "L": 3.4918596874999963,
+        "a": 4.4233028125,
+        "b": 5.995640937499999
+      },
+      "r2": {
+        "L": 0.9184964085147931,
+        "a": 0.854450850806054,
+        "b": 0.8458380120396493
+      },
+      "delta_e_76": {
+        "mean": 9.427435724356112,
+        "median": 8.50517046096396,
+        "max": 28.41614054195255,
+        "pct_le_1_0": 0.0,
+        "pct_le_2_0": 0.3125
+      }
+    },
+    "artifact_path": "D:\\SUSTUNO\\dash board\\ml\\models\\demo\\dye_shade_model_v001\\model.joblib"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "basic_information": {
+    "recipe_id": "REC-VAT-005",
+    "recipe_name": "Continuous Pad-Steam Vat Dyeing of 100% Cotton Woven Bottoms",
+    "fabric_type": "100% Cotton Heavy Canvas / Twill Woven",
+    "fabric_gsm": "320 GSM",
+    "fabric_weight": "1200 kg (Continuous Run 3500 meters)",
+    "shade_name": "Khaki Drab",
+    "shade_depth": "Medium (18 g/L Vat Dye)",
+    "end_use": "Military Uniforms & Heavy Work Trousers"
+  },
+  "dye_information": {
+    "dye_type": "Insoluble Anthraquinone Vat Dye Pigment",
+    "dye_name": "Vat Olive Green (10 g/L) + Vat Brown 1 (5 g/L) + Vat Yellow 2 (3 g/L)",
+    "dye_concentration": "18 g/L total dye liquor concentration",
+    "dye_combination": "Continuous Vat Trichromatic Pigment Combination",
+    "dye_manufacturer": "Dystar Indanthren"
+  },
+  "chemical_information": [
+    {
+      "chemical_name": "Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38\u00b0B\u00e9",
+      "chemical_function": "Chemical Reduction Pad liquor; converts insoluble vat pigment to soluble leuco form inside steamer",
+      "dosage": "40 g/L Hydros + 45 mL/L Caustic Soda 38\u00b0B\u00e9",
+      "addition_sequence": "Prepared in chemical padder trough continuously metered",
+      "compatibility": "Must be maintained under strict reducing conditions",
+      "incompatible_chemicals": "Air / Oxygen, acids"
+    },
+    {
+      "chemical_name": "Polymeric Migration Inhibitor",
+      "chemical_function": "Prevents vat dye pigment migration during intermediate drying phase",
+      "dosage": "10 g/L",
+      "addition_sequence": "Added directly to dye pigment pad liquor",
+      "compatibility": "Compatible with non-ionic wetting agents",
+      "incompatible_chemicals": "Strong electrolytes"
+    },
+    {
+      "chemical_name": "Hydrogen Peroxide (35%) + Acetic Acid",
+      "chemical_function": "Oxidation bath; re-oxidizes soluble leuco vat dye back to insoluble pigment inside fiber",
+      "dosage": "3.0 mL/L H2O2 + 1.5 mL/L Acetic Acid",
+      "addition_sequence": "Dosed in 1st wash box after steaming at 60\u00b0C",
+      "compatibility": "Oxidizing conditions",
+      "incompatible_chemicals": "Reducing agents (Hydros)"
+    }
+  ],
+  "process_parameters": {
+    "temperature_profile": "Pad Pigment @ 25\u00b0C -> IR Pre-dry -> Hot Air Dry @ 110\u00b0C -> Chemical Pad @ 25\u00b0C -> Steamer @ 102\u00b0C (45s) -> Oxidation @ 60\u00b0C -> Soap @ 95\u00b0C",
+    "heating_rate": "Instantaneous Steam Injection",
+    "cooling_rate": "Continuous Wash Box Counter-flow Cooling",
+    "time": "Fabric Speed: 40 m/min | Steamer Dwell Time: 45 seconds",
+    "ph": "Reduction Steaming pH: 13.0 | Oxidation pH: 4.5 - 5.5 | Final Wash pH: 6.5",
+    "liquor_ratio": "Continuous Padding (65% Wet Pick-Up Expression)",
+    "pressure": "Pad Mangle Nip Pressure: 3.5 bar | Steamer Pressure: Atmospheric (Positively sealed)"
+  },
+  "process_steps": {
+    "pretreatment": "Singed, enzymatic desized, continuous bleached & mercerized woven canvas",
+    "dye_addition": "Pad dye pigment liquor at 65% wet pick-up $\\rightarrow$ Pass through IR pre-dryer",
+    "salt_addition": "Glauber's salt (20 g/L) added to chemical reduction pad bath to suppress dye stripping",
+    "alkali_addition": "Caustic Soda (45 mL/L) continuously fed to chemical pad trough",
+    "washing": "Cold water overflow rinse immediately exiting steamer",
+    "soaping": "Oxidize with H2O2 at 60\u00b0C $\\rightarrow$ Hot soaping at 95\u00b0C in continuous 4-chamber washer",
+    "neutralization": "Final wash box neutralization with Acetic Acid",
+    "drying": "Continuous steam can dryer stack (24 cylinders @ 3.0 bar steam)",
+    "finishing": "Apply Water-repellent / Sanforized anti-shrinkage mechanical finishing"
+  },
+  "machine_requirement": {
+    "machine_type": "Continuous Pad-Steam Dyeing Range",
+    "machine_capacity": "Continuous Run (Speed 30 - 80 m/min)",
+    "recommended_machine": "K\u00fcstners / Benninger Continuous Pad-Steam Line",
+    "loading_percentage": "Continuous Operation (100% line utilization)"
+  },
+  "quality_parameters": {
+    "shade_accuracy": "DE < 0.4 (CMC 2:1 head-to-tail and side-to-side)",
+    "color_fastness": "Grade 5 (Outstanding overall fastness)",
+    "wash_fastness": "Grade 5 (ISO 105-C06 at 95\u00b0C boiled wash)",
+    "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 4",
+    "light_fastness": "Grade 7-8 (Maximum light fastness for military spec)",
+    "uniformity": "Zero center-to-selvedge or head-to-tail shade variation"
+  },
+  "defects": {
+    "common_defects": "Tailing (Shade lighter at end of roll), Side-to-Center Shade Variation, Oxidation Specks",
+    "causes": "High pad trough volume (>25L), non-uniform pad mangle crown nip pressure, oxygen ingress in steamer",
+    "corrective_actions": "Install trough displacement wedge (renewal time <30s); adjust swimming roller pneumatic profile; seal steamer water locks"
+  },
+  "safety": {
+    "ppe_required": "Full face shield, heavy butyl rubber aprons, chemical resistant boots, respirator",
+    "hazardous_chemicals": "Concentrated Caustic Soda 38\u00b0B\u00e9, Sodium Hydrosulfite, Hydrogen Peroxide 35%",
+    "safety_precautions": "Continuous toxic gas monitoring for sulfur dioxide (SO2) near steamer exit"
+  },
+  "references": {
+    "source": "Continuous Vat Dyeing Industrial Handbook",
+    "standard": "ISO 105-C06 / ISO 105-B02 / AATCC 190",
+    "notes": "Vat dyes provide unmatched chlorine bleach fastness and weathering resistance"
+  }
+}

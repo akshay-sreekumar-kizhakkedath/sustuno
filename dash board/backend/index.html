@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aquatex Backend Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background: #0b0d14;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2.5rem 2rem;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-bottom: 1px solid #1e293b;
+    }
+    header h1 { font-size: 1.8rem; letter-spacing: -0.02em; }
+    header p { color: #94a3b8; margin-top: 0.4rem; font-size: 0.95rem; }
+    .badge {
+      display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px;
+      background: #10b981; color: #fff; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.03em; margin-top: 1rem;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem; }
+    .cards { display: grid; gap: 1rem; }
+    .card {
+      background: #111827; border: 1px solid #1f2937; border-radius: 1rem;
+      padding: 1.25rem; transition: border-color 0.15s;
+    }
+    .card:hover { border-color: #334155; }
+    .card h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+    .card p { color: #94a3b8; font-size: 0.85rem; }
+    .card a {
+      display: inline-block; margin-top: 0.75rem;
+      color: #38bdf8; text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    }
+    .card a:hover { text-decoration: underline; }
+    hr { border: 0; border-top: 1px solid #1f2937; margin: 2rem 0; }
+    .live { color: #10b981; font-weight: 600; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Aquatex AI — Backend Server</h1>
+    <p>Textile wastewater treatment dashboard backend</p>
+    <div class="badge">Running on localhost:5000</div>
+  </header>
+
+  <main>
+    <h2 style="margin-bottom:1rem;">API Endpoints</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Health Check</h3>
+        <p>Server status and timestamp</p>
+        <a href="http://localhost:5000/api/health" target="_blank">GET /api/health</a>
+      </div>
+      <div class="card">
+        <h3>ETP Stages</h3>
+        <p>Wastewater treatment process stages</p>
+        <a href="http://localhost:5000/api/etp/stages" target="_blank">GET /api/etp/stages</a>
+      </div>
+      <div class="card">
+        <h3>ETP Rules</h3>
+        <p>Operating rules for each stage</p>
+        <a href="http://localhost:5000/api/etp/rules" target="_blank">GET /api/etp/rules</a>
+      </div>
+      <div class="card">
+        <h3>Recipes</h3>
+        <p>Dyeing recipes from knowledge base</p>
+        <a href="http://localhost:5000/api/recipes" target="_blank">GET /api/recipes</a>
+      </div>
+      <div class="card">
+        <h3>Knowledge Search</h3>
+        <p>Search the master KB (619 records indexed)</p>
+        <a href="http://localhost:5000/api/search?q=chemical" target="_blank">GET /api/search?q=chemical</a>
+      </div>
+      <div class="card">
+        <h3>IoT Telemetry</h3>
+        <p>Real-time simulated sensor data</p>
+        <a href="http://localhost:5000/api/iot/telemetry" target="_blank">GET /api/iot/telemetry</a>
+      </div>
+      <div class="card">
+        <h3>AI Prediction</h3>
+        <p>Predict dyeing parameters (POST with JSON body)</p>
+        <a href="#" onclick="document.getElementById('pred-result').innerText='Run: curl -X POST http://localhost:5000/api/predict/dyeing -H "Content-Type: application/json" -d \"{\\"fabric\\":\\"Cotton\\"}\"'; return false;">POST /api/predict/dyeing</a>
+        <div id="pred-result" style="margin-top:0.5rem; font-size:0.8rem; color:#94a3b8;"></div>
+      </div>
+    </div>
+
+    <hr>
+    <p style="font-size:0.85rem; color:#64748b;">
+      Backend server is running. Click any link above to test endpoints. If nothing loads, the server may have stopped — restart with: <code>node server.js</code> inside <code>D:\SUSTUNO\dash board\backend</code>
+    </p>
+    <p style="font-size:0.85rem; color:#64748b; margin-top:0.5rem;">
+      <span class="live">● LIVE</span> — 619 knowledge records indexed
+    </p>
+  </main>
+</body>
+</html>

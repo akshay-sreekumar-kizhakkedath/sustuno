@@ -1,0 +1,94 @@
+{
+  "basic_information": {
+    "recipe_id": "REC-PC-004",
+    "recipe_name": "Two-Bath HTHP Disperse & Reactive Dyeing of P/C 65/35 Blends",
+    "fabric_type": "65% Polyester / 35% Cotton Woven Twill",
+    "fabric_gsm": "240 GSM",
+    "fabric_weight": "400 kg",
+    "shade_name": "Forest Green",
+    "shade_depth": "Dark (3.5% total owf)",
+    "end_use": "Workwear & Industrial Uniforms"
+  },
+  "dye_information": {
+    "dye_type": "Disperse Dye (PES component) + Bifunctional Reactive Dye (Cotton component)",
+    "dye_name": "Disperse Yellow 54 + Disperse Blue 60 (Step 1) | Reactive Yellow 84 + Reactive Blue 21 (Step 2)",
+    "dye_concentration": "Disperse 2.0% owf + Reactive 1.5% owf",
+    "dye_combination": "Two-Stage Blend Combination",
+    "dye_manufacturer": "Dystar Dianix & Levafix"
+  },
+  "chemical_information": [
+    {
+      "chemical_name": "Dispersing Agent + Acetic Acid (Step 1)",
+      "chemical_function": "Protects disperse dyes and maintains pH 4.5 at 130\u00b0C",
+      "dosage": "1.5 g/L Disperser + 1.0 g/L Acetic Acid",
+      "addition_sequence": "Added in initial PES dyeing bath at 50\u00b0C",
+      "compatibility": "Compatible with disperse auxiliaries",
+      "incompatible_chemicals": "Strong alkalis"
+    },
+    {
+      "chemical_name": "Sodium Hydrosulfite + Caustic Soda (Intermediate RC)",
+      "chemical_function": "Removes disperse dye stained on cotton fibers before reactive dyeing",
+      "dosage": "2.0 g/L Hydros + 2.0 g/L Caustic Soda",
+      "addition_sequence": "Intermediate Reduction Clearing bath at 80\u00b0C for 20 min",
+      "compatibility": "Alkaline reducing bath",
+      "incompatible_chemicals": "Acids"
+    },
+    {
+      "chemical_name": "Glauber's Salt + Soda Ash (Step 2)",
+      "chemical_function": "Exhaustion electrolyte and alkali fixation for reactive dye on cotton component",
+      "dosage": "50 g/L Salt + 15 g/L Soda Ash",
+      "addition_sequence": "Dosed in second bath at 60\u00b0C",
+      "compatibility": "Compatible with reactive dyes",
+      "incompatible_chemicals": "Disperse dyes"
+    }
+  ],
+  "process_parameters": {
+    "temperature_profile": "Stage 1 (PES): 60\u00b0C -> 130\u00b0C @ 1.5\u00b0C/min (hold 45m) -> Cool 80\u00b0C -> RC @ 80\u00b0C -> Stage 2 (Cotton): 60\u00b0C Salt/Alkali hold 60m -> Soap @ 95\u00b0C",
+    "heating_rate": "1.5 \u00b0C/min for Stage 1 | 1.5 \u00b0C/min for Stage 2",
+    "cooling_rate": "1.5 \u00b0C/min",
+    "time": "Total Duration: 360 minutes (6.0 hours total cycle)",
+    "ph": "Stage 1 pH: 4.5 - 5.0 | RC pH: 11.5 | Stage 2 pH: 10.8 - 11.2",
+    "liquor_ratio": "1:7 MLR",
+    "pressure": "Stage 1: 3.0 bar at 130\u00b0C | Stage 2: 1.0 bar Atmospheric"
+  },
+  "process_steps": {
+    "pretreatment": "Singeing, desizing, scouring, and Mercerizing (mercerization enhances cotton absorbency)",
+    "dye_addition": "Dose Disperse dye at 50\u00b0C (Stage 1); Dose Reactive dye at 50\u00b0C (Stage 2 after RC)",
+    "salt_addition": "Dose 50 g/L Glauber's salt in Stage 2 before alkali addition",
+    "alkali_addition": "Dose 15 g/L Soda Ash exponentially over 30 min at 60\u00b0C in Stage 2",
+    "washing": "Intermediate hot wash after RC; final cold wash after reactive fixation",
+    "soaping": "Primary soaping at 95\u00b0C for 15 min to remove unfixed reactive dye",
+    "neutralization": "Acid neutralize with Acetic Acid (1.0 g/L) at 50\u00b0C",
+    "drying": "Continuous cylinder dryer followed by Stenter frame at 150\u00b0C",
+    "finishing": "Apply Durable Press Resin Finish or Softener"
+  },
+  "machine_requirement": {
+    "machine_type": "HTHP Dual-Ladd Jet Dyeing Machine",
+    "machine_capacity": "500 kg nominal capacity",
+    "recommended_machine": "Fong's JUMBOTEC HTHP Jet",
+    "loading_percentage": "80.0%"
+  },
+  "quality_parameters": {
+    "shade_accuracy": "DE < 0.6 (CMC 2:1)",
+    "color_fastness": "Grade 4-5",
+    "wash_fastness": "Grade 4-5 (ISO 105-C06 at 60\u00b0C)",
+    "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 3-4",
+    "light_fastness": "Grade 5 (ISO 105-B02)",
+    "uniformity": "Perfect solid shade matching between polyester and cotton components"
+  },
+  "defects": {
+    "common_defects": "Cross-staining / Cross-shade mismatch between PES and Cotton, Low Rub Fastness",
+    "causes": "Incomplete reduction clearing of disperse dye off cotton; incorrect dye ratio",
+    "corrective_actions": "Ensure thorough RC at 80\u00b0C; recalibrate lab match prediction for individual fiber components"
+  },
+  "safety": {
+    "ppe_required": "Chemical aprons, face shields, heavy rubber boots, thermal gloves",
+    "hazardous_chemicals": "Caustic Soda, Sodium Hydrosulfite, Acetic Acid, Soda Ash",
+    "safety_precautions": "High thermal safety precautions during 130\u00b0C pressure drain phases"
+  },
+  "references": {
+    "source": "Polyester/Cellulosic Blend Dyeing Technical Guide",
+    "standard": "ISO 105-C06 / AATCC 61 / ISO 105-X12",
+    "notes": "Mercerization of cotton component prior to dyeing improves color yield by 20-30%"
+  }
+}

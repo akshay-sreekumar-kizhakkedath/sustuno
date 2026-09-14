@@ -1,0 +1,284 @@
+{
+  "total_records": 619,
+  "candidate_count": 336,
+  "not_candidate_count": 270,
+  "needs_expert_review_count": 13,
+  "potential_conflict_count": 0,
+  "by_domain": {
+    "recipe": 18,
+    "dyeing": 216,
+    "chemical": 26,
+    "machine": 164,
+    "wastewater": 16,
+    "etp": 179
+  },
+  "by_knowledge_type": {
+    "recipe": 28,
+    "fact": 240,
+    "compatibility": 13,
+    "exception": 13,
+    "process_step": 81,
+    "constraint": 135,
+    "experimental_result": 30,
+    "range": 65,
+    "formula": 14
+  },
+  "by_potential_rule_category": {
+    "recipe_constraint": 28,
+    "None": 418,
+    "compatibility_rule": 13,
+    "process_sequence_rule": 81,
+    "parameter_range": 65,
+    "formula_rule": 14
+  },
+  "records_requiring_review": [
+    {
+      "knowledge_id": "KB-00005",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Glauber's Salt (Sodium Sulfate Na2SO4)",
+      "property": "incompatible chemicals",
+      "value": "Cationic fixing agents, strong concentrated acids",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Cationic fixing agents, strong concentrated acids"
+      }
+    },
+    {
+      "knowledge_id": "KB-00008",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Soda Ash (Sodium Carbonate Na2CO3)",
+      "property": "incompatible chemicals",
+      "value": "Direct acids, oxidizing agents",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Direct acids, oxidizing agents"
+      }
+    },
+    {
+      "knowledge_id": "KB-00037",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Naphthalene Sulfonate Dispersing Agent",
+      "property": "incompatible chemicals",
+      "value": "Cationic surfactants",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Cationic surfactants"
+      }
+    },
+    {
+      "knowledge_id": "KB-00040",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Acetic Acid (80%) + Sodium Acetate Buffer",
+      "property": "incompatible chemicals",
+      "value": "Alkalis",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Alkalis"
+      }
+    },
+    {
+      "knowledge_id": "KB-00069",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Ammonium Sulfate (NH4)2SO4 (pH Buffer)",
+      "property": "incompatible chemicals",
+      "value": "Alkalis",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Alkalis"
+      }
+    },
+    {
+      "knowledge_id": "KB-00072",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Anionic Retarding / Leveling Agent",
+      "property": "incompatible chemicals",
+      "value": "Cationic softeners",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Cationic softeners"
+      }
+    },
+    {
+      "knowledge_id": "KB-00075",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Syntan After-treating Fixing Agent",
+      "property": "incompatible chemicals",
+      "value": "Non-ionic surfactants",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Non-ionic surfactants"
+      }
+    },
+    {
+      "knowledge_id": "KB-00104",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Dispersing Agent + Acetic Acid (Step 1)",
+      "property": "incompatible chemicals",
+      "value": "Strong alkalis",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Strong alkalis"
+      }
+    },
+    {
+      "knowledge_id": "KB-00107",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Sodium Hydrosulfite + Caustic Soda (Intermediate RC)",
+      "property": "incompatible chemicals",
+      "value": "Acids",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Acids"
+      }
+    },
+    {
+      "knowledge_id": "KB-00110",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Glauber's Salt + Soda Ash (Step 2)",
+      "property": "incompatible chemicals",
+      "value": "Disperse dyes",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Disperse dyes"
+      }
+    },
+    {
+      "knowledge_id": "KB-00139",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé",
+      "property": "incompatible chemicals",
+      "value": "Air / Oxygen, acids",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Air / Oxygen, acids"
+      }
+    },
+    {
+      "knowledge_id": "KB-00142",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Polymeric Migration Inhibitor",
+      "property": "incompatible chemicals",
+      "value": "Strong electrolytes",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Strong electrolytes"
+      }
+    },
+    {
+      "knowledge_id": "KB-00145",
+      "domain": "chemical",
+      "knowledge_type": "exception",
+      "subject": "Hydrogen Peroxide (35%) + Acetic Acid",
+      "property": "incompatible chemicals",
+      "value": "Reducing agents (Hydros)",
+      "reason_for_review": "knowledge_type \"exception\" marked for expert review",
+      "source": {
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "file_type": "other",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Reducing agents (Hydros)"
+      }
+    }
+  ],
+  "potential_conflicts": []
+}

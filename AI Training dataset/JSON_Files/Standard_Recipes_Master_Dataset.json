@@ -1,0 +1,456 @@
+[
+  {
+    "basic_information": {
+      "recipe_id": "REC-COT-001",
+      "recipe_name": "Standard Exhaust Dyeing of Cotton Knits with Bifunctional Reactive Dyes",
+      "fabric_type": "100% Cotton Single Jersey Knit",
+      "fabric_gsm": "180 GSM",
+      "fabric_weight": "250 kg",
+      "shade_name": "Royal Blue",
+      "shade_depth": "Medium (2.0% owf)",
+      "end_use": "Apparel / T-Shirts"
+    },
+    "dye_information": {
+      "dye_type": "Bifunctional Reactive Dye (VS / MCT Chemistry)",
+      "dye_name": "Reactive Blue 19 (1.2% owf) + Reactive Red 195 (0.5% owf) + Reactive Yellow 145 (0.3% owf)",
+      "dye_concentration": "2.0% owf total dye solids",
+      "dye_combination": "Trichromatic Combination (Blue/Red/Yellow)",
+      "dye_manufacturer": "Dystar / Huntsman Chemical"
+    },
+    "chemical_information": [
+      {
+        "chemical_name": "Glauber's Salt (Sodium Sulfate Na2SO4)",
+        "chemical_function": "Electrolyte to drive dye exhaustion onto fiber surface",
+        "dosage": "45 g/L",
+        "addition_sequence": "Added in 2 equal splits at 40\u00b0C prior to alkali dosing",
+        "compatibility": "Compatible with non-ionic and anionic wetting agents",
+        "incompatible_chemicals": "Cationic fixing agents, strong concentrated acids"
+      },
+      {
+        "chemical_name": "Soda Ash (Sodium Carbonate Na2CO3)",
+        "chemical_function": "Alkali buffer to generate cellulosate ions for covalent dye fixation",
+        "dosage": "15 g/L",
+        "addition_sequence": "Dosed exponentially over 30 min after 20 min salt exhaustion hold",
+        "compatibility": "Compatible with standard reactive dye auxiliaries",
+        "incompatible_chemicals": "Direct acids, oxidizing agents"
+      }
+    ],
+    "process_parameters": {
+      "temperature_profile": "Start 40\u00b0C -> Heat to 60\u00b0C @ 1.5\u00b0C/min -> Hold 60 min -> Cool to 50\u00b0C @ 2.0\u00b0C/min -> Soap @ 95\u00b0C",
+      "heating_rate": "1.5 \u00b0C/min",
+      "cooling_rate": "2.0 \u00b0C/min",
+      "time": "Total Duration: 210 minutes (3.5 hours)",
+      "ph": "Exhaustion pH: 6.8 - 7.2 | Fixation pH: 10.8 - 11.2 | Neutralized pH: 6.0 - 6.5",
+      "liquor_ratio": "1:8 MLR",
+      "pressure": "1.0 bar (Atmospheric)"
+    },
+    "process_steps": {
+      "pretreatment": "Scoured & bleached cotton; core pH 6.5; residual H2O2 < 5 ppm",
+      "dye_addition": "Dissolve dyes in warm water (50\u00b0C), strain through mesh, dose over 10 min at 40\u00b0C",
+      "salt_addition": "Dose Glauber's salt (45 g/L) in two portions (50% at 40\u00b0C, 50% at 60\u00b0C)",
+      "alkali_addition": "Dose Soda Ash (15 g/L) exponentially over 30 min once 60\u00b0C is reached",
+      "washing": "Drain fixation bath -> Cold rinse (10 min) -> Hot rinse at 70\u00b0C (10 min)",
+      "soaping": "Neutralize with Acetic Acid (1.0 g/L) -> Soap with Polymeric Agent at 95\u00b0C for 15 min",
+      "neutralization": "Final rinse with Acetic Acid (0.5 g/L) to bring core fabric pH to 6.0 - 6.5",
+      "drying": "Relaxation dryer or Stenter frame at 120\u00b0C to target 6% moisture",
+      "finishing": "Apply 1.5% Bio-softener via padding or exhaust at 40\u00b0C"
+    },
+    "machine_requirement": {
+      "machine_type": "HTHP Soft-Flow / Jet Dyeing Machine",
+      "machine_capacity": "300 kg nominal capacity",
+      "recommended_machine": "Fong's / Thies Soft-Flow Jet Dyeing Vessel",
+      "loading_percentage": "83.3%"
+    },
+    "quality_parameters": {
+      "shade_accuracy": "DE < 0.6 (CMC 2:1 against standard master swatch)",
+      "color_fastness": "Grade 4-5",
+      "wash_fastness": "Grade 4-5 (ISO 105-C06 at 60\u00b0C)",
+      "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 3-4",
+      "light_fastness": "Grade 4 (ISO 105-B02)",
+      "uniformity": "Zero end-to-end or streakiness unlevelness"
+    },
+    "defects": {
+      "common_defects": "Patchiness / Unlevelness, Crease Marks, Low Wet Fastness",
+      "causes": "Rapid alkali addition, turn time > 120 s, incomplete removal of hydrolyzed dye",
+      "corrective_actions": "Leveling agent strip & redye; optimize exponential alkali dosing; ensure soaping at 95\u00b0C"
+    },
+    "safety": {
+      "ppe_required": "Chemical splash goggles, neoprene gloves, rubber apron, dust mask during dye powder weighing",
+      "hazardous_chemicals": "Sodium Carbonate (irritant), Glacial Acetic Acid (corrosive)",
+      "safety_precautions": "Operate eye wash station nearby; store acids and alkalis in separate bunded areas"
+    },
+    "references": {
+      "source": "SDC / AATCC Standard Reactive Dyeing Guidelines",
+      "standard": "ISO 105 / AATCC Test Method 61",
+      "notes": "Ensure total dissolved solids (TDS) of input water < 250 ppm and hardness < 10 ppm"
+    }
+  },
+  {
+    "basic_information": {
+      "recipe_id": "REC-PES-002",
+      "recipe_name": "HTHP Exhaust Dyeing of 100% Polyester Woven Fabric with Disperse Dyes",
+      "fabric_type": "100% Polyester Microfiber Woven Fabric",
+      "fabric_gsm": "140 GSM",
+      "fabric_weight": "300 kg",
+      "shade_name": "Dark Navy Blue",
+      "shade_depth": "Dark (4.0% owf)",
+      "end_use": "Activewear / Sportswear Jackets"
+    },
+    "dye_information": {
+      "dye_type": "High-Thermal Fastness Disperse Dye (SE / HW Type)",
+      "dye_name": "Disperse Blue 79 (2.8% owf) + Disperse Navy 56 (1.0% owf) + Disperse Rubine 56 (0.2% owf)",
+      "dye_concentration": "4.0% owf total dye solids",
+      "dye_combination": "Trichromatic Disperse Combination",
+      "dye_manufacturer": "Dystar Dianix / Huntsman Teratop"
+    },
+    "chemical_information": [
+      {
+        "chemical_name": "Naphthalene Sulfonate Dispersing Agent",
+        "chemical_function": "Keeps non-ionic disperse dye particles suspended in water at 130\u00b0C",
+        "dosage": "1.5 g/L",
+        "addition_sequence": "Added to dye bath at 50\u00b0C before dye dispersion addition",
+        "compatibility": "Compatible with non-ionic and anionic leveling agents",
+        "incompatible_chemicals": "Cationic surfactants"
+      },
+      {
+        "chemical_name": "Acetic Acid (80%) + Sodium Acetate Buffer",
+        "chemical_function": "Maintains acidic bath pH to prevent disperse dye reduction",
+        "dosage": "1.0 g/L Acetic Acid + 0.5 g/L Sodium Acetate",
+        "addition_sequence": "Dosed during bath setup to establish target pH 4.5 - 5.0",
+        "compatibility": "Compatible with all disperse dye auxiliaries",
+        "incompatible_chemicals": "Alkalis"
+      }
+    ],
+    "process_parameters": {
+      "temperature_profile": "Start 60\u00b0C -> Heat to 90\u00b0C @ 2.0\u00b0C/min -> Heat to 130\u00b0C @ 1.0\u00b0C/min -> Hold 130\u00b0C for 45 min -> Cool to 80\u00b0C @ 1.5\u00b0C/min",
+      "heating_rate": "1.0 \u00b0C/min through critical plasticization strike zone (90\u00b0C to 130\u00b0C)",
+      "cooling_rate": "1.5 \u00b0C/min (controlled cooling to prevent oligomer precipitation)",
+      "time": "Total Duration: 180 minutes (3.0 hours)",
+      "ph": "Dyeing pH: 4.5 - 5.0 | Reduction Clearing pH: 11.5 - 12.0",
+      "liquor_ratio": "1:6 MLR",
+      "pressure": "2.8 to 3.2 bar pressurized vessel at 130\u00b0C"
+    },
+    "process_steps": {
+      "pretreatment": "Preshrunk and heat-set woven polyester; free of silicone knitting oils",
+      "dye_addition": "Disperse dyes pasted with warm water (50\u00b0C), high-shear mixed, filtered into tank",
+      "salt_addition": "N/A (Electrolytes not used in disperse dyeing)",
+      "alkali_addition": "N/A during dyeing bath; Caustic Soda added during Reduction Clearing",
+      "washing": "Drain 130\u00b0C bath at 80\u00b0C -> Hot rinse at 70\u00b0C",
+      "soaping": "Reduction Clearing: 2.5 g/L Hydros + 2.0 g/L NaOH + 1 g/L detergent at 80\u00b0C for 20 min",
+      "neutralization": "Drain RC bath -> Rinse -> Neutralize with 1.0 g/L Acetic Acid at 50\u00b0C for 10 min",
+      "drying": "Stenter frame drying and final heat-setting at 170\u00b0C for 30 seconds",
+      "finishing": "Apply 1.0% Hydrophilic moisture-wicking finish"
+    },
+    "machine_requirement": {
+      "machine_type": "HTHP Jet / Air-Jet Dyeing Machine",
+      "machine_capacity": "350 kg nominal capacity",
+      "recommended_machine": "Thies iMaster HTHP Jet Dyeing Vessel",
+      "loading_percentage": "85.7%"
+    },
+    "quality_parameters": {
+      "shade_accuracy": "DE < 0.5 (CMC 2:1)",
+      "color_fastness": "Grade 4-5",
+      "wash_fastness": "Grade 4-5 (ISO 105-C06)",
+      "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 4",
+      "light_fastness": "Grade 5-6",
+      "uniformity": "Completely streak-free and oligomer-free fabric surface"
+    },
+    "defects": {
+      "common_defects": "Oligomer White Powder Spotting, Color Specks, Thermal Translocation Unlevelness",
+      "causes": "Rapid cooling below 100\u00b0C, dye agglomeration, unstable pH > 5.5 during dyeing",
+      "corrective_actions": "Hot drain at 80\u00b0C; add high-temp dispersing agent; maintain pH strictly at 4.5"
+    },
+    "safety": {
+      "ppe_required": "Heat-resistant safety gloves, full face shield, protective chemical suit during sampling",
+      "hazardous_chemicals": "Sodium Hydrosulfite (spontaneously combustible when damp), Caustic Soda (corrosive)",
+      "safety_precautions": "Ensure vessel pressure gauge reads 0.0 bar before unlocking pneumatic door safety pin"
+    },
+    "references": {
+      "source": "Industrial Polyester HTHP Wet Processing Standards",
+      "standard": "ISO 105-X12 / AATCC 8 / ISO 105-B02",
+      "notes": "Monitor differential pressure across filter mesh to prevent dye aggregation"
+    }
+  },
+  {
+    "basic_information": {
+      "recipe_id": "REC-NYL-003",
+      "recipe_name": "Acid Dyeing of Nylon 6,6 Microfiber Knits",
+      "fabric_type": "85% Nylon 6,6 / 15% Spandex Warp Knit",
+      "fabric_gsm": "210 GSM",
+      "fabric_weight": "200 kg",
+      "shade_name": "Crimson Red",
+      "shade_depth": "Medium-Dark (2.5% owf)",
+      "end_use": "Swimwear & Athletic Compression Wear"
+    },
+    "dye_information": {
+      "dye_type": "Half-milling Acid Dye / 1:2 Metal Complex Dye",
+      "dye_name": "Acid Red 138 (2.0% owf) + Acid Orange 67 (0.5% owf)",
+      "dye_concentration": "2.5% owf total dye solids",
+      "dye_combination": "Acid Binary Color Combination",
+      "dye_manufacturer": "Huntsman Erionyl / Archroma Telon"
+    },
+    "chemical_information": [
+      {
+        "chemical_name": "Ammonium Sulfate (NH4)2SO4 (pH Buffer)",
+        "chemical_function": "Slow acid releaser; gradually lowers bath pH during heating to control strike rate",
+        "dosage": "2.0 g/L",
+        "addition_sequence": "Added at start of bath filling at 40\u00b0C",
+        "compatibility": "Compatible with anionic leveling agents",
+        "incompatible_chemicals": "Alkalis"
+      },
+      {
+        "chemical_name": "Anionic Retarding / Leveling Agent",
+        "chemical_function": "Competes for amine end-groups on Nylon to prevent streaky barre defects",
+        "dosage": "1.5 g/L",
+        "addition_sequence": "Dosed 10 min prior to dye addition at 40\u00b0C",
+        "compatibility": "Compatible with acid dyes",
+        "incompatible_chemicals": "Cationic softeners"
+      },
+      {
+        "chemical_name": "Syntan After-treating Fixing Agent",
+        "chemical_function": "Crosslinks dye molecules inside polyamide matrix to boost wash fastness",
+        "dosage": "3.0% owf",
+        "addition_sequence": "Applied in a fresh post-treatment bath at 70\u00b0C for 20 min at pH 4.5",
+        "compatibility": "Anionic compatibility",
+        "incompatible_chemicals": "Non-ionic surfactants"
+      }
+    ],
+    "process_parameters": {
+      "temperature_profile": "Start 40\u00b0C -> Heat to 98\u00b0C @ 1.0\u00b0C/min -> Hold 98\u00b0C for 45 min -> Cool to 70\u00b0C @ 1.5\u00b0C/min -> Syntan Fix @ 70\u00b0C",
+      "heating_rate": "1.0 \u00b0C/min (controlled rate above 70\u00b0C where dye uptake accelerates)",
+      "cooling_rate": "1.5 \u00b0C/min",
+      "time": "Total Duration: 165 minutes (2.75 hours)",
+      "ph": "Dyeing pH: 4.8 - 5.2 (Ammonium Sulfate) | Fixing pH: 4.5 (Acetic Acid)",
+      "liquor_ratio": "1:10 MLR",
+      "pressure": "1.0 bar (Atmospheric)"
+    },
+    "process_steps": {
+      "pretreatment": "Scoured at 70\u00b0C with non-ionic detergent; heat-set at 185\u00b0C to stabilize Spandex width",
+      "dye_addition": "Dissolve Acid dyes in boiling water, dilute to 50\u00b0C, dose into vessel over 15 min",
+      "salt_addition": "Glauber's salt (10 g/L) added as retarding agent to slow initial dye strike",
+      "alkali_addition": "N/A (Acid pH environment mandatory)",
+      "washing": "Drain dye bath at 70\u00b0C -> Cold rinse for 10 min",
+      "soaping": "Apply Syntan After-fixing agent (3% owf) at 70\u00b0C for 20 min at pH 4.5",
+      "neutralization": "Rinse in cold water; target fabric core pH 5.5",
+      "drying": "Stenter dryer at 130\u00b0C under low tension to protect Spandex elasticity",
+      "finishing": "Apply Fluorocarbon Water-repellent finish or Hydrophilic softener"
+    },
+    "machine_requirement": {
+      "machine_type": "Atmospheric Soft-Flow Jet Dyeing Machine",
+      "machine_capacity": "250 kg nominal capacity",
+      "recommended_machine": "Thies Soft-TRD Atmospheric Jet",
+      "loading_percentage": "80.0%"
+    },
+    "quality_parameters": {
+      "shade_accuracy": "DE < 0.5 (CMC 2:1)",
+      "color_fastness": "Grade 4-5",
+      "wash_fastness": "Grade 4-5 (ISO 105-C06 at 50\u00b0C after Syntan fixing)",
+      "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 4",
+      "light_fastness": "Grade 4-5",
+      "uniformity": "Zero barre or streakiness across warp knit loops"
+    },
+    "defects": {
+      "common_defects": "Barre Streakiness, Low Wet Fastness without Fixer, Elastane Degradation",
+      "causes": "Rapid heating > 70\u00b0C, omission of Syntan fixer, excessive temp > 105\u00b0C on Spandex",
+      "corrective_actions": "Use leveling agent at 98\u00b0C for 30 min migration hold; re-apply Syntan fixing agent"
+    },
+    "safety": {
+      "ppe_required": "Chemical goggles, nitrile gloves, apron",
+      "hazardous_chemicals": "Glacial Acetic Acid, Syntan Fixing Agent (skin sensitizer)",
+      "safety_precautions": "Avoid inhalation of acid vapors; maintain local exhaust ventilation"
+    },
+    "references": {
+      "source": "Polyamide Wet Processing & Fastness Optimization Manual",
+      "standard": "ISO 105-C06 / ISO 105-X12 / AATCC 157",
+      "notes": "Maintain strict pH monitoring as acid dye uptake increases exponentially below pH 5.0"
+    }
+  },
+  {
+    "basic_information": {
+      "recipe_id": "REC-PC-004",
+      "recipe_name": "Two-Bath HTHP Disperse & Reactive Dyeing of P/C 65/35 Blends",
+      "fabric_type": "65% Polyester / 35% Cotton Woven Twill",
+      "fabric_gsm": "240 GSM",
+      "fabric_weight": "400 kg",
+      "shade_name": "Forest Green",
+      "shade_depth": "Dark (3.5% total owf)",
+      "end_use": "Workwear & Industrial Uniforms"
+    },
+    "dye_information": {
+      "dye_type": "Disperse Dye (PES component) + Bifunctional Reactive Dye (Cotton component)",
+      "dye_name": "Disperse Yellow 54 + Disperse Blue 60 (Step 1) | Reactive Yellow 84 + Reactive Blue 21 (Step 2)",
+      "dye_concentration": "Disperse 2.0% owf + Reactive 1.5% owf",
+      "dye_combination": "Two-Stage Blend Combination",
+      "dye_manufacturer": "Dystar Dianix & Levafix"
+    },
+    "chemical_information": [
+      {
+        "chemical_name": "Dispersing Agent + Acetic Acid (Step 1)",
+        "chemical_function": "Protects disperse dyes and maintains pH 4.5 at 130\u00b0C",
+        "dosage": "1.5 g/L Disperser + 1.0 g/L Acetic Acid",
+        "addition_sequence": "Added in initial PES dyeing bath at 50\u00b0C",
+        "compatibility": "Compatible with disperse auxiliaries",
+        "incompatible_chemicals": "Strong alkalis"
+      },
+      {
+        "chemical_name": "Sodium Hydrosulfite + Caustic Soda (Intermediate RC)",
+        "chemical_function": "Removes disperse dye stained on cotton fibers before reactive dyeing",
+        "dosage": "2.0 g/L Hydros + 2.0 g/L Caustic Soda",
+        "addition_sequence": "Intermediate Reduction Clearing bath at 80\u00b0C for 20 min",
+        "compatibility": "Alkaline reducing bath",
+        "incompatible_chemicals": "Acids"
+      },
+      {
+        "chemical_name": "Glauber's Salt + Soda Ash (Step 2)",
+        "chemical_function": "Exhaustion electrolyte and alkali fixation for reactive dye on cotton component",
+        "dosage": "50 g/L Salt + 15 g/L Soda Ash",
+        "addition_sequence": "Dosed in second bath at 60\u00b0C",
+        "compatibility": "Compatible with reactive dyes",
+        "incompatible_chemicals": "Disperse dyes"
+      }
+    ],
+    "process_parameters": {
+      "temperature_profile": "Stage 1 (PES): 60\u00b0C -> 130\u00b0C @ 1.5\u00b0C/min (hold 45m) -> Cool 80\u00b0C -> RC @ 80\u00b0C -> Stage 2 (Cotton): 60\u00b0C Salt/Alkali hold 60m -> Soap @ 95\u00b0C",
+      "heating_rate": "1.5 \u00b0C/min for Stage 1 | 1.5 \u00b0C/min for Stage 2",
+      "cooling_rate": "1.5 \u00b0C/min",
+      "time": "Total Duration: 360 minutes (6.0 hours total cycle)",
+      "ph": "Stage 1 pH: 4.5 - 5.0 | RC pH: 11.5 | Stage 2 pH: 10.8 - 11.2",
+      "liquor_ratio": "1:7 MLR",
+      "pressure": "Stage 1: 3.0 bar at 130\u00b0C | Stage 2: 1.0 bar Atmospheric"
+    },
+    "process_steps": {
+      "pretreatment": "Singeing, desizing, scouring, and Mercerizing (mercerization enhances cotton absorbency)",
+      "dye_addition": "Dose Disperse dye at 50\u00b0C (Stage 1); Dose Reactive dye at 50\u00b0C (Stage 2 after RC)",
+      "salt_addition": "Dose 50 g/L Glauber's salt in Stage 2 before alkali addition",
+      "alkali_addition": "Dose 15 g/L Soda Ash exponentially over 30 min at 60\u00b0C in Stage 2",
+      "washing": "Intermediate hot wash after RC; final cold wash after reactive fixation",
+      "soaping": "Primary soaping at 95\u00b0C for 15 min to remove unfixed reactive dye",
+      "neutralization": "Acid neutralize with Acetic Acid (1.0 g/L) at 50\u00b0C",
+      "drying": "Continuous cylinder dryer followed by Stenter frame at 150\u00b0C",
+      "finishing": "Apply Durable Press Resin Finish or Softener"
+    },
+    "machine_requirement": {
+      "machine_type": "HTHP Dual-Ladd Jet Dyeing Machine",
+      "machine_capacity": "500 kg nominal capacity",
+      "recommended_machine": "Fong's JUMBOTEC HTHP Jet",
+      "loading_percentage": "80.0%"
+    },
+    "quality_parameters": {
+      "shade_accuracy": "DE < 0.6 (CMC 2:1)",
+      "color_fastness": "Grade 4-5",
+      "wash_fastness": "Grade 4-5 (ISO 105-C06 at 60\u00b0C)",
+      "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 3-4",
+      "light_fastness": "Grade 5 (ISO 105-B02)",
+      "uniformity": "Perfect solid shade matching between polyester and cotton components"
+    },
+    "defects": {
+      "common_defects": "Cross-staining / Cross-shade mismatch between PES and Cotton, Low Rub Fastness",
+      "causes": "Incomplete reduction clearing of disperse dye off cotton; incorrect dye ratio",
+      "corrective_actions": "Ensure thorough RC at 80\u00b0C; recalibrate lab match prediction for individual fiber components"
+    },
+    "safety": {
+      "ppe_required": "Chemical aprons, face shields, heavy rubber boots, thermal gloves",
+      "hazardous_chemicals": "Caustic Soda, Sodium Hydrosulfite, Acetic Acid, Soda Ash",
+      "safety_precautions": "High thermal safety precautions during 130\u00b0C pressure drain phases"
+    },
+    "references": {
+      "source": "Polyester/Cellulosic Blend Dyeing Technical Guide",
+      "standard": "ISO 105-C06 / AATCC 61 / ISO 105-X12",
+      "notes": "Mercerization of cotton component prior to dyeing improves color yield by 20-30%"
+    }
+  },
+  {
+    "basic_information": {
+      "recipe_id": "REC-VAT-005",
+      "recipe_name": "Continuous Pad-Steam Vat Dyeing of 100% Cotton Woven Bottoms",
+      "fabric_type": "100% Cotton Heavy Canvas / Twill Woven",
+      "fabric_gsm": "320 GSM",
+      "fabric_weight": "1200 kg (Continuous Run 3500 meters)",
+      "shade_name": "Khaki Drab",
+      "shade_depth": "Medium (18 g/L Vat Dye)",
+      "end_use": "Military Uniforms & Heavy Work Trousers"
+    },
+    "dye_information": {
+      "dye_type": "Insoluble Anthraquinone Vat Dye Pigment",
+      "dye_name": "Vat Olive Green (10 g/L) + Vat Brown 1 (5 g/L) + Vat Yellow 2 (3 g/L)",
+      "dye_concentration": "18 g/L total dye liquor concentration",
+      "dye_combination": "Continuous Vat Trichromatic Pigment Combination",
+      "dye_manufacturer": "Dystar Indanthren"
+    },
+    "chemical_information": [
+      {
+        "chemical_name": "Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38\u00b0B\u00e9",
+        "chemical_function": "Chemical Reduction Pad liquor; converts insoluble vat pigment to soluble leuco form inside steamer",
+        "dosage": "40 g/L Hydros + 45 mL/L Caustic Soda 38\u00b0B\u00e9",
+        "addition_sequence": "Prepared in chemical padder trough continuously metered",
+        "compatibility": "Must be maintained under strict reducing conditions",
+        "incompatible_chemicals": "Air / Oxygen, acids"
+      },
+      {
+        "chemical_name": "Polymeric Migration Inhibitor",
+        "chemical_function": "Prevents vat dye pigment migration during intermediate drying phase",
+        "dosage": "10 g/L",
+        "addition_sequence": "Added directly to dye pigment pad liquor",
+        "compatibility": "Compatible with non-ionic wetting agents",
+        "incompatible_chemicals": "Strong electrolytes"
+      },
+      {
+        "chemical_name": "Hydrogen Peroxide (35%) + Acetic Acid",
+        "chemical_function": "Oxidation bath; re-oxidizes soluble leuco vat dye back to insoluble pigment inside fiber",
+        "dosage": "3.0 mL/L H2O2 + 1.5 mL/L Acetic Acid",
+        "addition_sequence": "Dosed in 1st wash box after steaming at 60\u00b0C",
+        "compatibility": "Oxidizing conditions",
+        "incompatible_chemicals": "Reducing agents (Hydros)"
+      }
+    ],
+    "process_parameters": {
+      "temperature_profile": "Pad Pigment @ 25\u00b0C -> IR Pre-dry -> Hot Air Dry @ 110\u00b0C -> Chemical Pad @ 25\u00b0C -> Steamer @ 102\u00b0C (45s) -> Oxidation @ 60\u00b0C -> Soap @ 95\u00b0C",
+      "heating_rate": "Instantaneous Steam Injection",
+      "cooling_rate": "Continuous Wash Box Counter-flow Cooling",
+      "time": "Fabric Speed: 40 m/min | Steamer Dwell Time: 45 seconds",
+      "ph": "Reduction Steaming pH: 13.0 | Oxidation pH: 4.5 - 5.5 | Final Wash pH: 6.5",
+      "liquor_ratio": "Continuous Padding (65% Wet Pick-Up Expression)",
+      "pressure": "Pad Mangle Nip Pressure: 3.5 bar | Steamer Pressure: Atmospheric (Positively sealed)"
+    },
+    "process_steps": {
+      "pretreatment": "Singed, enzymatic desized, continuous bleached & mercerized woven canvas",
+      "dye_addition": "Pad dye pigment liquor at 65% wet pick-up $\\rightarrow$ Pass through IR pre-dryer",
+      "salt_addition": "Glauber's salt (20 g/L) added to chemical reduction pad bath to suppress dye stripping",
+      "alkali_addition": "Caustic Soda (45 mL/L) continuously fed to chemical pad trough",
+      "washing": "Cold water overflow rinse immediately exiting steamer",
+      "soaping": "Oxidize with H2O2 at 60\u00b0C $\\rightarrow$ Hot soaping at 95\u00b0C in continuous 4-chamber washer",
+      "neutralization": "Final wash box neutralization with Acetic Acid",
+      "drying": "Continuous steam can dryer stack (24 cylinders @ 3.0 bar steam)",
+      "finishing": "Apply Water-repellent / Sanforized anti-shrinkage mechanical finishing"
+    },
+    "machine_requirement": {
+      "machine_type": "Continuous Pad-Steam Dyeing Range",
+      "machine_capacity": "Continuous Run (Speed 30 - 80 m/min)",
+      "recommended_machine": "K\u00fcstners / Benninger Continuous Pad-Steam Line",
+      "loading_percentage": "Continuous Operation (100% line utilization)"
+    },
+    "quality_parameters": {
+      "shade_accuracy": "DE < 0.4 (CMC 2:1 head-to-tail and side-to-side)",
+      "color_fastness": "Grade 5 (Outstanding overall fastness)",
+      "wash_fastness": "Grade 5 (ISO 105-C06 at 95\u00b0C boiled wash)",
+      "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 4",
+      "light_fastness": "Grade 7-8 (Maximum light fastness for military spec)",
+      "uniformity": "Zero center-to-selvedge or head-to-tail shade variation"
+    },
+    "defects": {
+      "common_defects": "Tailing (Shade lighter at end of roll), Side-to-Center Shade Variation, Oxidation Specks",
+      "causes": "High pad trough volume (>25L), non-uniform pad mangle crown nip pressure, oxygen ingress in steamer",
+      "corrective_actions": "Install trough displacement wedge (renewal time <30s); adjust swimming roller pneumatic profile; seal steamer water locks"
+    },
+    "safety": {
+      "ppe_required": "Full face shield, heavy butyl rubber aprons, chemical resistant boots, respirator",
+      "hazardous_chemicals": "Concentrated Caustic Soda 38\u00b0B\u00e9, Sodium Hydrosulfite, Hydrogen Peroxide 35%",
+      "safety_precautions": "Continuous toxic gas monitoring for sulfur dioxide (SO2) near steamer exit"
+    },
+    "references": {
+      "source": "Continuous Vat Dyeing Industrial Handbook",
+      "standard": "ISO 105-C06 / ISO 105-B02 / AATCC 190",
+      "notes": "Vat dyes provide unmatched chlorine bleach fastness and weathering resistance"
+    }
+  }
+]

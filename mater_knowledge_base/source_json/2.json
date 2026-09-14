@@ -1,0 +1,113 @@
+{
+  "title": "Textile Effluent Regulatory Compliance Standards & Water Quality Thresholds",
+  "regulatory_bodies": [
+    "CPCB (Central Pollution Control Board)",
+    "SPCB / TNPCB",
+    "MoEFCC India",
+    "ZLD Directives"
+  ],
+  "discharge_standards": [
+    {
+      "parameter": "pH",
+      "unit": "pH Scale",
+      "inland_surface_water_limit": "6.5 - 8.5",
+      "public_sewer_limit": "5.5 - 9.0",
+      "zld_target": "6.5 - 7.5",
+      "monitoring_frequency": "Continuous Online"
+    },
+    {
+      "parameter": "Biological Oxygen Demand (BOD 3d @ 27\u00b0C)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "30",
+      "public_sewer_limit": "350",
+      "zld_target": "< 5 (RO feed)",
+      "monitoring_frequency": "Daily / Online BOD"
+    },
+    {
+      "parameter": "Chemical Oxygen Demand (COD)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "250",
+      "public_sewer_limit": "250",
+      "zld_target": "< 30 (RO feed)",
+      "monitoring_frequency": "Continuous Online Analyzer"
+    },
+    {
+      "parameter": "Total Suspended Solids (TSS)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "100",
+      "public_sewer_limit": "600",
+      "zld_target": "< 1 (UF permeate)",
+      "monitoring_frequency": "Daily / Online Turbidity"
+    },
+    {
+      "parameter": "Total Dissolved Solids (TDS)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "2100",
+      "public_sewer_limit": "2100",
+      "zld_target": "< 100 (RO Permeate Recycled)",
+      "monitoring_frequency": "Continuous Online EC"
+    },
+    {
+      "parameter": "Oil & Grease",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "10",
+      "public_sewer_limit": "20",
+      "zld_target": "0.0",
+      "monitoring_frequency": "Weekly"
+    },
+    {
+      "parameter": "Total Chromium (as Cr)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "2.0",
+      "public_sewer_limit": "2.0",
+      "zld_target": "< 0.05",
+      "monitoring_frequency": "Weekly / AAS"
+    },
+    {
+      "parameter": "Hexavalent Chromium (Cr\u207a\u2076)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "0.1",
+      "public_sewer_limit": "2.0",
+      "zld_target": "Non-detectable",
+      "monitoring_frequency": "Daily"
+    },
+    {
+      "parameter": "Sulfide (as S)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "2.0",
+      "public_sewer_limit": "5.0",
+      "zld_target": "0.0",
+      "monitoring_frequency": "Daily"
+    },
+    {
+      "parameter": "Phenolic Compounds (as C\u2086H\u2085OH)",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "1.0",
+      "public_sewer_limit": "5.0",
+      "zld_target": "< 0.1",
+      "monitoring_frequency": "Weekly"
+    },
+    {
+      "parameter": "Total Residual Chlorine",
+      "unit": "mg/L",
+      "inland_surface_water_limit": "1.0",
+      "public_sewer_limit": "1.0",
+      "zld_target": "0.0 (Pre-RO)",
+      "monitoring_frequency": "Continuous ORP"
+    },
+    {
+      "parameter": "Color",
+      "unit": "PCU (Pt-Co)",
+      "inland_surface_water_limit": "150 PCU",
+      "public_sewer_limit": "N/A",
+      "zld_target": "< 5 PCU (Colorless)",
+      "monitoring_frequency": "Daily Spectrophotometer"
+    }
+  ],
+  "zld_mandate_rules": [
+    "Zero Liquid Discharge (ZLD) is mandatory for textile dyeing and bleaching clusters in environmentally sensitive basins (e.g. Tirupur, Noyyal river basin, Cauvery, Ganga basin).",
+    "100% of treated effluent must be recovered as high-quality permeate (RO Permeate TDS < 100 mg/L) and reused in dyeing process baths.",
+    "Zero untreated or treated liquid effluent is allowed to cross unit boundary walls or enter storm drains.",
+    "Dry salts (NaCl / Na2SO4) produced by MEE/ATFD must be either refined for textile process reuse or disposed at Authorized Hazardous Waste TSDF Facilities."
+  ]
+}

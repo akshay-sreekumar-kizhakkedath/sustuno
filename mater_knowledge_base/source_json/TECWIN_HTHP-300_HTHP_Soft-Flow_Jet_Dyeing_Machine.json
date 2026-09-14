@@ -1,0 +1,124 @@
+{
+  "machine_details": {
+    "machine_name": "HTHP Soft-Flow Jet Dyeing Machine",
+    "machine_type": "High Temperature High Pressure Rope Dyeing Machine",
+    "manufacturer": "Fong's National Engineering / Thies GmbH",
+    "model": "TECWIN HTHP-300",
+    "year": "2022"
+  },
+  "capacity": {
+    "minimum_batch_size": "150 kg (50% rated load)",
+    "maximum_batch_size": "300 kg (100% rated load)",
+    "fabric_capacity": "300 kg dry fabric weight",
+    "liquor_capacity": "1800 to 2400 Liters total vessel volume"
+  },
+  "operating_limits": {
+    "minimum_temperature": "20 \u00b0C",
+    "maximum_temperature": "140 \u00b0C",
+    "minimum_pressure": "0.0 bar (atmospheric)",
+    "maximum_pressure": "4.0 bar (design rating)",
+    "maximum_speed": "450 m/min winch reel fabric velocity",
+    "heating_rate": "0.5 \u00b0C/min to 3.5 \u00b0C/min",
+    "cooling_rate": "1.0 \u00b0C/min to 2.5 \u00b0C/min"
+  },
+  "process_compatibility": {
+    "supported_fabric_types": "Cotton knits, Polyester knits & wovens, Polyamide, Viscose, T/C Blends",
+    "supported_dye_types": "Reactive Dyes, Disperse Dyes, Acid Dyes, Direct Dyes",
+    "supported_chemicals": "Salt, Soda Ash, Caustic Soda, Hydros, Acetic Acid, Leveling Agents",
+    "suitable_processes": "Scouring, Bleaching, Exhaust Dyeing, Soaping, Reduction Clearing, Softening"
+  },
+  "machine_constraints": {
+    "maximum_load": "300 kg (Overloading >320 kg causes turn time >120s and severe rope marks)",
+    "minimum_load": "150 kg (Underloading <120 kg alters liquor ratio and causes liquor foaming)",
+    "temperature_restrictions": "Do not exceed 135\u00b0C for elastomeric Lycra blends to avoid heat damage",
+    "pressure_restrictions": "Main safety valve trips at 4.2 bar",
+    "chemical_restrictions": "Strictly prohibit Sodium Hypochlorite or free Chlorine (corrodes 316L stainless steel)",
+    "fabric_restrictions": "Not suitable for delicate silk satins or ultra-high tension sensitive wovens",
+    "liquor_ratio_limits": "Minimum 1:5 | Maximum 1:10 (Optimal 1:6 to 1:8)"
+  },
+  "performance": {
+    "water_consumption": "35 to 50 Liters per kg of fabric processed (total process water)",
+    "steam_consumption": "2.8 to 3.5 kg steam per kg of fabric",
+    "power_consumption": "18.5 kW main pump motor + 5.5 kW winch reel motor",
+    "cycle_time": "180 to 240 minutes per batch",
+    "efficiency": "88% overall equipment effectiveness (OEE)"
+  },
+  "sensors": {
+    "temperature_sensor": "Dual PT100 Resistance Temperature Detectors (Accuracy \u00b10.1\u00b0C)",
+    "pressure_sensor": "Piezo-resistive Vessel Pressure Transmitter (0 to 6 bar)",
+    "flow_sensor": "Electromagnetic Main Liquor Flow Meter (Liters/min)",
+    "ph_sensor": "In-line Industrial Gel-filled Glass Electrode pH Sensor (pH 0-14)",
+    "conductivity_sensor": "Inductive Bath Salt/Conductivity Transmitter (0-200 mS/cm)",
+    "level_sensor": "Differential Pressure Hydrostatic Level Transmitter (0-100% tank volume)"
+  },
+  "operating_parameters": {
+    "recommended_temperature": "60\u00b0C for Reactive Dyeing | 130\u00b0C for Disperse Dyeing",
+    "recommended_pressure": "2.8 bar at 130\u00b0C operating temperature",
+    "recommended_speed": "250 to 350 m/min winch reel speed (Turn time 50 to 75 seconds)",
+    "recommended_liquor_ratio": "1:6 MLR"
+  },
+  "maintenance": {
+    "daily_checks": "Inspect main pump shaft seal, clean lint filter basket, check pneumatic door seal",
+    "weekly_checks": "Inspect heat exchanger steam traps, calibrate pH electrode, check reel belt tension",
+    "monthly_checks": "Calibrate PT100 temp sensors, inspect safety burst disc, check main valve actuators",
+    "calibration_requirements": "Quarterly calibration of PT100 sensors and pressure transmitters with certified calibrator"
+  },
+  "failure_information": {
+    "common_faults": "Rope entanglement/tangle, high differential pressure across filter, steam trap waterlog",
+    "alarm_conditions": "Turn time > 120s, Temp deviation > \u00b12\u00b0C, Vessel pressure > 3.8 bar, Door safety open",
+    "failure_causes": "Fabric knot formation, clogged filter screen, steam supply pressure drop < 5 bar",
+    "troubleshooting": "Reverse winch reel manually; flush filter basket; verify boiler steam pressure"
+  },
+  "safety": {
+    "safety_limits": "Max temp 140\u00b0C, Max pressure 4.0 bar, Door opening temp limit < 80\u00b0C",
+    "emergency_shutdown_conditions": "Vessel overpressure > 4.1 bar, main circulation pump dry-run, power outage",
+    "ppe_requirements": "Heat-resistant gloves, safety goggles, steel-toe boots, ear protection"
+  },
+  "ai_constraints": {
+    "machine_operating_rules": [
+      "IF fabric_type == 'Polyester' THEN max_temperature = 130\u00b0C AND min_pressure = 2.8 bar",
+      "IF fabric_type == 'Cotton' THEN max_temperature = 98\u00b0C AND pressure = 0.0 bar",
+      "IF fabric_gsm < 150 THEN max_nozzle_pressure = 0.5 bar (prevent pilling)"
+    ],
+    "parameter_limits": {
+      "max_turn_time_seconds": 90,
+      "min_turn_time_seconds": 45,
+      "max_heating_rate_c_per_min": 3.0,
+      "min_liquor_ratio": 5.0,
+      "max_liquor_ratio": 10.0
+    },
+    "recommended_operating_ranges": {
+      "reactive_dyeing_temp_c": [
+        58,
+        62
+      ],
+      "disperse_dyeing_temp_c": [
+        128,
+        132
+      ],
+      "winch_speed_m_per_min": [
+        250,
+        350
+      ]
+    },
+    "constraint_equations": [
+      "Turn_Time_Seconds = (Fabric_Weight_kg * 1000 / (GSM * Width_m)) / Fabric_Speed_m_per_min * 60",
+      "ASSERT Turn_Time_Seconds <= 90",
+      "Liquor_Volume_L = Fabric_Weight_kg * MLR",
+      "ASSERT Liquor_Volume_L >= 1500 AND Liquor_Volume_L <= 2400"
+    ],
+    "interlock_conditions": [
+      "Pneumatic door lock MUST remain ENGAGED while Vessel_Temperature > 80\u00b0C OR Vessel_Pressure > 0.2 bar",
+      "Heating valve MUST CLOSE if Main_Pump_Flow < 200 L/min (dry run prevention)"
+    ],
+    "decision_rules": [
+      "REJECT recipe IF requested_load_kg > 300 kg",
+      "REJECT recipe IF liquor_ratio < 1:5 OR liquor_ratio > 1:10",
+      "FLAG WARNING IF heating_rate > 1.5\u00b0C/min between 90\u00b0C and 130\u00b0C on Polyester"
+    ],
+    "best_operating_practices": [
+      "Perform hot drain at 80\u00b0C after disperse dyeing to keep oligomers in emulsion state",
+      "Dose alkali exponentially over 30 min for reactive dyes to prevent strike unlevelness"
+    ]
+  }
+}

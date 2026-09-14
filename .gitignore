@@ -1,0 +1,22 @@
+# SUSTUNO root repository
+# NOTE: dash board/aquatex-ai-react/ is a separate git repository
+# (https://github.com/akshay-sreekumar-kizhakkedath/sustuno.git) and is excluded here.
+dash board/aquatex-ai-react/
+
+# Secrets — never commit
+.env
+*.env
+!.env.example
+
+# Dependencies / build outputs
+node_modules/
+dist/
+build/
+*.log
+
+# Local / temp
+.tmp/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

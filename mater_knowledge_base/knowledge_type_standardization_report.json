@@ -1,0 +1,44 @@
+{
+  "knowledge_type_standardization_report": {
+    "total_records": 619,
+    "original_knowledge_type_counts": {
+      "recipe": 28,
+      "fact": 240,
+      "compatibility": 13,
+      "exception": 13,
+      "process_step": 81,
+      "constraint": 135,
+      "experimental_result": 30,
+      "range": 65,
+      "formula": 14
+    },
+    "standardized_knowledge_type_counts": {
+      "recipe": 28,
+      "fact": 240,
+      "compatibility": 13,
+      "exception": 13,
+      "process_step": 81,
+      "constraint": 135,
+      "experimental_result": 30,
+      "range": 65,
+      "formula": 14
+    },
+    "records_changed": 0,
+    "records_requiring_manual_review": 0,
+    "manual_review_entries": [],
+    "canonical_types": [
+      "fact",
+      "recipe",
+      "compatibility",
+      "relationship",
+      "experimental_result",
+      "formula",
+      "recommendation",
+      "exception",
+      "constraint",
+      "process_step",
+      "range"
+    ],
+    "mapping_note": "Types were normalized by lowercasing and replacing spaces/hyphens with underscores. If normalized type matched a canonical type, it was mapped to that canonical type."
+  }
+}

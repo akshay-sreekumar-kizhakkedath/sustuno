@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import sys; print\\(sys.version\\); mods=['pypdf','pdfplumber','docx','openpyxl','pptx','bs4']; import importlib.util; print\\({m: bool\\(importlib.util.find_spec\\(m\\)\\) for m in mods}\\)\")",
+      "Bash(python -c \"from pathlib import Path; from collections import Counter; root=Path\\(r'D:\\\\SUSTUNO\\\\AI Training dataset'\\); files=[p for p in root.rglob\\('*'\\) if p.is_file\\(\\)]; print\\('files',len\\(files\\)\\); print\\(Counter\\(p.suffix.lower\\(\\) for p in files\\)\\); print\\('bytes',sum\\(p.stat\\(\\).st_size for p in files\\)\\)\")",
+      "Bash(command -v pdftotext && pdftotext -v)",
+      "Bash(python -c \"from pathlib import Path; import hashlib; root=Path\\(r'D:\\\\SUSTUNO\\\\AI Training dataset'\\); exts={'.pdf','.doc','.docx','.csv','.xls','.xlsx','.ppt','.pptx','.txt','.json','.md','.html'}; files=[p for p in root.rglob\\('*'\\) if p.is_file\\(\\) and p.suffix.lower\\(\\) in exts]; h={}; dups=[]\nfor p in files:\n try: k=hashlib.sha256\\(p.read_bytes\\(\\)\\).hexdigest\\(\\)\n except: continue\n if k in h: dups.append\\(\\(p,h[k]\\)\\)\n else: h[k]=p\nprint\\('supported',len\\(files\\),'unique',len\\(h\\),'duplicates',len\\(dups\\)\\)\")"
+    ]
+  }
+}

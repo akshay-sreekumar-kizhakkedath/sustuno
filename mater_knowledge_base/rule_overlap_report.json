@@ -1,0 +1,9 @@
+{
+  "total_rules": 13,
+  "exact_duplicates": [],
+  "logical_duplicates": [],
+  "overlapping_rules": [],
+  "contradictions": [],
+  "safe_to_keep_all": true,
+  "notes": "Exact duplicates: rules with identical condition, action, title, and domain. Logical duplicates: same condition and action but possibly different title/message."
+}

@@ -1,0 +1,94 @@
+{
+  "basic_information": {
+    "recipe_id": "REC-NYL-003",
+    "recipe_name": "Acid Dyeing of Nylon 6,6 Microfiber Knits",
+    "fabric_type": "85% Nylon 6,6 / 15% Spandex Warp Knit",
+    "fabric_gsm": "210 GSM",
+    "fabric_weight": "200 kg",
+    "shade_name": "Crimson Red",
+    "shade_depth": "Medium-Dark (2.5% owf)",
+    "end_use": "Swimwear & Athletic Compression Wear"
+  },
+  "dye_information": {
+    "dye_type": "Half-milling Acid Dye / 1:2 Metal Complex Dye",
+    "dye_name": "Acid Red 138 (2.0% owf) + Acid Orange 67 (0.5% owf)",
+    "dye_concentration": "2.5% owf total dye solids",
+    "dye_combination": "Acid Binary Color Combination",
+    "dye_manufacturer": "Huntsman Erionyl / Archroma Telon"
+  },
+  "chemical_information": [
+    {
+      "chemical_name": "Ammonium Sulfate (NH4)2SO4 (pH Buffer)",
+      "chemical_function": "Slow acid releaser; gradually lowers bath pH during heating to control strike rate",
+      "dosage": "2.0 g/L",
+      "addition_sequence": "Added at start of bath filling at 40\u00b0C",
+      "compatibility": "Compatible with anionic leveling agents",
+      "incompatible_chemicals": "Alkalis"
+    },
+    {
+      "chemical_name": "Anionic Retarding / Leveling Agent",
+      "chemical_function": "Competes for amine end-groups on Nylon to prevent streaky barre defects",
+      "dosage": "1.5 g/L",
+      "addition_sequence": "Dosed 10 min prior to dye addition at 40\u00b0C",
+      "compatibility": "Compatible with acid dyes",
+      "incompatible_chemicals": "Cationic softeners"
+    },
+    {
+      "chemical_name": "Syntan After-treating Fixing Agent",
+      "chemical_function": "Crosslinks dye molecules inside polyamide matrix to boost wash fastness",
+      "dosage": "3.0% owf",
+      "addition_sequence": "Applied in a fresh post-treatment bath at 70\u00b0C for 20 min at pH 4.5",
+      "compatibility": "Anionic compatibility",
+      "incompatible_chemicals": "Non-ionic surfactants"
+    }
+  ],
+  "process_parameters": {
+    "temperature_profile": "Start 40\u00b0C -> Heat to 98\u00b0C @ 1.0\u00b0C/min -> Hold 98\u00b0C for 45 min -> Cool to 70\u00b0C @ 1.5\u00b0C/min -> Syntan Fix @ 70\u00b0C",
+    "heating_rate": "1.0 \u00b0C/min (controlled rate above 70\u00b0C where dye uptake accelerates)",
+    "cooling_rate": "1.5 \u00b0C/min",
+    "time": "Total Duration: 165 minutes (2.75 hours)",
+    "ph": "Dyeing pH: 4.8 - 5.2 (Ammonium Sulfate) | Fixing pH: 4.5 (Acetic Acid)",
+    "liquor_ratio": "1:10 MLR",
+    "pressure": "1.0 bar (Atmospheric)"
+  },
+  "process_steps": {
+    "pretreatment": "Scoured at 70\u00b0C with non-ionic detergent; heat-set at 185\u00b0C to stabilize Spandex width",
+    "dye_addition": "Dissolve Acid dyes in boiling water, dilute to 50\u00b0C, dose into vessel over 15 min",
+    "salt_addition": "Glauber's salt (10 g/L) added as retarding agent to slow initial dye strike",
+    "alkali_addition": "N/A (Acid pH environment mandatory)",
+    "washing": "Drain dye bath at 70\u00b0C -> Cold rinse for 10 min",
+    "soaping": "Apply Syntan After-fixing agent (3% owf) at 70\u00b0C for 20 min at pH 4.5",
+    "neutralization": "Rinse in cold water; target fabric core pH 5.5",
+    "drying": "Stenter dryer at 130\u00b0C under low tension to protect Spandex elasticity",
+    "finishing": "Apply Fluorocarbon Water-repellent finish or Hydrophilic softener"
+  },
+  "machine_requirement": {
+    "machine_type": "Atmospheric Soft-Flow Jet Dyeing Machine",
+    "machine_capacity": "250 kg nominal capacity",
+    "recommended_machine": "Thies Soft-TRD Atmospheric Jet",
+    "loading_percentage": "80.0%"
+  },
+  "quality_parameters": {
+    "shade_accuracy": "DE < 0.5 (CMC 2:1)",
+    "color_fastness": "Grade 4-5",
+    "wash_fastness": "Grade 4-5 (ISO 105-C06 at 50\u00b0C after Syntan fixing)",
+    "rub_fastness": "Dry Rubbing: Grade 4-5 | Wet Rubbing: Grade 4",
+    "light_fastness": "Grade 4-5",
+    "uniformity": "Zero barre or streakiness across warp knit loops"
+  },
+  "defects": {
+    "common_defects": "Barre Streakiness, Low Wet Fastness without Fixer, Elastane Degradation",
+    "causes": "Rapid heating > 70\u00b0C, omission of Syntan fixer, excessive temp > 105\u00b0C on Spandex",
+    "corrective_actions": "Use leveling agent at 98\u00b0C for 30 min migration hold; re-apply Syntan fixing agent"
+  },
+  "safety": {
+    "ppe_required": "Chemical goggles, nitrile gloves, apron",
+    "hazardous_chemicals": "Glacial Acetic Acid, Syntan Fixing Agent (skin sensitizer)",
+    "safety_precautions": "Avoid inhalation of acid vapors; maintain local exhaust ventilation"
+  },
+  "references": {
+    "source": "Polyamide Wet Processing & Fastness Optimization Manual",
+    "standard": "ISO 105-C06 / ISO 105-X12 / AATCC 157",
+    "notes": "Maintain strict pH monitoring as acid dye uptake increases exponentially below pH 5.0"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "machine_details": {
+    "machine_name": "Atmospheric High Capacity Jigger Dyeing Machine",
+    "machine_type": "Constant Tension Constant Speed Open-Width Jigger",
+    "manufacturer": "Benninger AG / Mezzera",
+    "model": "JIG-BEN-500",
+    "year": "2020"
+  },
+  "capacity": {
+    "minimum_batch_size": "200 kg (approx 800 meters)",
+    "maximum_batch_size": "500 kg woven fabric (approx 2000 meters @ 250 GSM)",
+    "fabric_capacity": "500 kg woven fabric",
+    "liquor_capacity": "1500 to 2000 Liters pad trough & bath"
+  },
+  "operating_limits": {
+    "minimum_temperature": "20 \u00b0C",
+    "maximum_temperature": "98 \u00b0C (Atmospheric hood enclosed)",
+    "minimum_pressure": "0.0 bar",
+    "maximum_pressure": "0.0 bar (Atmospheric)",
+    "maximum_speed": "150 m/min fabric winding speed",
+    "heating_rate": "1.0 \u00b0C/min to 2.5 \u00b0C/min",
+    "cooling_rate": "1.5 \u00b0C/min"
+  },
+  "process_compatibility": {
+    "supported_fabric_types": "100% Woven Cotton, Linen, Viscose, Silk, Heavy Canvas & Denim",
+    "supported_dye_types": "Reactive Dyes, Direct Dyes, Vat Dyes, Sulfur Dyes",
+    "supported_chemicals": "Salt, Soda Ash, Caustic, Hydros, Sodium Sulfide",
+    "suitable_processes": "Open-width Scouring, Bleaching, Dyeing, Soaping"
+  },
+  "machine_constraints": {
+    "maximum_load": "500 kg (Maximum roll diameter 1100 mm)",
+    "minimum_load": "150 kg",
+    "temperature_restrictions": "Max 98\u00b0C at sea level (Cannot dye 100% Polyester without carriers)",
+    "pressure_restrictions": "Atmospheric operation only",
+    "chemical_restrictions": "Corrosive acids must be diluted prior to trough addition",
+    "fabric_restrictions": "Woven fabrics only (Strictly NO knit fabrics due to selvedge curling)",
+    "liquor_ratio_limits": "1:3 to 1:5 MLR (Ultra-short liquor bath)"
+  },
+  "performance": {
+    "water_consumption": "30 to 45 Liters per kg of fabric",
+    "steam_consumption": "2.2 to 3.0 kg steam per kg",
+    "power_consumption": "15 kW DC drive motors with regenerative braking",
+    "cycle_time": "240 to 360 minutes",
+    "efficiency": "85% OEE"
+  },
+  "sensors": {
+    "temperature_sensor": "PT100 Trough Temperature Sensor",
+    "pressure_sensor": "Pneumatic Roll Tension Sensor (N)",
+    "flow_sensor": "Trough Water Feed Flow Meter",
+    "ph_sensor": "Bath pH Probe",
+    "conductivity_sensor": "Conductivity Sensor",
+    "level_sensor": "Trough Level Sensor"
+  },
+  "operating_parameters": {
+    "recommended_temperature": "60\u00b0C (Reactive) / 95\u00b0C (Vat / Direct)",
+    "recommended_pressure": "0.0 bar",
+    "recommended_speed": "60 to 100 m/min (Warp tension 150 to 350 N)",
+    "recommended_liquor_ratio": "1:4 MLR"
+  },
+  "maintenance": {
+    "daily_checks": "Inspect main drive roller rubbers, check expander bar alignment",
+    "weekly_checks": "Inspect tension load cells, check hood door steam seals",
+    "monthly_checks": "Calibrate warp tension load cells and temperature sensor",
+    "calibration_requirements": "Quarterly tension load cell calibration"
+  },
+  "failure_information": {
+    "common_faults": "Selvedge curling, end-to-end shade variation, warp streakiness",
+    "alarm_conditions": "Tension limit exceeded (>500N), passage count error, hood open during 95\u00b0C",
+    "failure_causes": "Uneven winding tension between main rollers, speed variation",
+    "troubleshooting": "Zero load cell sensors; adjust bowing expander roller"
+  },
+  "safety": {
+    "safety_limits": "Max temp 98\u00b0C, Max roll diameter 1100 mm",
+    "emergency_shutdown_conditions": "Emergency stop bar triggered by operator, roll overrun",
+    "ppe_requirements": "Safety glasses, heat gloves, chemical boots"
+  },
+  "ai_constraints": {
+    "machine_operating_rules": [
+      "IF fabric_structure == 'Knit' THEN REJECT (selvedge curling hazard)",
+      "ASSERT warp_tension_N >= 100 AND warp_tension_N <= 400",
+      "IF process == 'Vat_Dyeing' THEN closed_hood_steam_injection MUST BE ACTIVE"
+    ],
+    "parameter_limits": {
+      "max_warp_tension_N": 450,
+      "min_warp_tension_N": 80,
+      "max_fabric_speed_m_per_min": 120,
+      "max_roll_diameter_mm": 1100
+    },
+    "recommended_operating_ranges": {
+      "fabric_speed_m_per_min": [
+        60,
+        90
+      ],
+      "trough_liquor_ratio": [
+        3.0,
+        4.5
+      ]
+    },
+    "constraint_equations": [
+      "Passage_Time_Minutes = Total_Fabric_Length_m / Running_Speed_m_per_min",
+      "ASSERT Warp_Tension_N <= 450"
+    ],
+    "interlock_conditions": [
+      "Main rollers CANNOT reverse direction unless Speed < 5 m/min",
+      "Steam valve closes if Enclosure_Hood is OPEN"
+    ],
+    "decision_rules": [
+      "REJECT recipe IF target_temperature > 98\u00b0C",
+      "REJECT recipe IF fabric_type contains 'Knit'"
+    ],
+    "best_operating_practices": [
+      "Keep enclosure hood tightly closed during 95\u00b0C holds to prevent edge cooling and listing defects",
+      "Ensure equal number of passages (ends) are run for dye addition and washing phases"
+    ]
+  }
+}

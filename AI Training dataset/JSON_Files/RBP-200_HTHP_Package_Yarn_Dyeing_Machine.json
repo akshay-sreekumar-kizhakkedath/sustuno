@@ -1,0 +1,117 @@
+{
+  "machine_details": {
+    "machine_name": "HTHP Package Yarn Dyeing Machine",
+    "machine_type": "Pressurized Vertical Spindle Package Dyeing Vessel",
+    "manufacturer": "Loris Bellini / Ugolini",
+    "model": "RBP-200",
+    "year": "2021"
+  },
+  "capacity": {
+    "minimum_batch_size": "100 kg (50% spindle loading)",
+    "maximum_batch_size": "200 kg yarn weight",
+    "fabric_capacity": "200 kg yarn packages (approx 200 packages @ 1.0 kg each)",
+    "liquor_capacity": "1400 to 1800 Liters"
+  },
+  "operating_limits": {
+    "minimum_temperature": "20 \u00b0C",
+    "maximum_temperature": "135 \u00b0C",
+    "minimum_pressure": "0.0 bar",
+    "maximum_pressure": "4.5 bar",
+    "maximum_speed": "Pump Flow Rate 40 L/kg/min",
+    "heating_rate": "1.0 \u00b0C/min to 3.0 \u00b0C/min",
+    "cooling_rate": "1.5 \u00b0C/min to 2.5 \u00b0C/min"
+  },
+  "process_compatibility": {
+    "supported_fabric_types": "Cotton yarn packages, Polyester textured yarn, Wool cones, Acrylic yarn",
+    "supported_dye_types": "Reactive Dyes, Disperse Dyes, Acid Dyes, Indanthrene Vat Dyes",
+    "supported_chemicals": "Salt, Soda Ash, Caustic, Hydros, Acetic Acid, Dispersing agents",
+    "suitable_processes": "Yarn Package Bleaching, Dyeing, Soaping, Rewinding preparation"
+  },
+  "machine_constraints": {
+    "maximum_load": "200 kg yarn weight",
+    "minimum_load": "100 kg (Requires dummy packages on empty spindles to prevent bypass)",
+    "temperature_restrictions": "Max 135\u00b0C for polyester yarn",
+    "pressure_restrictions": "Differential pressure Delta P must stay between 0.8 and 1.5 bar",
+    "chemical_restrictions": "No free chlorine",
+    "fabric_restrictions": "Requires rigid perforated plastic or stainless steel spring dye tubes",
+    "liquor_ratio_limits": "1:6 to 1:9 MLR"
+  },
+  "performance": {
+    "water_consumption": "40 to 55 Liters per kg of yarn",
+    "steam_consumption": "3.0 to 4.0 kg steam per kg of yarn",
+    "power_consumption": "22 kW main reversible centrifugal pump motor",
+    "cycle_time": "210 to 270 minutes",
+    "efficiency": "90% OEE"
+  },
+  "sensors": {
+    "temperature_sensor": "PT100 Resistance Temperature Probe",
+    "pressure_sensor": "Dual Differential Pressure Sensor (Spindle vs Vessel)",
+    "flow_sensor": "Reversible Flow Meter (L/min)",
+    "ph_sensor": "In-line pH probe",
+    "conductivity_sensor": "TDS / Salt Conductivity Probe",
+    "level_sensor": "Hydrostatic Level Transmitter"
+  },
+  "operating_parameters": {
+    "recommended_temperature": "60\u00b0C (Reactive) / 130\u00b0C (Disperse)",
+    "recommended_pressure": "Spindle Pressure 2.5 bar | Vessel Pressure 1.5 bar (Delta P 1.0 bar)",
+    "recommended_speed": "Reversal Cycle: 4 min In-Out / 2 min Out-In",
+    "recommended_liquor_ratio": "1:7 MLR"
+  },
+  "maintenance": {
+    "daily_checks": "Inspect spindle seals, check carrier locking nuts, clean main filter screen",
+    "weekly_checks": "Inspect reversal valve pneumatic cylinders, test safety relief valve",
+    "monthly_checks": "Calibrate differential pressure transmitter, inspect carrier spindles for bowing",
+    "calibration_requirements": "Bi-annual calibration of flow meter and PT100 temperature sensors"
+  },
+  "failure_information": {
+    "common_faults": "Liquor bypass channel formation, package tube collapsing, flow reversal valve jamming",
+    "alarm_conditions": "Delta P < 0.5 bar (bypass), Delta P > 1.8 bar (clogging), Temp deviation",
+    "failure_causes": "Uneven winding density (<0.30 g/cm\u00b3), excessive column compaction pressure",
+    "troubleshooting": "Verify package winding density (0.35 \u00b1 0.015 g/cm\u00b3); check spindle column torque"
+  },
+  "safety": {
+    "safety_limits": "Max temp 135\u00b0C, Max vessel pressure 4.5 bar, Safety valve set at 4.2 bar",
+    "emergency_shutdown_conditions": "Delta P spike > 2.2 bar, pneumatic door seal pressure drop, main pump overload",
+    "ppe_requirements": "Safety glasses, heat resistant gloves, safety shoes, hard hat near overhead crane"
+  },
+  "ai_constraints": {
+    "machine_operating_rules": [
+      "ASSERT package_density >= 0.32 AND package_density <= 0.38 FOR Cotton yarn",
+      "ASSERT package_density >= 0.38 AND package_density <= 0.42 FOR Polyester yarn",
+      "IF empty_spindles > 0 THEN dummy_blanking_tubes MUST BE INSTALLED"
+    ],
+    "parameter_limits": {
+      "min_delta_p_bar": 0.8,
+      "max_delta_p_bar": 1.5,
+      "min_flow_rate_l_per_kg_min": 35,
+      "max_flow_rate_l_per_kg_min": 50
+    },
+    "recommended_operating_ranges": {
+      "in_out_time_minutes": [
+        4,
+        5
+      ],
+      "out_in_time_minutes": [
+        2,
+        3
+      ]
+    },
+    "constraint_equations": [
+      "Delta_P = Spindle_Pressure - Vessel_Pressure",
+      "ASSERT Delta_P >= 0.8 AND Delta_P <= 1.5",
+      "Package_Density = Yarn_Weight_g / (PI * (R_outer^2 - R_inner^2) * Height_cm)"
+    ],
+    "interlock_conditions": [
+      "Flow reversal valve CANNOT actuate unless Main_Pump_RPM < 20% (prevents water hammer)",
+      "Door safety lock ENGAGED while Temperature > 80\u00b0C"
+    ],
+    "decision_rules": [
+      "REJECT package lot IF winding_density_variation > \u00b15%",
+      "REJECT recipe IF pump_flow_rate_per_kg < 30 L/kg/min"
+    ],
+    "best_operating_practices": [
+      "Maintain 12-15% axial compaction when securing spindle locking nuts",
+      "Use expandable stainless spring tubes for polyester package dyeing to allow shrinkage"
+    ]
+  }
+}

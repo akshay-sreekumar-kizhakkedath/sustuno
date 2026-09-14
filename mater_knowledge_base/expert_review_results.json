@@ -1,0 +1,115 @@
+{
+  "review_version": "1.0",
+  "reviewed_records": [
+    {
+      "knowledge_id": "KB-00005",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Cationic fixing agents, strong concentrated acids\"."
+    },
+    {
+      "knowledge_id": "KB-00008",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Direct acids, oxidizing agents\"."
+    },
+    {
+      "knowledge_id": "KB-00037",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Cationic surfactants\"."
+    },
+    {
+      "knowledge_id": "KB-00040",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Alkalis\"."
+    },
+    {
+      "knowledge_id": "KB-00069",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Alkalis\"."
+    },
+    {
+      "knowledge_id": "KB-00072",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Cationic softeners\"."
+    },
+    {
+      "knowledge_id": "KB-00075",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Non-ionic surfactants\"."
+    },
+    {
+      "knowledge_id": "KB-00104",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Strong alkalis\"."
+    },
+    {
+      "knowledge_id": "KB-00107",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Acids\"."
+    },
+    {
+      "knowledge_id": "KB-00110",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Disperse dyes\"."
+    },
+    {
+      "knowledge_id": "KB-00139",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Air / Oxygen, acids\"."
+    },
+    {
+      "knowledge_id": "KB-00142",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Strong electrolytes\"."
+    },
+    {
+      "knowledge_id": "KB-00145",
+      "decision": "approved_for_rule_generation",
+      "reason": "Source explicitly states the incompatibility for the given recipe. The chemical incompatibility is a clear constraint that can be operationalized as a rule.",
+      "source_verified": true,
+      "expert_confirmation_required": false,
+      "review_notes": "Verified in source file: Standard_Recipes_Master_Dataset.json, section: chemical_information. The source excerpt matches the value: \"Reducing agents (Hydros)\"."
+    }
+  ],
+  "summary": {
+    "total_reviewed": 13,
+    "approved_for_rule_generation": 13,
+    "not_suitable_for_rule_generation": 0,
+    "requires_domain_expert": 0
+  }
+}
