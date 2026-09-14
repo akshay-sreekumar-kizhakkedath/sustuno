@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+
+@theme {
+  /* AquaTex AI Material-3 palette (from DESIGN.md / prototypes) */
+  --color-surface: #faf8ff;
+  --color-surface-dim: #d2d9f4;
+  --color-surface-bright: #faf8ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f3ff;
+  --color-surface-container: #eaedff;
+  --color-surface-container-high: #e2e7ff;
+  --color-surface-container-highest: #dae2fd;
+  --color-on-surface: #131b2e;
+  --color-on-surface-variant: #434655;
+  --color-inverse-surface: #283044;
+  --color-inverse-on-surface: #eef0ff;
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-surface-tint: #0053db;
+  --color-primary: #2563eb;
+  --color-primary-deep: #004ac6;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2563eb;
+  --color-on-primary-container: #eeefff;
+  --color-inverse-primary: #b4c5ff;
+  --color-secondary: #712ae2;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #8a4cfc;
+  --color-on-secondary-container: #fffbff;
+  --color-tertiary: #943700;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #bc4800;
+  --color-on-tertiary-container: #ffede6;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-ai: #7c3aed;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --shadow-card: 0 4px 20px rgb(0 0 0 / 0.03);
+  --shadow-card-hover: 0 10px 30px rgb(0 0 0 / 0.06);
+  --shadow-overlay: 0 20px 50px rgb(0 0 0 / 0.1);
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.material-symbols-filled {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.glass-card {
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes subtle-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: subtle-rise 0.35s ease-out both;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
