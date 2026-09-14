@@ -106,6 +106,54 @@ export function DyeOptimizerPage() {
     composition.every((c) => c.fiber && Number(c.percentage) >= 0 && Number(c.percentage) <= 100) &&
     new Set(composition.map((c) => String(c.fiber).toLowerCase())).size === composition.length;
 
+  // ---- live process advisor: re-evaluates on EVERY input change ----
+  // Fabric/machine/weight/GSM/composition/process edits instantly update
+  // constraint checks + water preview. Fabric-specific temperature caps and
+  // full KB rule screening still run authoritatively in backend validation.
+  const advisor = useMemo(() => {
+    const items: any[] = [];
+    if (!machine) {
+      items.push({ key: 'machine', tone: 'gray', text: 'Select a machine to validate process parameters.' });
+      return items;
+    }
+    const w = Number(weightKg);
+    if (!machine.continuous) {
+      if (machine.min_batch_kg && machine.max_batch_kg) {
+        const ok = w >= machine.min_batch_kg && w <= machine.max_batch_kg;
+        items.push({ key: 'load', tone: ok ? 'green' : 'red', text: ok ? `Load ${w} kg within ${machine.min_batch_kg}–${machine.max_batch_kg} kg.` : `Load ${w} kg outside ${machine.min_batch_kg}–${machine.max_batch_kg} kg.` });
+      }
+    } else {
+      items.push({ key: 'load', tone: 'gray', text: 'Continuous line — batch weighed in meters, kg load check not applicable.' });
+    }
+    const t = Number(temp);
+    if (temp !== '' && machine.max_temperature_c) {
+      const ok = t <= machine.max_temperature_c;
+      items.push({ key: 'temp', tone: ok ? 'green' : 'red', text: ok ? `${t}°C within ${machine.label} maximum (${machine.max_temperature_c}°C).` : `${t}°C exceeds ${machine.label} maximum (${machine.max_temperature_c}°C).` });
+    }
+    const lr = Number(liquor);
+    if (liquor !== '' && machine.liquor_ratio_min && machine.liquor_ratio_max) {
+      const ok = lr >= machine.liquor_ratio_min && lr <= machine.liquor_ratio_max;
+      items.push({ key: 'liquor', tone: ok ? 'green' : 'red', text: ok ? `Liquor 1:${lr} within 1:${machine.liquor_ratio_min}–1:${machine.liquor_ratio_max}.` : `Liquor 1:${lr} outside 1:${machine.liquor_ratio_min}–1:${machine.liquor_ratio_max}.` });
+    }
+    const g = Number(gsm);
+    if (machine.gsm_min) {
+      const ok = g >= machine.gsm_min;
+      items.push({ key: 'gsm', tone: ok ? 'green' : 'red', text: ok ? `GSM ${g} meets minimum (${machine.gsm_min}).` : `GSM ${g} below minimum (${machine.gsm_min}) — rope collapse risk.` });
+    }
+    if (fabric && (machine.woven_only || machine.no_knit) && fabric.construction === 'Knit') {
+      items.push({ key: 'constr', tone: 'red', text: `${machine.label} is not validated for knit construction.` });
+    } else if (fabric) {
+      items.push({ key: 'constr', tone: 'green', text: `Construction ${fabric.construction} compatible.` });
+    }
+    if (liquor !== '' && weightKg !== '') {
+      items.push({ key: 'water', tone: 'blue', text: `Dye-bath water ≈ ${(Number(liquor) * Number(weightKg)).toFixed(0)} L (${Number(liquor)} L/kg).` });
+    }
+    if (fabric) {
+      items.push({ key: 'shade', tone: 'gray', text: `Shade ${shadeDepth} (L* ${L} a* ${A} b* ${B}) sets the color target for ΔE ranking; process follows ${fabric.recipe_id || 'recipe'} + machine limits.` });
+    }
+    return items;
+  }, [machine, weightKg, temp, liquor, gsm, fabric, composition, shadeDepth, L, A, B]);
+
   function capToMachine(field: 'liquor' | 'temp', value: any, m: any): { value: any; capped: boolean; note: string } {
     if (!m || value === null || value === undefined || value === '') return { value, capped: false, note: '' };
     if (field === 'temp' && m.max_temperature_c && value > m.max_temperature_c) {
@@ -405,6 +453,19 @@ export function DyeOptimizerPage() {
                     <input type="number" min={0} max={14} step={0.1} value={ph} onChange={(e) => { setPh(e.target.value === '' ? '' : Number(e.target.value)); setAutoProc((p) => ({ ...p, ph: false })); }} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
                 </div>
                 {procNote && <p className="rounded-md bg-blue-50 p-2 text-[11.5px] text-blue-800">{procNote}</p>}
+                <div className="rounded-lg border border-slate-100 p-2.5">
+                  <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">Live advisor — updates with every input</p>
+                  <div className="space-y-1">
+                    {advisor.map((a: any) => (
+                      <p key={a.key} className="flex items-start gap-1.5 text-[12px]">
+                        <Badge tone={a.tone === 'blue' ? 'blue' : a.tone === 'green' ? 'green' : a.tone === 'red' ? 'red' : 'gray'}>
+                          {a.tone === 'green' ? '✓' : a.tone === 'red' ? '!' : '•'}
+                        </Badge>
+                        <span className="text-on-surface-variant">{a.text}</span>
+                      </p>
+                    ))}
+                  </div>
+                </div>
               </div>
             </Card>
 
