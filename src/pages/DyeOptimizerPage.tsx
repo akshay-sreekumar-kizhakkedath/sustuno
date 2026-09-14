@@ -145,7 +145,7 @@ export function DyeOptimizerPage() {
     } else if (fabric) {
       items.push({ key: 'constr', tone: 'green', text: `Construction ${fabric.construction} compatible.` });
     }
-    if (liquor !== '' && weightKg !== '') {
+    if (liquor !== '' && Number.isFinite(Number(weightKg))) {
       items.push({ key: 'water', tone: 'blue', text: `Dye-bath water ≈ ${(Number(liquor) * Number(weightKg)).toFixed(0)} L (${Number(liquor)} L/kg).` });
     }
     if (fabric) {
