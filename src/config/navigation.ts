@@ -11,6 +11,7 @@ export const NAV_ITEMS: NavItem[] = [
   { path: '/production', label: 'Production', icon: 'precision_manufacturing' },
   { path: '/iot', label: 'IoT Monitoring', icon: 'sensors' },
   { path: '/prediction', label: 'AI Prediction', icon: 'online_prediction', badge: 'AI' },
+  { path: '/dye-optimizer', label: 'Dye Optimizer', icon: 'auto_awesome', badge: 'AI' },
   { path: '/etp', label: 'ETP Decision Support', icon: 'fact_check' },
   { path: '/analytics', label: 'Analytics', icon: 'analytics' },
   { path: '/reports', label: 'Reports', icon: 'description' },
@@ -31,11 +32,15 @@ export const MODULE_META: Record<string, { title: string; subtitle: string }> = 
   },
   '/prediction': {
     title: 'AI Prediction Engine',
-    subtitle: 'Forecast effluent quality and optimize dye recipes with machine learning',
+    subtitle: 'Shade ML status and dataset readiness from live model endpoints',
+  },
+  '/dye-optimizer': {
+    title: 'Dye Optimizer',
+    subtitle: 'Constraint-aware recipe search with honest model-unavailable states',
   },
   '/etp': {
     title: 'ETP Decision Support',
-    subtitle: 'AI-driven chemical dosing and operational recommendations based on real-time sensor data',
+    subtitle: 'Advisory treatment recommendations from recipe, wastewater profile and KB rules',
   },
   '/analytics': {
     title: 'Long-Term Performance Analytics',

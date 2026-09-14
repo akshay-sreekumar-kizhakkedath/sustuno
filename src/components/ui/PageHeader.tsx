@@ -31,12 +31,13 @@ export function Button({
   variant = 'primary',
   icon,
   className = '',
+  ...props
 }: {
   children: ReactNode
   variant?: 'primary' | 'secondary' | 'ai'
   icon?: string
   className?: string
-}) {
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const styles = {
     primary:
       'bg-primary text-white hover:bg-primary-deep shadow-sm',
@@ -48,6 +49,7 @@ export function Button({
     <button
       type="button"
       className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-[13.5px] font-semibold transition-all active:scale-[0.98] ${styles[variant]} ${className}`}
+      {...props}
     >
       {icon && <span className="material-symbols-outlined text-[18px] leading-none">{icon}</span>}
       {children}
