@@ -493,6 +493,19 @@ export function DyeOptimizerPage() {
                         <div className="rounded-lg border border-slate-100 p-3">
                           <p className="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">Cost & Score</p>
                           <p className="mt-1 text-[12.5px]">Estimated cost: <strong>{fmt(opt.recommended_recipe.estimated_cost)}</strong> <span className="text-on-surface-variant">(cost units; reference-price heuristic, not quoted prices)</span></p>
+                          {opt.recommended_recipe.estimated_water && (
+                            <div className="mt-2 rounded-md bg-sky-50 p-2 text-[12.5px] text-sky-900">
+                              <p><strong>Optimal process water (dye bath): </strong>
+                                {opt.recommended_recipe.estimated_water.liquor_water_l !== null
+                                  ? <><strong className="font-mono-data">{opt.recommended_recipe.estimated_water.liquor_water_l} L</strong> total · {opt.recommended_recipe.estimated_water.liquor_water_l_per_kg} L/kg</>
+                                  : 'N/A — continuous padding reports pick-up %, not liquor ratio'}
+                              </p>
+                              {opt.recommended_recipe.estimated_water.kb_reference_band_l_per_kg && (
+                                <p className="mt-0.5">KB machine reference (total process water): <strong className="font-mono-data">{opt.recommended_recipe.estimated_water.kb_reference_band_l_per_kg.min_l_per_kg}–{opt.recommended_recipe.estimated_water.kb_reference_band_l_per_kg.max_l_per_kg} L/kg</strong> ({opt.recommended_recipe.estimated_water.kb_reference_band_l_per_kg.knowledge_id})</p>
+                              )}
+                              <p className="mt-0.5 text-[11.5px] text-sky-700">{opt.recommended_recipe.estimated_water.scope_note}</p>
+                            </div>
+                          )}
                           {opt.recommended_recipe.score && (
                             <div className="mt-2 space-y-1">
                               {([['Shade match', opt.recommended_recipe.score.components?.shade_score], ['Cost', opt.recommended_recipe.score.components?.cost_score], ['Feasibility', opt.recommended_recipe.score.components?.feasibility_score]] as any[]).map(([label, v]: any) => (
