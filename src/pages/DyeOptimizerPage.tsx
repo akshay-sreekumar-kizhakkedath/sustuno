@@ -4,7 +4,8 @@ import { Card, CardHeader } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import {
   fetchFabrics, fetchFibers, fetchDyeClasses, fetchMachines,
-  fetchRecipeResources, runDyeOptimization,
+  fetchRecipeResources, fetchProcessDefaults, fetchWastewaterPrediction,
+  runDyeOptimization,
 } from '../services/apiClient';
 
 // CIELAB -> sRGB preview (standard conversion, D65). Returns css rgb() string.
@@ -60,16 +61,21 @@ export function DyeOptimizerPage() {
   const [dyeClasses, setDyeClasses] = useState<any[]>([]);
   const [dyeClass, setDyeClass] = useState('');
   const [machineId, setMachineId] = useState('');
-  const [liquor, setLiquor] = useState<number>(8);
-  const [temp, setTemp] = useState<number>(80);
-  const [timeMin, setTimeMin] = useState<number>(60);
-  const [ph, setPh] = useState<number>(7.5);
+  // ---- process (auto-suggested from recipe, editable; per-field provenance) ----
+  const [liquor, setLiquor] = useState<any>(8);
+  const [temp, setTemp] = useState<any>(80);
+  const [timeMin, setTimeMin] = useState<any>(60);
+  const [ph, setPh] = useState<any>(7.5);
+  const [autoProc, setAutoProc] = useState({ liquor: false, temp: false, time: false, ph: false });
+  const [procNote, setProcNote] = useState<string | null>(null);
 
-  // ---- resources / result ----
+  // ---- resources / result / wastewater ----
   const [resources, setResources] = useState<any>(null);
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [formError, setFormError] = useState<string | null>(null);
+  const [ww, setWw] = useState<any>(null);
+  const [wwBusy, setWwBusy] = useState(false);
 
   useEffect(() => {
     let live = true;
@@ -100,9 +106,22 @@ export function DyeOptimizerPage() {
     composition.every((c) => c.fiber && Number(c.percentage) >= 0 && Number(c.percentage) <= 100) &&
     new Set(composition.map((c) => String(c.fiber).toLowerCase())).size === composition.length;
 
+  function capToMachine(field: 'liquor' | 'temp', value: any, m: any): { value: any; capped: boolean; note: string } {
+    if (!m || value === null || value === undefined || value === '') return { value, capped: false, note: '' };
+    if (field === 'temp' && m.max_temperature_c && value > m.max_temperature_c) {
+      return { value: m.max_temperature_c, capped: true, note: `Temperature capped to ${m.label} maximum (${m.max_temperature_c}°C).` };
+    }
+    if (field === 'liquor' && m.liquor_ratio_min && m.liquor_ratio_max && (value < m.liquor_ratio_min || value > m.liquor_ratio_max)) {
+      const v = Math.min(Math.max(value, m.liquor_ratio_min), m.liquor_ratio_max);
+      return { value: v, capped: true, note: `Liquor ratio adjusted into ${m.label} validated range (1:${m.liquor_ratio_min}–1:${m.liquor_ratio_max}).` };
+    }
+    return { value, capped: false, note: '' };
+  }
+
   async function selectFabric(id: string) {
     setFabricId(id);
     setCustomComp(false);
+    setProcNote(null);
     const f = fabrics.find((x) => x.id === id);
     if (f) {
       setComposition((f.composition || []).map((c: any) => ({ ...c })));
@@ -111,14 +130,57 @@ export function DyeOptimizerPage() {
       const list = dc?.dye_classes ?? [];
       setDyeClasses(list);
       setDyeClass(list.length === 1 ? list[0].label : '');
-      if (f.recipe_id) setResources(await fetchRecipeResources(f.recipe_id));
-      else setResources(null);
+      if (f.recipe_id) {
+        setResources(await fetchRecipeResources(f.recipe_id));
+        // Auto-suggest process parameters from the validated recipe.
+        const pd = await fetchProcessDefaults(f.recipe_id);
+        if (pd) {
+          const flags: any = { liquor: false, temp: false, time: false, ph: false };
+          const notes: string[] = [];
+          if (pd.liquor_ratio !== null && pd.liquor_ratio !== undefined) {
+            const c = capToMachine('liquor', pd.liquor_ratio, machine);
+            setLiquor(c.value); flags.liquor = true;
+            if (c.capped) notes.push(c.note);
+          } else { setLiquor(''); }
+          if (pd.temperature_c !== null && pd.temperature_c !== undefined) {
+            const c = capToMachine('temp', pd.temperature_c, machine);
+            setTemp(c.value); flags.temp = true;
+            if (c.capped) notes.push(c.note);
+          }
+          if (pd.time_minutes !== null && pd.time_minutes !== undefined) { setTimeMin(pd.time_minutes); flags.time = true; }
+          else { setTimeMin(''); }
+          if (pd.ph !== null && pd.ph !== undefined) { setPh(pd.ph); flags.ph = true; }
+          setAutoProc(flags);
+          const derivation = (pd.derivation || []).join(' ');
+          setProcNote(`Auto-filled from ${pd.recipe_id}. ${derivation} ${notes.join(' ')}`.trim());
+        }
+      } else {
+        setResources(null);
+      }
     } else {
       setComposition([]);
       setDyeClasses([]);
       setDyeClass('');
       setResources(null);
     }
+  }
+
+  function selectMachine(id: string) {
+    setMachineId(id);
+    const m = machines.find((x) => x.id === id);
+    if (!m) return;
+    // Re-apply machine caps to auto-suggested (non-overridden) fields only;
+    // manually edited fields are left for backend validation to judge.
+    const notes: string[] = [];
+    if (autoProc.temp && temp !== '') {
+      const c = capToMachine('temp', Number(temp), m);
+      if (c.capped) { setTemp(c.value); notes.push(c.note); }
+    }
+    if (autoProc.liquor && liquor !== '') {
+      const c = capToMachine('liquor', Number(liquor), m);
+      if (c.capped) { setLiquor(c.value); notes.push(c.note); }
+    }
+    if (notes.length) setProcNote((p) => `${p ?? ''} ${notes.join(' ')}`.trim());
   }
 
   function editCompRow(i: number, patch: any) {
@@ -138,12 +200,15 @@ export function DyeOptimizerPage() {
   async function run() {
     setFormError(null);
     setResult(null);
+    setWw(null);
     if (!fabricId) { setFormError('Select a validated fabric before running optimization.'); return; }
     if (!compValid) { setFormError(`Fiber composition must total 100%. Current total: ${+compTotal.toFixed(2)}%.`); return; }
     if (!dyeClass) { setFormError('Select a dye class validated for this material.'); return; }
     if (!machineId) { setFormError('Select a validated machine before running optimization.'); return; }
+    if (temp === '' || ph === '') { setFormError('Temperature and pH are required. Accept the auto-suggested values or enter them manually.'); return; }
     setRunning(true);
     try {
+      const toNum = (v: any) => (v === '' || v === null || v === undefined ? null : Number(v));
       const payload = {
         material: {
           fabric_id: fabricId,
@@ -155,7 +220,7 @@ export function DyeOptimizerPage() {
         target_shade: { L: Number(L), a: Number(A), b: Number(B), color_space: 'CIELAB', shade_depth: shadeDepth },
         dye_class: dyeClass,
         machine: { machine_id: machineId },
-        process: { liquor_ratio: Number(liquor), temperature_c: Number(temp), time_minutes: Number(timeMin), ph: Number(ph) },
+        process: { liquor_ratio: toNum(liquor), temperature_c: Number(temp), time_minutes: toNum(timeMin), ph: Number(ph) },
         optimization_preferences: { shade_weight: 1.0, cost_weight: 0.5, water_weight: 0.0 },
       };
       const res: any = await runDyeOptimization(payload);
@@ -164,6 +229,23 @@ export function DyeOptimizerPage() {
       setResult({ success: false, error: { code: 'REQUEST_FAILED', message: e?.message || 'Request failed' } });
     } finally {
       setRunning(false);
+    }
+  }
+
+  async function predictWastewater() {
+    if (!opt?.recommended_recipe) return;
+    setWwBusy(true);
+    setWw(null);
+    try {
+      const r = opt.recommended_recipe;
+      const data = await fetchWastewaterPrediction({
+        recipe: { dye_class: dyeClass, dyes: r.dyes, chemicals: r.chemicals, fabric_id: fabricId },
+        process: r.process_parameters,
+        batch: { fabric_weight_kg: Number(weightKg), gsm: Number(gsm), machine_id: machineId },
+      });
+      setWw(data);
+    } finally {
+      setWwBusy(false);
     }
   }
 
@@ -298,7 +380,7 @@ export function DyeOptimizerPage() {
                 {fabricId && dyeClasses.length === 0 && <p className="text-[12px] text-amber-700">No validated dye class available for this material.</p>}
                 <label className="block">
                   <span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Machine</span>
-                  <select value={machineId} onChange={(e) => setMachineId(e.target.value)} className="h-9 w-full rounded-md border border-slate-200 bg-white px-2 text-[13px] outline-none">
+                  <select value={machineId} onChange={(e) => selectMachine(e.target.value)} className="h-9 w-full rounded-md border border-slate-200 bg-white px-2 text-[13px] outline-none">
                     <option value="">Select machine ▼</option>
                     {machines.map((m) => <option key={m.id} value={m.id}>{m.id} — {m.label}</option>)}
                   </select>
@@ -313,15 +395,16 @@ export function DyeOptimizerPage() {
                   </div>
                 )}
                 <div className="grid grid-cols-2 gap-3">
-                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Liquor Ratio (1:X)</span>
-                    <input type="number" min={1} value={liquor} onChange={(e) => setLiquor(Number(e.target.value))} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
-                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Temperature (°C)</span>
-                    <input type="number" value={temp} onChange={(e) => setTemp(Number(e.target.value))} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
-                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Time (min)</span>
-                    <input type="number" min={1} value={timeMin} onChange={(e) => setTimeMin(Number(e.target.value))} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
-                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">pH (0–14)</span>
-                    <input type="number" min={0} max={14} step={0.1} value={ph} onChange={(e) => setPh(Number(e.target.value))} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
+                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Liquor Ratio (1:X) {liquor !== '' && <Badge tone={autoProc.liquor ? 'blue' : 'gray'}>{autoProc.liquor ? 'Auto' : 'Manual'}</Badge>}</span>
+                    <input type="number" min={1} value={liquor} onChange={(e) => { setLiquor(e.target.value === '' ? '' : Number(e.target.value)); setAutoProc((p) => ({ ...p, liquor: false })); }} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
+                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Temperature (°C) {temp !== '' && <Badge tone={autoProc.temp ? 'blue' : 'gray'}>{autoProc.temp ? 'Auto' : 'Manual'}</Badge>}</span>
+                    <input type="number" value={temp} onChange={(e) => { setTemp(e.target.value === '' ? '' : Number(e.target.value)); setAutoProc((p) => ({ ...p, temp: false })); }} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
+                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Time (min) {timeMin !== '' && <Badge tone={autoProc.time ? 'blue' : 'gray'}>{autoProc.time ? 'Auto' : 'Manual'}</Badge>}</span>
+                    <input type="number" min={1} value={timeMin} onChange={(e) => { setTimeMin(e.target.value === '' ? '' : Number(e.target.value)); setAutoProc((p) => ({ ...p, time: false })); }} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
+                  <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">pH (0–14) {ph !== '' && <Badge tone={autoProc.ph ? 'blue' : 'gray'}>{autoProc.ph ? 'Auto' : 'Manual'}</Badge>}</span>
+                    <input type="number" min={0} max={14} step={0.1} value={ph} onChange={(e) => { setPh(e.target.value === '' ? '' : Number(e.target.value)); setAutoProc((p) => ({ ...p, ph: false })); }} className="h-9 w-full rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" /></label>
                 </div>
+                {procNote && <p className="rounded-md bg-blue-50 p-2 text-[11.5px] text-blue-800">{procNote}</p>}
               </div>
             </Card>
 
@@ -448,6 +531,29 @@ export function DyeOptimizerPage() {
                   </div>
 
                   <p className="text-[12px] text-on-surface-variant">{opt.notes} {opt.delta_e_note}</p>
+
+                  <div className="rounded-lg border border-slate-100 p-3 text-[12.5px]">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="font-semibold">Wastewater Handoff</p>
+                      <Button variant="secondary" icon="water_drop" onClick={predictWastewater} disabled={wwBusy}>
+                        {wwBusy ? 'Predicting…' : 'Predict wastewater for this recipe'}
+                      </Button>
+                    </div>
+                    <p className="mt-1 text-[11.5px] text-on-surface-variant">Sends this recipe with its process parameters to wastewater prediction — no re-entry, so the profile stays consistent with the optimization.</p>
+                    {ww && (
+                      <div className="mt-2 rounded-md bg-slate-50 p-2 text-[12px]">
+                        <p><strong>Prediction status:</strong> {ww.prediction_status}</p>
+                        {ww.prediction_status === 'not_available'
+                          ? <p className="text-on-surface-variant">Insufficient measured wastewater data for prediction.</p>
+                          : <div className="mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5 sm:grid-cols-4">
+                              {Object.entries(ww.predicted_profile || {}).map(([k, v]: any) => (
+                                <p key={k}><span className="text-on-surface-variant">{k}:</span> <strong className="font-mono-data">{v === null || v === undefined ? 'N/A' : String(v)}</strong></p>
+                              ))}
+                            </div>}
+                        {(ww.warnings || []).map((w: string, i: number) => <p key={i} className="text-amber-700">⚠ {w}</p>)}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

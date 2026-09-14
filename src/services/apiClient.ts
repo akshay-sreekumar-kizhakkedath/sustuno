@@ -114,3 +114,7 @@ export async function fetchMachines() {
 export async function fetchRecipeResources(recipeId: string) {
   return getJson(`/reference/recipe-resources?recipe_id=${encodeURIComponent(recipeId)}`);
 }
+
+export async function fetchProcessDefaults(recipeId: string) {
+  return getJson(`/reference/process-defaults?recipe_id=${encodeURIComponent(recipeId)}`);
+}
