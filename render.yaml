@@ -3,18 +3,11 @@ services:
     name: sustuno-backend
     runtime: node
     plan: free
-    buildCommand: |
-      npm install &&
-      npm run build:prod &&
-      mkdir -p "dash board/backend/public" &&
-      cp -r dist/. "dash board/backend/public/" &&
-      cd "dash board/backend" && npm install
+    buildCommand: npm install --include=dev && npm run build && mkdir -p "dash board/backend/public" && cp -r dist/. "dash board/backend/public/" && cd "dash board/backend" && npm install
     startCommand: cd "dash board/backend" && npm start
     envVars:
       - key: NODE_VERSION
         value: 20
-      - key: NODE_ENV
-        value: production
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY

@@ -492,6 +492,9 @@ app.use('/api/reports', reportsRoutes);
 // --- SPA Catch-all: serve React index.html for all non-API routes ---
 // This must come AFTER all API routes so /api/* is not intercepted.
 app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'API endpoint not found' });
+  }
   const indexPath = path.join(PUBLIC_DIR, 'index.html');
   res.sendFile(indexPath, (err) => {
     if (err) {
