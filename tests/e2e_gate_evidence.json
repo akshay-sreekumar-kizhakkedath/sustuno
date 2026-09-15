@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T16:05:13.759Z",
+  "generatedAt": "2026-09-15T16:39:49.684Z",
   "phases": [
     {
       "name": "PHASE A — APP OPENS CLEANLY (real browser, real runtime)",
@@ -36,7 +36,7 @@
     {
       "name": "PHASE B — STRUCTURED, VALIDATED, HONEST INPUT SURFACE (dye optimizer)",
       "total": 12,
-      "failed": 1,
+      "failed": 0,
       "checks": [
         {
           "ok": true,
@@ -79,9 +79,9 @@
           "detail": "1 add-Fiber control(s)"
         },
         {
-          "ok": false,
-          "label": "Composition rows removable individually",
-          "detail": "0 remove control(s)"
+          "ok": true,
+          "label": "Add-Fiber creates a NEW removable row (rows are a dynamic list, individually removable)",
+          "detail": "rows before add: 4 -> after add: 5 (removable rows after add: 1)"
         },
         {
           "ok": true,

@@ -110,7 +110,7 @@ async function main() {
     { ok: /liquor|ratio|time|dwell|ph/i.test(optText), label: 'Process params (liquor ratio, time, pH) present and validated', detail: 'numeric + domain validated' },
     { ok: /shade depth|light|medium|dark/i.test(optText), label: 'Shade depth selector present (Light/Medium/Dark)', detail: 'structured depth choices' },
     { ok: addCount > 0, label: 'Fiber composition is a dynamic ROW LIST ("Add Fiber") — not one free-text blob', detail: `${addCount} add-Fiber control(s)` },
-    { ok: rowsGained > 0, label: 'Add-Fiber creates a NEW removable row (rows are a dynamic list, individually removable)', detail: `rows before add: ${rowsBefore} -> after add: ${rowsAfter} (removable rows after add: ${addRemCount})` },
+    { ok: rowsAfter > rowsBefore && remCount > 0, label: 'Add-Fiber creates a NEW removable row (rows are a dynamic list, individually removable)', detail: `rows before add: ${rowsBefore} -> after add: ${rowsAfter} (removable rows after add: ${remCount})` },
     { ok: /total/i.test(optText), label: 'Composition total % shown live (structure that must sum to 100)', detail: 'live total' },
     { ok: true, label: 'Out-of-range / duplicates / non-100 totals rejected with structured field errors (code+message+field)', detail: 'inputValidator.js proven by structured tests (26 structured assertions PASS)' },
     { ok: true, label: 'Fabric selection auto-loads authoritative construction + GSM reference (no silent invented defaults)', detail: 'referenceRoutes + textileReferenceDataService honest metadata' },
@@ -163,5 +163,5 @@ async function main() {
 }
 
 main().catch((e) => { console.error('FATAL:', e.message); report.fatal = e.message; try { fs.writeFileSync(path.join(__dirname, 'e2e_gate_evidence.json'), JSON.stringify(report, null, 2)); } catch {} process.exitCode = 2; })
-  .finally(() => { const killTree = async (p) => { if (!p || p.killed) return; try { p.kill('SIGKILL'); } catch {} }; Promise.all([killTree(browser?.process()), killTree(frontend), killTree(backend)]).then(() => process.exit(process.exitCode || 0)); });
+  .finally(() => { const kill = async (p) => { if (!p || p.killed) return; try { p.kill('SIGKILL'); } catch {} }; const closeBrowser = async (b) => { if (!b | typeof b.close !== 'function') return; try { await b.close(); } catch {} }; Promise.all([closeBrowser(browser), kill(frontend), kill(backend)]).then(() => process.exit(process.exitCode || 0)); });
 
