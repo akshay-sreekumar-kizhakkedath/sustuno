@@ -87,8 +87,8 @@ function buildTelemetryFromLive(rows: any[]): TelemetryData {
     if (!groups[sid]) groups[sid] = []
     groups[sid].push(r.value)
   }
-  const colors = { ph: '#004ac6', ec: '#712ae2', turbidity: '#ef4444', temperature: '#10b981', flow_rate: '#f59e0b' }
-  const names = { ph: 'pH', ec: 'EC', turbidity: 'Turbidity', temperature: 'Temp', flow_rate: 'Flow' }
+  const colors: Record<string, string> = { ph: '#004ac6', ec: '#712ae2', turbidity: '#ef4444', temperature: '#10b981', flow_rate: '#f59e0b' }
+  const names: Record<string, string> = { ph: 'pH', ec: 'EC', turbidity: 'Turbidity', temperature: 'Temp', flow_rate: 'Flow' }
   const series = Object.entries(groups).map(([sid, data]) => ({
     name: names[sid] ?? sid,
     color: colors[sid] ?? '#666',
@@ -101,7 +101,6 @@ function buildTelemetryFromLive(rows: any[]): TelemetryData {
 
 export function IotMonitoringPage() {
   const [monitoring, setMonitoring] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [sensors, setSensors] = useState<SensorData[]>(mockSensors)
   const [telemetry, setTelemetry] = useState<TelemetryData>(mockTelemetry)
   const [tanks, setTanks] = useState<TankData[]>(mockTanks)
