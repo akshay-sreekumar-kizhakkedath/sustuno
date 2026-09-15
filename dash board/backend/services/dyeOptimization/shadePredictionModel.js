@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
-const ML_DIR = path.join(__dirname, '..', '..', '..', 'ml');
+const ML_DIR = process.env.ML_DIR_PATH || path.join(__dirname, '..', '..', '..', 'ml');
 const ACTIVE_MODEL_JSON = path.join(ML_DIR, 'models', 'active_model.json');
 const DEMO_MODEL_JSON = path.join(ML_DIR, 'models', 'demo', 'active_model.json');
 

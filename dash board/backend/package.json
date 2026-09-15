@@ -4,6 +4,9 @@
   "private": true,
   "description": "Backend API server for Aquatex AI Textile Dashboard",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "node --watch server.js",
     "start": "node server.js",

@@ -1,5 +1,5 @@
 // Frontend API Client connecting to Express Backend
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 async function getJson(path: string) {
   try {

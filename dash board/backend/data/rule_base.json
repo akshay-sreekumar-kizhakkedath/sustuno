@@ -1,0 +1,686 @@
+{
+  "rule_base_version": "1.0",
+  "generated_from": {
+    "knowledge_base": "master_knowledge_base.json",
+    "expert_review": "expert_review_results.json"
+  },
+  "generation_status": "pending_human_validation",
+  "rules": [
+    {
+      "rule_id": "RULE-0001",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Syntan After-treating Fixing Agent vs Non-ionic surfactants in recipe REC-NYL-003",
+      "description": "The chemical Syntan After-treating Fixing Agent is incompatible with Non-ionic surfactants when used in recipe REC-NYL-003.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-NYL-003"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Syntan After-treating Fixing Agent together with Non-ionic surfactants in recipe REC-NYL-003."
+      },
+      "applicability": {
+        "fiber": [
+          "85% Nylon 6,6 / 15% Spandex Warp Knit"
+        ],
+        "dye_class": [
+          "Half-milling Acid Dye / 1:2 Metal Complex Dye"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Syntan After-treating Fixing Agent"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Crimson Red"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00075",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Non-ionic surfactants"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0002",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Polymeric Migration Inhibitor vs Strong electrolytes in recipe REC-VAT-005",
+      "description": "The chemical Polymeric Migration Inhibitor is incompatible with Strong electrolytes when used in recipe REC-VAT-005.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-VAT-005"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Polymeric Migration Inhibitor together with Strong electrolytes in recipe REC-VAT-005."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Cotton Heavy Canvas / Twill Woven"
+        ],
+        "dye_class": [
+          "Insoluble Anthraquinone Vat Dye Pigment"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Polymeric Migration Inhibitor"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Khaki Drab"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00142",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Strong electrolytes"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0003",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé vs Air / Oxygen, acids in recipe REC-VAT-005",
+      "description": "The chemical Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé is incompatible with Air / Oxygen, acids when used in recipe REC-VAT-005.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-VAT-005"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé together with Air / Oxygen, acids in recipe REC-VAT-005."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Cotton Heavy Canvas / Twill Woven"
+        ],
+        "dye_class": [
+          "Insoluble Anthraquinone Vat Dye Pigment"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Sodium Hydrosulfite (Na2S2O4) + Caustic Soda 38°Bé"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Khaki Drab"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00139",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Air / Oxygen, acids"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0004",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Anionic Retarding / Leveling Agent vs Cationic softeners in recipe REC-NYL-003",
+      "description": "The chemical Anionic Retarding / Leveling Agent is incompatible with Cationic softeners when used in recipe REC-NYL-003.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-NYL-003"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Anionic Retarding / Leveling Agent together with Cationic softeners in recipe REC-NYL-003."
+      },
+      "applicability": {
+        "fiber": [
+          "85% Nylon 6,6 / 15% Spandex Warp Knit"
+        ],
+        "dye_class": [
+          "Half-milling Acid Dye / 1:2 Metal Complex Dye"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Anionic Retarding / Leveling Agent"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Crimson Red"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00072",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Cationic softeners"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0005",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Soda Ash (Sodium Carbonate Na2CO3) vs Direct acids, oxidizing agents in recipe REC-COT-001",
+      "description": "The chemical Soda Ash (Sodium Carbonate Na2CO3) is incompatible with Direct acids, oxidizing agents when used in recipe REC-COT-001.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-COT-001"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Soda Ash (Sodium Carbonate Na2CO3) together with Direct acids, oxidizing agents in recipe REC-COT-001."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Cotton Single Jersey Knit"
+        ],
+        "dye_class": [
+          "Bifunctional Reactive Dye (VS / MCT Chemistry)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Soda Ash (Sodium Carbonate Na2CO3)"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Royal Blue"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00008",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Direct acids, oxidizing agents"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0006",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Glauber's Salt + Soda Ash (Step 2) vs Disperse dyes in recipe REC-PC-004",
+      "description": "The chemical Glauber's Salt + Soda Ash (Step 2) is incompatible with Disperse dyes when used in recipe REC-PC-004.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-PC-004"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Glauber's Salt + Soda Ash (Step 2) together with Disperse dyes in recipe REC-PC-004."
+      },
+      "applicability": {
+        "fiber": [
+          "65% Polyester / 35% Cotton Woven Twill"
+        ],
+        "dye_class": [
+          "Disperse Dye (PES component) + Bifunctional Reactive Dye (Cotton component)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Glauber's Salt + Soda Ash (Step 2)"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Forest Green"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00110",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Disperse dyes"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0007",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Glauber's Salt (Sodium Sulfate Na2SO4) vs Cationic fixing agents, strong concentrated acids in recipe REC-COT-001",
+      "description": "The chemical Glauber's Salt (Sodium Sulfate Na2SO4) is incompatible with Cationic fixing agents, strong concentrated acids when used in recipe REC-COT-001.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-COT-001"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Glauber's Salt (Sodium Sulfate Na2SO4) together with Cationic fixing agents, strong concentrated acids in recipe REC-COT-001."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Cotton Single Jersey Knit"
+        ],
+        "dye_class": [
+          "Bifunctional Reactive Dye (VS / MCT Chemistry)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Glauber's Salt (Sodium Sulfate Na2SO4)"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Royal Blue"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00005",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Cationic fixing agents, strong concentrated acids"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0008",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Sodium Hydrosulfite + Caustic Soda (Intermediate RC) vs Acids in recipe REC-PC-004",
+      "description": "The chemical Sodium Hydrosulfite + Caustic Soda (Intermediate RC) is incompatible with Acids when used in recipe REC-PC-004.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-PC-004"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Sodium Hydrosulfite + Caustic Soda (Intermediate RC) together with Acids in recipe REC-PC-004."
+      },
+      "applicability": {
+        "fiber": [
+          "65% Polyester / 35% Cotton Woven Twill"
+        ],
+        "dye_class": [
+          "Disperse Dye (PES component) + Bifunctional Reactive Dye (Cotton component)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Sodium Hydrosulfite + Caustic Soda (Intermediate RC)"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Forest Green"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00107",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Acids"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0009",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Ammonium Sulfate (NH4)2SO4 (pH Buffer) vs Alkalis in recipe REC-NYL-003",
+      "description": "The chemical Ammonium Sulfate (NH4)2SO4 (pH Buffer) is incompatible with Alkalis when used in recipe REC-NYL-003.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-NYL-003"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Ammonium Sulfate (NH4)2SO4 (pH Buffer) together with Alkalis in recipe REC-NYL-003."
+      },
+      "applicability": {
+        "fiber": [
+          "85% Nylon 6,6 / 15% Spandex Warp Knit"
+        ],
+        "dye_class": [
+          "Half-milling Acid Dye / 1:2 Metal Complex Dye"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Ammonium Sulfate (NH4)2SO4 (pH Buffer)"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Crimson Red"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00069",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Alkalis"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0010",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Acetic Acid (80%) + Sodium Acetate Buffer vs Alkalis in recipe REC-PES-002",
+      "description": "The chemical Acetic Acid (80%) + Sodium Acetate Buffer is incompatible with Alkalis when used in recipe REC-PES-002.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-PES-002"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Acetic Acid (80%) + Sodium Acetate Buffer together with Alkalis in recipe REC-PES-002."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Polyester Microfiber Woven Fabric"
+        ],
+        "dye_class": [
+          "High-Thermal Fastness Disperse Dye (SE / HW Type)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Acetic Acid (80%) + Sodium Acetate Buffer"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Dark Navy Blue"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00040",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Alkalis"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0011",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Naphthalene Sulfonate Dispersing Agent vs Cationic surfactants in recipe REC-PES-002",
+      "description": "The chemical Naphthalene Sulfonate Dispersing Agent is incompatible with Cationic surfactants when used in recipe REC-PES-002.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-PES-002"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Naphthalene Sulfonate Dispersing Agent together with Cationic surfactants in recipe REC-PES-002."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Polyester Microfiber Woven Fabric"
+        ],
+        "dye_class": [
+          "High-Thermal Fastness Disperse Dye (SE / HW Type)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Naphthalene Sulfonate Dispersing Agent"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Dark Navy Blue"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00037",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Cationic surfactants"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0012",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Dispersing Agent + Acetic Acid (Step 1) vs Strong alkalis in recipe REC-PC-004",
+      "description": "The chemical Dispersing Agent + Acetic Acid (Step 1) is incompatible with Strong alkalis when used in recipe REC-PC-004.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-PC-004"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Dispersing Agent + Acetic Acid (Step 1) together with Strong alkalis in recipe REC-PC-004."
+      },
+      "applicability": {
+        "fiber": [
+          "65% Polyester / 35% Cotton Woven Twill"
+        ],
+        "dye_class": [
+          "Disperse Dye (PES component) + Bifunctional Reactive Dye (Cotton component)"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Dispersing Agent + Acetic Acid (Step 1)"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Forest Green"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00104",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Strong alkalis"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    },
+    {
+      "rule_id": "RULE-0013",
+      "rule_type": "compatibility",
+      "domain": "chemical",
+      "title": "Incompatibility: Hydrogen Peroxide (35%) + Acetic Acid vs Reducing agents (Hydros) in recipe REC-VAT-005",
+      "description": "The chemical Hydrogen Peroxide (35%) + Acetic Acid is incompatible with Reducing agents (Hydros) when used in recipe REC-VAT-005.",
+      "conditions": [
+        {
+          "parameter": "recipe_id",
+          "operator": "==",
+          "value": "REC-VAT-005"
+        }
+      ],
+      "action": {
+        "type": "prohibit",
+        "message": "Do not use Hydrogen Peroxide (35%) + Acetic Acid together with Reducing agents (Hydros) in recipe REC-VAT-005."
+      },
+      "applicability": {
+        "fiber": [
+          "100% Cotton Heavy Canvas / Twill Woven"
+        ],
+        "dye_class": [
+          "Insoluble Anthraquinone Vat Dye Pigment"
+        ],
+        "fabric": [],
+        "chemical": [
+          "Hydrogen Peroxide (35%) + Acetic Acid"
+        ],
+        "machine_type": [],
+        "process_stage": [],
+        "shade": [
+          "Khaki Drab"
+        ]
+      },
+      "source": {
+        "knowledge_id": "KB-00145",
+        "file_name": "Standard_Recipes_Master_Dataset.json",
+        "page": null,
+        "section": "chemical_information",
+        "table": null,
+        "row": null,
+        "column": null,
+        "excerpt": "Reducing agents (Hydros)"
+      },
+      "validation": {
+        "source_verified": true,
+        "expert_review_decision": "approved_for_rule_generation",
+        "human_validation_status": "pending",
+        "confidence": "high"
+      },
+      "notes": null
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 const express = require('express');
 const fs = require('fs').promises;
-const path = require('path');
 const router = express.Router();
+const dataPaths = require('../data/paths');
 
-const RECIPES_FILE = path.join(__dirname, '..', '..', '..', 'mater_knowledge_base', 'source_json', 'Standard_Recipes_Master_Dataset.json');
+const RECIPES_FILE = dataPaths.RECIPES_FILE;
 
 let recipesCache = null;
 async function loadRecipes() {

@@ -37,7 +37,8 @@ function fabricTempCaps(machineId) {
   const caps = {};
   try {
     const fs = require('fs');
-    const kb = JSON.parse(fs.readFileSync('D:/SUSTUNO/mater_knowledge_base/master_knowledge_base.json', 'utf-8'));
+    const paths = require('../../data/paths');
+    const kb = JSON.parse(fs.readFileSync(paths.KB_MASTER, 'utf-8'));
     const machine = ref.getMachine(machineId);
     const label = machine && machine.label;
     for (const r of kb.knowledge_records || []) {

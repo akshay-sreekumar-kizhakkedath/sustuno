@@ -7,11 +7,13 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const KB_DIR = path.join(__dirname, '..', '..', 'mater_knowledge_base', 'source_json');
-const KB_MASTER = path.join(__dirname, '..', '..', 'mater_knowledge_base', 'master_knowledge_base.json');
+const dataPaths = require('./data/paths');
+const KB_DIR = dataPaths.KB_SOURCE_DIR;
+const KB_MASTER = dataPaths.KB_MASTER;
 
 // Middleware
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN || '*';
+app.use(cors({ origin: corsOrigin }));
 app.use(express.json({ limit: '50mb' }));
 
 // --- Helper Functions ---

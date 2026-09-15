@@ -25,7 +25,8 @@ function getWaterBand(machineId) {
   if (!machine) return null;
   try {
     const fs = require('fs');
-    const kb = JSON.parse(fs.readFileSync('D:/SUSTUNO/mater_knowledge_base/master_knowledge_base.json', 'utf-8'));
+    const paths = require('../../data/paths');
+    const kb = JSON.parse(fs.readFileSync(paths.KB_MASTER, 'utf-8'));
     const rec = (kb.knowledge_records || []).find(r =>
       r.domain === 'machine' && r.subject === machine.label && r.property === 'water_consumption');
     if (!rec) return null;

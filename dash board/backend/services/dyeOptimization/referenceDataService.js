@@ -2,9 +2,10 @@
 // Retrieves dye/chemical/recipe/machine/reference data from DB (or structured sources) without duplication.
 
 const fs = require('fs').promises;
+const paths = require('../../data/paths');
 
-const KB_MASTER = 'D:/SUSTUNO/mater_knowledge_base/master_knowledge_base.json';
-const RECIPES_FILE = 'D:/SUSTUNO/AI Training dataset/JSON_Files/Standard_Recipes_Master_Dataset.json';
+const KB_MASTER = paths.KB_MASTER;
+const RECIPES_FILE = paths.RECIPES_FILE;
 
 async function loadMasterKB() {
   try {

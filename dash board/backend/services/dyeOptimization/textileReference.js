@@ -7,9 +7,10 @@
 // state) rather than fabricated. No database tables are created; no IoT; no RAG.
 
 const fs = require('fs');
+const paths = require('../../data/paths');
 
-const RECIPES_FILE = 'D:/SUSTUNO/AI Training dataset/JSON_Files/Standard_Recipes_Master_Dataset.json';
-const KB_MASTER = 'D:/SUSTUNO/mater_knowledge_base/master_knowledge_base.json';
+const RECIPES_FILE = paths.RECIPES_FILE;
+const KB_MASTER = paths.KB_MASTER;
 
 let cache = null;
 
