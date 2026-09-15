@@ -5,6 +5,9 @@ const { supabase } = require('./database/supabaseClient');
 const fs = require('fs').promises;
 const path = require('path');
 
+// Serve React frontend build from public/ (populated by render.yaml build step)
+const PUBLIC_DIR = path.join(__dirname, 'public');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const dataPaths = require('./data/paths');
@@ -69,10 +72,8 @@ async function loadKBDirectory(domain) {
   );
 }
 
-// Serve static dashboard page at root
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+// Serve React frontend static assets (JS, CSS, images, etc.)
+app.use(express.static(PUBLIC_DIR));
 
 // --- API Routes ---
 
@@ -488,10 +489,22 @@ app.use('/api/analytics', analyticsRoutes);
 const reportsRoutes = require('./routes/reportsRoutes');
 app.use('/api/reports', reportsRoutes);
 
+// --- SPA Catch-all: serve React index.html for all non-API routes ---
+// This must come AFTER all API routes so /api/* is not intercepted.
+app.get('*', (req, res) => {
+  const indexPath = path.join(PUBLIC_DIR, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(404).json({ error: 'Frontend not built. Run the build step first.' });
+    }
+  });
+});
+
 // --- Start Server ---
 
 initKnowledgeBase().then(() => {
   app.listen(PORT, () => {
     console.log(`Backend API running on http://localhost:${PORT}`);
+    console.log(`Frontend served from: ${PUBLIC_DIR}`);
   });
 });
