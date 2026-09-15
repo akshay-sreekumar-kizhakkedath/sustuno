@@ -251,27 +251,158 @@ app.get('/api/chemicals/compatibility', (req, res) => {
   res.json(chemRules.slice(0, 50));
 });
 
-// --- IoT Telemetry (explicitly simulated / out-of-scope endpoint) ---
+// --- IoT Telemetry: Demo endpoint (kept for backward compatibility) ---
 
 app.get('/api/iot/telemetry', (req, res) => {
-  // Physical IoT (sensors, gateways, MQTT, PLC) is OUT OF SCOPE for the SUSTUNO V1
-  // software release. This endpoint exists only to document the intended integration
-  // shape. The values below are clearly labeled SIMULATED and must never be mistaken
-  // for live plant data.
   res.json({
     status: 'demo',
     out_of_scope: true,
     data_source: 'simulated_demo',
-    message: 'Physical IoT instrumentation is out of scope for this release. No live sensor connected.',
-    metrics: {
-      ph: null,
-      ec: null,
-      turbidity: null,
-      temperature: null,
-      flow_rate: null,
-    },
+    message: 'Use POST /api/iot/readings for live ESP32 data.',
+    metrics: { ph: null, ec: null, turbidity: null, temperature: null, flow_rate: null },
     timestamp: new Date().toISOString(),
   });
+});
+
+// --- IoT: Receive sensor readings from ESP32 ---
+//
+// This endpoint receives JSON payloads from the ESP32 firmware and stores
+// them in Supabase tables. It is the primary data ingestion point for the
+// SUSTUNO IoT pipeline.
+//
+// POST /api/iot/readings
+// Headers: Content-Type: application/json, X-API-Key: <key>
+//
+// Stores into:
+//   - sensor_telemetry  (per-sensor time-series rows)
+//   - iot_alerts        (threshold-based alerts)
+//   - gateway_status    (device health heartbeat)
+
+app.post('/api/iot/readings', async (req, res) => {
+  try {
+    const { device_id, plant_id, batch_id, timestamp, sensors, device_info } = req.body;
+
+    if (!device_id || !sensors) {
+      return res.status(400).json({ error: 'Missing device_id or sensors in payload' });
+    }
+
+    const ts = timestamp || new Date().toISOString();
+    const inserted = [];
+
+    // Insert each sensor reading as a separate telemetry row
+    const sensorEntries = [
+      { key: 'ph', sensor_id: 'ph' },
+      { key: 'tds_ppm', sensor_id: 'tds' },
+      { key: 'turbidity_ntu', sensor_id: 'turbidity' },
+      { key: 'temperature_c', sensor_id: 'temperature' },
+      { key: 'flow_lpm', sensor_id: 'flow_rate' },
+    ];
+
+    for (const entry of sensorEntries) {
+      const s = sensors[entry.key];
+      if (!s) continue;
+
+      const telemetryRow = {
+        sensor_id: entry.sensor_id,
+        device_id,
+        plant_id: plant_id || null,
+        batch_id: batch_id || null,
+        value: s.value,
+        quality: (s.status === 'OK') ? 'normal'
+          : (s.status === 'WARNING') ? 'warning'
+          : (s.status === 'ERROR' || s.status === 'DISCONNECTED' || s.status === 'SATURATED') ? 'critical'
+          : 'normal',
+        raw_voltage: s.raw_voltage || null,
+        probe_voltage: s.probe_voltage || null,
+        status: s.status,
+        timestamp: ts,
+      };
+
+      if (sensors[entry.key].total_liters !== undefined) {
+        telemetryRow.total_liters = sensors[entry.key].total_liters;
+      }
+
+      const { error } = await supabase.from('sensor_telemetry').insert(telemetryRow);
+      if (error) {
+        console.error(`[IoT] Failed to insert ${entry.sensor_id}:`, error.message);
+      } else {
+        inserted.push(entry.sensor_id);
+      }
+    }
+
+    // Upsert gateway status (heartbeat)
+    if (device_info) {
+      const gatewayRow = {
+        device_id,
+        model: 'ESP32 Dev Module',
+        firmware: device_info.firmware || '1.0.0',
+        wifi_signal: `${device_info.wifi_rssi_dbm || 0} dBm`,
+        mqtt_status: 'REST (direct)',
+        uptime: `${device_info.uptime_s || 0}s`,
+        free_heap: device_info.free_heap_bytes || 0,
+        health: device_info.health || 'UNKNOWN',
+        created_at: ts,
+      };
+
+      const { error } = await supabase.from('gateway_status').insert(gatewayRow);
+      if (error) {
+        console.error('[IoT] Gateway status insert failed:', error.message);
+      }
+    }
+
+    // Check thresholds and insert alerts
+    const alerts = [];
+    if (sensors.ph && sensors.ph.value !== null) {
+      if (sensors.ph.value > 8.5) alerts.push({ tone: 'red', title: 'High pH Detected', description: `pH ${sensors.ph.value} exceeded 8.5 threshold` });
+      if (sensors.ph.value < 5.5) alerts.push({ tone: 'red', title: 'Low pH Detected', description: `pH ${sensors.ph.value} below 5.5 threshold` });
+    }
+    if (sensors.turbidity_ntu && sensors.turbidity_ntu.value !== null && sensors.turbidity_ntu.value > 50) {
+      alerts.push({ tone: 'orange', title: 'High Turbidity', description: `Turbidity ${sensors.turbidity_ntu.value} NTU exceeded 50 threshold` });
+    }
+    if (sensors.temperature_c && sensors.temperature_c.value !== null) {
+      if (sensors.temperature_c.value > 40) alerts.push({ tone: 'red', title: 'High Temperature', description: `Temperature ${sensors.temperature_c.value}°C exceeded 40°C` });
+    }
+
+    for (const alert of alerts) {
+      await supabase.from('iot_alerts').insert({
+        ...alert,
+        acknowledged: false,
+        timestamp: ts,
+      });
+    }
+
+    res.json({
+      status: 'ok',
+      inserted,
+      alerts_generated: alerts.length,
+      timestamp: ts,
+    });
+  } catch (err) {
+    console.error('[IoT] Readings ingestion error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// --- IoT: Get latest readings for a device (for dashboard) ---
+
+app.get('/api/iot/readings/latest', async (req, res) => {
+  try {
+    const device_id = req.query.device_id || 'SUSTUNO-ESP32-001';
+
+    const { data, error } = await supabase
+      .from('sensor_telemetry')
+      .select('*')
+      .eq('device_id', device_id)
+      .order('timestamp', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+
+    res.json({ status: 'ok', device_id, readings: data });
+  } catch (err) {
+    console.error('[IoT] Latest readings error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // --- Knowledge-Base Recipe Lookup Endpoint ---
