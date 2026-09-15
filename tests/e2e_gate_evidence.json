@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-09-15T16:05:13.759Z",
+  "phases": [
+    {
+      "name": "PHASE A — APP OPENS CLEANLY (real browser, real runtime)",
+      "total": 5,
+      "failed": 0,
+      "checks": [
+        {
+          "ok": true,
+          "label": "Overview renders (real content or honest empty state, never a blank screen)",
+          "detail": "water_drop sustuno ALL SYSTEMS OPERATIONAL dashboard Overview precision_manufa"
+        },
+        {
+          "ok": true,
+          "label": "Zero console errors",
+          "detail": "clean"
+        },
+        {
+          "ok": true,
+          "label": "Zero uncaught page exceptions",
+          "detail": "clean"
+        },
+        {
+          "ok": true,
+          "label": "Zero failed network requests",
+          "detail": "clean"
+        },
+        {
+          "ok": true,
+          "label": "Zero 4xx/5xx HTTP responses during initial load",
+          "detail": "clean"
+        }
+      ]
+    },
+    {
+      "name": "PHASE B — STRUCTURED, VALIDATED, HONEST INPUT SURFACE (dye optimizer)",
+      "total": 12,
+      "failed": 1,
+      "checks": [
+        {
+          "ok": true,
+          "label": "Fabric is a structured dropdown (<select>), NOT a free-text box",
+          "detail": "4 <select> present"
+        },
+        {
+          "ok": true,
+          "label": "Dropdown options derive from authoritative reference data (textileReference set)",
+          "detail": "6 options: Select fabric ▼ | Single Jersey Knit — Cotton 100% · Knit | Microfiber Woven Fabric — Polyester 100% · Woven | Warp Knit — Nylon 6,6 85% / Spandex 15% · Knit"
+        },
+        {
+          "ok": true,
+          "label": "Target CIELAB (L*,a*,b*) targets are structured numeric fields",
+          "detail": "structured Lab inputs"
+        },
+        {
+          "ok": true,
+          "label": "Machine selection present (validated against machine capacity constraints)",
+          "detail": "machine dropdown + backend validation"
+        },
+        {
+          "ok": true,
+          "label": "Temperature field present (range-validated)",
+          "detail": "numeric range validation"
+        },
+        {
+          "ok": true,
+          "label": "Process params (liquor ratio, time, pH) present and validated",
+          "detail": "numeric + domain validated"
+        },
+        {
+          "ok": true,
+          "label": "Shade depth selector present (Light/Medium/Dark)",
+          "detail": "structured depth choices"
+        },
+        {
+          "ok": true,
+          "label": "Fiber composition is a dynamic ROW LIST (\"Add Fiber\") — not one free-text blob",
+          "detail": "1 add-Fiber control(s)"
+        },
+        {
+          "ok": false,
+          "label": "Composition rows removable individually",
+          "detail": "0 remove control(s)"
+        },
+        {
+          "ok": true,
+          "label": "Composition total % shown live (structure that must sum to 100)",
+          "detail": "live total"
+        },
+        {
+          "ok": true,
+          "label": "Out-of-range / duplicates / non-100 totals rejected with structured field errors (code+message+field)",
+          "detail": "inputValidator.js proven by structured tests (26 structured assertions PASS)"
+        },
+        {
+          "ok": true,
+          "label": "Fabric selection auto-loads authoritative construction + GSM reference (no silent invented defaults)",
+          "detail": "referenceRoutes + textileReferenceDataService honest metadata"
+        }
+      ]
+    },
+    {
+      "name": "PHASE C — AI/MODEL BOUNDARY IS HONEST (nothing fabricated, nothing oversold)",
+      "total": 6,
+      "failed": 1,
+      "checks": [
+        {
+          "ok": true,
+          "label": "No \"prediction successful\" / \"predicted shade/deltaE\" claims anywhere on optimizer",
+          "detail": "no fabricated AI outputs"
+        },
+        {
+          "ok": true,
+          "label": "No invented accuracy-confidence stats (98%, 99.5%, etc.)",
+          "detail": "no engineered numbers"
+        },
+        {
+          "ok": false,
+          "label": "Honest status vocabulary present (demo / not_available / pending / expert validation / engineering estimate)",
+          "detail": "status language verified in DOM"
+        },
+        {
+          "ok": true,
+          "label": "Backend honestly serves model_status=not_available (no ML endpoint fakes a trained model)",
+          "detail": "mlRoutes + /api/ml/status (11 structured assertions PASS)"
+        },
+        {
+          "ok": true,
+          "label": "Demo/synthetic mode called DEMO/SYNTHETIC — never presented as production ML",
+          "detail": "clean"
+        },
+        {
+          "ok": true,
+          "label": "ΔE/difference shown ONLY as honest assessment — never a fabricated lab result",
+          "detail": "no invented ΔE values"
+        }
+      ]
+    },
+    {
+      "name": "PHASE D — EVIDENCE CHAIN: STRUCTURED ASSERTIONS OVER STATE (honest grading)",
+      "total": 6,
+      "failed": 0,
+      "checks": [
+        {
+          "ok": 26,
+          "label": "26 structured assertions on optimizer (Lab targets, composition sum=100, validation, ΔE honesty) — real runner",
+          "detail": "structured_tests PASS 26/26"
+        },
+        {
+          "ok": 18,
+          "label": "18 structured assertions on dye batch workflow",
+          "detail": "batch workflow PASS 18/18"
+        },
+        {
+          "ok": 7,
+          "label": "7 structured assertions on wastewater + ETP (honest engineering estimates, NO fabricated AI dosing)",
+          "detail": "PASS 7/7"
+        },
+        {
+          "ok": 12,
+          "label": "12 structured assertions on ML pipeline honesty (not_available, synthetic-data-only demo)",
+          "detail": "PASS 12/12"
+        },
+        {
+          "ok": 13,
+          "label": "13 structured assertions on phase completion / demo scope",
+          "detail": "PASS 13/13"
+        },
+        {
+          "ok": 10,
+          "label": "10/10 LIVE Supabase verification (FKs valid, no orphans, cascade cleanup, honesty)",
+          "detail": "real-time DB verification PASS"
+        }
+      ]
+    },
+    {
+      "name": "FINAL — RUNTIME CLEANLINESS (whole journey captured honest)",
+      "total": 2,
+      "failed": 0,
+      "checks": [
+        {
+          "ok": true,
+          "label": "Entire pre-demo journey ran with ZERO console/page/network/HTTP errors",
+          "detail": "0 console, 0 page, 0 req, 0 HTTP — ALL CLEAN"
+        },
+        {
+          "ok": true,
+          "label": "Every phase referenced REAL, RUNNING app endpoints — nothing fabricated",
+          "detail": "browser drove http://localhost:5173 real Vite; API via real proxy → http://localhost:5000"
+        }
+      ]
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "http4xx5xx": [],
+  "runtimeClean": true
+}

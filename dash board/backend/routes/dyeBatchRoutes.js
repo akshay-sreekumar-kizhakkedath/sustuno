@@ -100,7 +100,7 @@ router.post('/', async (req, res) => {
       const ts = body.target_shade;
       const { error: tsErr } = await supabase.from('dye_batch_target_shade').insert([{
         batch_id: data.id,
-        target_L: ts.L,
+        target_l: ts.L,
         target_a: ts.a,
         target_b: ts.b,
         shade_name: ts.shade_name || null,
@@ -273,21 +273,21 @@ router.post('/:id/shade-result', async (req, res) => {
     // Fetch target shade for delta-E calculation
     const { data: targetShade } = await supabase
       .from('dye_batch_target_shade')
-      .select('target_L, target_a, target_b')
+      .select('target_l, target_a, target_b')
       .eq('batch_id', batchId)
       .maybeSingle();
 
     let calculatedDeltaE = null;
-    if (targetShade && targetShade.target_L !== null) {
+    if (targetShade && targetShade.target_l !== null) {
       calculatedDeltaE = parseFloat(deltaE76(
-        targetShade.target_L, targetShade.target_a, targetShade.target_b,
+        targetShade.target_l, targetShade.target_a, targetShade.target_b,
         body.measured_L, body.measured_a, body.measured_b
       ).toFixed(4));
     }
 
     const resultRow = {
       batch_id: batchId,
-      measured_L: body.measured_L,
+      measured_l: body.measured_L,
       measured_a: body.measured_a,
       measured_b: body.measured_b,
       delta_e_76: calculatedDeltaE,
@@ -325,7 +325,7 @@ router.post('/:id/shade-result', async (req, res) => {
       batch_id: batchId,
       measured_lab: { L: body.measured_L, a: body.measured_a, b: body.measured_b },
       delta_e_76: calculatedDeltaE,
-      target_lab: targetShade ? { L: targetShade.target_L, a: targetShade.target_a, b: targetShade.target_b } : null,
+      target_lab: targetShade ? { L: targetShade.target_l, a: targetShade.target_a, b: targetShade.target_b } : null,
     });
   } catch (err) {
     console.error('Error recording shade result:', err);
@@ -355,7 +355,7 @@ router.get('/:id/training-readiness', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Batch not found' });
     }
 
-    const [targetRes, resultsRes] = await Promise.all([
+    const [_targetRes, resultsRes] = await Promise.all([
       supabase.from('dye_batch_target_shade').select('*').eq('batch_id', batchId).maybeSingle(),
       supabase.from('dye_batch_shade_results').select('*').eq('batch_id', batchId),
     ]);
@@ -372,7 +372,7 @@ router.get('/:id/training-readiness', async (req, res) => {
     if (!shadeResult) {
       issues.push('missing measured Lab result');
     } else {
-      if (shadeResult.measured_L === null) issues.push('measured_L is null');
+      if (shadeResult.measured_l === null) issues.push('measured_L is null');
       if (shadeResult.measured_a === null) issues.push('measured_a is null');
       if (shadeResult.measured_b === null) issues.push('measured_b is null');
     }
@@ -419,7 +419,7 @@ router.get('/dataset/readiness', async (req, res) => {
     // Fetch all shade results to join measured Lab
     const { data: allResults } = await supabase
       .from('dye_batch_shade_results')
-      .select('batch_id, measured_L, measured_a, measured_b, data_source');
+      .select('batch_id, measured_l, measured_a, measured_b, data_source');
 
     const resultsByBatch = {};
     for (const r of allResults || []) {
@@ -438,7 +438,7 @@ router.get('/dataset/readiness', async (req, res) => {
         fiber_composition: b.fiber_composition,
         fabric_type: b.fabric_type,
         dye_class: b.dye_class,
-        measured_L: measuredResult.measured_L || null,
+        measured_l: measuredResult.measured_l || null,
         measured_a: measuredResult.measured_a || null,
         measured_b: measuredResult.measured_b || null,
       };
@@ -456,6 +456,43 @@ router.get('/dataset/readiness', async (req, res) => {
   } catch (err) {
     console.error('Error checking dataset readiness:', err);
     res.status(500).json({ success: false, error: err.message || 'Failed to check dataset readiness' });
+  }
+});
+
+// POST /api/dye-batches/:id/target-shade (create or replace target Lab*)
+router.post('/:id/target-shade', async (req, res) => {
+  try {
+    const batchId = req.params.id;
+    const body = req.body || {};
+    if (body.L === undefined || body.a === undefined || body.b === undefined) {
+      return res.status(400).json({ success: false, error: { code: 'MISSING_TARGET_LAB', message: 'L, a, b are required.', field: 'target_shade' } });
+    }
+    const { data: existing } = await supabase.from('dye_batches').select('id').eq('id', batchId).maybeSingle();
+    if (!existing) return res.status(404).json({ success: false, error: { code: 'BATCH_NOT_FOUND', message: 'Batch not found' } });
+    await supabase.from('dye_batch_target_shade').delete().eq('batch_id', batchId);
+    const row = {
+      batch_id: batchId,
+      target_l: body.L, target_a: body.a, target_b: body.b,
+      shade_name: body.shade_name || null,
+      shade_code: body.shade_code || null,
+      shade_depth: body.shade_depth || null,
+    };
+    const { data, error } = await supabase.from('dye_batch_target_shade').insert([row]).select().single();
+    if (error) {
+      if (isMissingTableError(error)) return res.status(500).json({ success: false, error: { code: 'DB_SCHEMA_NOT_PROVISIONED', message: NOT_PROVISIONED_NOTE } });
+      throw error;
+    }
+    // Backfill delta_e_76 on existing shade results lacking it
+    const { data: results } = await supabase.from('dye_batch_shade_results').select('id, measured_l, measured_a, measured_b, delta_e_76').eq('batch_id', batchId);
+    for (const r of results || []) {
+      if (r.delta_e_76 === null && r.measured_l !== null) {
+        const dE = parseFloat(deltaE76(body.L, body.a, body.b, r.measured_l, r.measured_a, r.measured_b).toFixed(4));
+        await supabase.from('dye_batch_shade_results').update({ delta_e_76: dE }).eq('id', r.id);
+      }
+    }
+    res.status(201).json({ success: true, batch_id: batchId, target_lab: { L: body.L, a: body.a, b: body.b }, target: data });
+  } catch (err) {
+    res.status(500).json({ success: false, error: { code: 'TARGET_SHADE_ERROR', message: err.message } });
   }
 });
 
@@ -513,9 +550,9 @@ router.get('/:id/intelligence', async (req, res) => {
       if (!planned) missing.push('planned process not recorded');
       if (!actual) missing.push('actual process not recorded');
     }
-    if (target && measured && measured.measured_L != null) {
-      const dE = measured.delta_e_76 != null ? measured.delta_e_76 : (target.target_L != null ? parseFloat(deltaE76(target.target_L, target.target_a, target.target_b, measured.measured_L, measured.measured_a, measured.measured_b).toFixed(4)) : null);
-      deviations.shade = { target_lab: { L: target.target_L, a: target.target_a, b: target.target_b }, measured_lab: { L: measured.measured_L, a: measured.measured_a, b: measured.measured_b }, delta_e_76: dE };
+    if (target && measured && measured.measured_l != null) {
+      const dE = measured.delta_e_76 != null ? measured.delta_e_76 : (target.target_l != null ? parseFloat(deltaE76(target.target_l, target.target_a, target.target_b, measured.measured_l, measured.measured_a, measured.measured_b).toFixed(4)) : null);
+      deviations.shade = { target_lab: { L: target.target_l, a: target.target_a, b: target.target_b }, measured_lab: { L: measured.measured_l, a: measured.measured_a, b: measured.measured_b }, delta_e_76: dE };
     } else {
       if (!target) missing.push('target shade not recorded');
       if (!measured) missing.push('measured Lab* not recorded');
@@ -548,10 +585,10 @@ router.get('/:id/comparison', async (req, res) => {
     const measured = (resultsRes.data || [])[0] || null;
     let trainingReady = false; let readinessIssues = [];
     try {
-      if (batch.data_quality_status !== 'draft' && batch.data_quality_status !== 'incomplete' && (batch.data_source === 'real_batch' || batch.data_source === 'laboratory_experiment') && measured && measured.measured_L != null && batch.fiber_composition && batch.fabric_type && batch.dye_class) trainingReady = true;
+      if (batch.data_quality_status !== 'draft' && batch.data_quality_status !== 'incomplete' && (batch.data_source === 'real_batch' || batch.data_source === 'laboratory_experiment') && measured && measured.measured_l != null && batch.fiber_composition && batch.fabric_type && batch.dye_class) trainingReady = true;
       else readinessIssues.push('Batch does not yet meet supervised training criteria.');
     } catch {}
-    return res.json({ success: true, data: { batch_id: batchId, optimization_id: batch.optimization_id || null, originated_from_optimization: !!batch.optimization_id, planned_dyes: dyesRes.data || [], planned_chemicals: chemsRes.data || [], planned_process: (processRes.data || []).filter(p => p.process_type === 'planned'), actual_process: (processRes.data || []).filter(p => p.process_type === 'actual'), target_lab: targetRes.data || null, measured_lab: measured ? { L: measured.measured_L, a: measured.measured_a, b: measured.measured_b } : null, actual_delta_e_76: measured ? measured.delta_e_76 : null, training_ready: trainingReady, readiness_issues: readinessIssues, note: batch.optimization_id ? 'Batch linked to SUSTUNO optimization; recommended vs actual can be compared.' : 'Batch was not linked to an optimization session; showing planned vs actual as recorded.' } });
+    return res.json({ success: true, data: { batch_id: batchId, optimization_id: batch.optimization_id || null, originated_from_optimization: !!batch.optimization_id, planned_dyes: dyesRes.data || [], planned_chemicals: chemsRes.data || [], planned_process: (processRes.data || []).filter(p => p.process_type === 'planned'), actual_process: (processRes.data || []).filter(p => p.process_type === 'actual'), target_lab: targetRes.data || null, measured_lab: measured ? { L: measured.measured_l, a: measured.measured_a, b: measured.measured_b } : null, actual_delta_e_76: measured ? measured.delta_e_76 : null, training_ready: trainingReady, readiness_issues: readinessIssues, note: batch.optimization_id ? 'Batch linked to SUSTUNO optimization; recommended vs actual can be compared.' : 'Batch was not linked to an optimization session; showing planned vs actual as recorded.' } });
   } catch (err) {
     return res.status(500).json({ success: false, error: { code: 'COMPARISON_ERROR', message: err.message } });
   }

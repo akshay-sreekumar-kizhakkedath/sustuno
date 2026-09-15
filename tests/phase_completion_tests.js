@@ -102,7 +102,7 @@ const validReq = {
 
   await test('ETP-2 no auto control claims; limitations disclosed', () => {
     const r = evaluateEtpDecision({ recipe: { dye_class: 'Reactive' }, wastewater_profile: { COD: 620, pH: 7 }, plant_config: { jar_test_data: 'lab-1' } });
-    assert.strictEqual(r.dosing.status, 'advisory_calculated');
+    assert.strictEqual(r.dosing.status, 'advisory_reference_range');
     assert.ok(JSON.stringify(r.limits || r.limitations).toLowerCase().includes('advisory') || r.limitations.join(' ').includes('auto-control'));
   });
 

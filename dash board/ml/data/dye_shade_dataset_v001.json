@@ -1,11 +1,16 @@
 {
   "dataset_version": "dye_shade_dataset_v001",
   "schema_version": "v1.0.0",
-  "extraction_timestamp": "2026-09-14T15:10:04.487171+00:00",
-  "total_source_batches": 0,
+  "extraction_timestamp": "2026-09-15T14:41:04.370514+00:00",
+  "total_source_batches": 1,
   "valid_samples": 0,
-  "rejected_samples": 0,
-  "rejection_reasons": [],
+  "rejected_samples": 1,
+  "rejection_reasons": [
+    {
+      "batch_id": "cfd99b56-7a5f-4706-b19c-69cf4c6b6a71",
+      "reason": "Incomplete measured L*a*b* values (contains null)"
+    }
+  ],
   "training_ready": false,
   "minimum_configured_samples": 200,
   "note": "Model training blocked until sufficient supervised batches with measured L*a*b* outcomes are collected. Do not train on reference/synthetic data.",

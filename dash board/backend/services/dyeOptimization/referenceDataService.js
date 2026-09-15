@@ -2,9 +2,7 @@
 // Retrieves dye/chemical/recipe/machine/reference data from DB (or structured sources) without duplication.
 
 const fs = require('fs').promises;
-const path = require('path');
 
-const RULE_FILE = 'D:/SUSTUNO/mater_knowledge_base/rule_base.json';
 const KB_MASTER = 'D:/SUSTUNO/mater_knowledge_base/master_knowledge_base.json';
 const RECIPES_FILE = 'D:/SUSTUNO/AI Training dataset/JSON_Files/Standard_Recipes_Master_Dataset.json';
 
@@ -13,7 +11,7 @@ async function loadMasterKB() {
     const raw = await fs.readFile(KB_MASTER, 'utf-8');
     const parsed = JSON.parse(raw);
     return parsed.knowledge_records || [];
-  } catch (e) {
+  } catch {
     return [];
   }
 }
@@ -23,7 +21,7 @@ async function loadStandardRecipes() {
     const raw = await fs.readFile(RECIPES_FILE, 'utf-8');
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : (parsed.recipes || []);
-  } catch (e) {
+  } catch {
     return [];
   }
 }

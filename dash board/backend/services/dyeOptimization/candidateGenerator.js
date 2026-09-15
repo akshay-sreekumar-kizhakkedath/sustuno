@@ -2,14 +2,11 @@
 // Deterministic / reproducible. Uses reference recipes + bounded perturbation.
 // Configurable candidate count (default 100).
 
-const fs = require('fs').promises;
-const path = require('path');
-const { loadStandardRecipes, loadMasterKB } = require('./referenceDataService');
+const { loadStandardRecipes } = require('./referenceDataService');
 
 async function generateCandidates(request, opts = {}) {
   const count = opts.candidateCount || 100;
   const recipes = await loadStandardRecipes();
-  const kb = await loadMasterKB();
 
   const candidates = [];
   const seedInputs = extractSeedInputs(request, recipes);
@@ -33,7 +30,6 @@ async function generateCandidates(request, opts = {}) {
 function extractSeedInputs(request, recipes) {
   // Use standard recipes matching dye_class / fabric / fiber
   const dyeClass = (request.dye_class || '').toLowerCase();
-  const fiber = (request.fiber_composition || []).map(f => f.toLowerCase()).join(' ');
   const fabric = (request.fabric_type || '').toLowerCase();
   const matched = recipes.filter(r => {
     const d = (r.dye_information && r.dye_information.dye_type || '').toLowerCase();

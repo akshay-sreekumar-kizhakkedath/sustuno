@@ -42,7 +42,7 @@ router.get('/dye-dataset/readiness', async (req, res) => {
     }
     const { data: allResults } = await supabase
       .from('dye_batch_shade_results')
-      .select('batch_id, measured_L, measured_a, measured_b, data_source');
+      .select('batch_id, measured_l, measured_a, measured_b, data_source');
     const resultsByBatch = {};
     for (const r of allResults || []) {
       if (!resultsByBatch[r.batch_id]) resultsByBatch[r.batch_id] = [];
@@ -58,7 +58,7 @@ router.get('/dye-dataset/readiness', async (req, res) => {
         fiber_composition: b.fiber_composition,
         fabric_type: b.fabric_type,
         dye_class: b.dye_class,
-        measured_L: measuredResult.measured_L || null,
+        measured_l: measuredResult.measured_l || null,
         measured_a: measuredResult.measured_a || null,
         measured_b: measuredResult.measured_b || null,
       };

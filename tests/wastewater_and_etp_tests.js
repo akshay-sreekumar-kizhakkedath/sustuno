@@ -37,14 +37,17 @@ test('2. evaluateEtpDecision returns insufficient_data for chemical dosing when 
 });
 
 // Test 3: ETP Decision Engine with full jar test & COD data
-test('3. evaluateEtpDecision returns advisory_calculated when jar test & COD present', () => {
+test('3. evaluateEtpDecision returns KB reference dosing range when jar test & COD present', () => {
   const result = evaluateEtpDecision({
     recipe: { dye_class: 'reactive', liquor_ratio: 10 },
     wastewater_profile: { COD: 600, pH: 7.2 },
     plant_config: { jar_test_data: true }
   });
-  assert.strictEqual(result.dosing.status, 'advisory_calculated');
-  assert.strictEqual(result.dosing.recommendation.coagulant_dosage_g_m3, 90.0);
+  // KB-grounded: advisory reference RANGE, never a fabricated point dosage.
+  assert.strictEqual(result.dosing.status, 'advisory_reference_range');
+  assert.ok(result.dosing.recommendation.coagulant.kb_dosage_range_mg_l, 'KB coagulant range present');
+  assert.ok(result.dosing.recommendation.coagulant.dosages_from_kb_or_jar_test === true);
+  assert.strictEqual(result.dosing.recommendation.exact_dosing_g_m3, 'Not computed — exact dosing requires jar-test calibration against the KB reference range.');
   assert.strictEqual(result.recommendation_status, 'advisory_generated');
 });
 
@@ -67,6 +70,26 @@ test('5. evaluateEtpDecision outputs full explainability fields', () => {
   assert.ok(Array.isArray(result.assumptions));
   assert.ok(Array.isArray(result.limitations));
   assert.ok(result.limitations.some(l => l.includes('Advisory decision support only')));
+});
+
+// Test 6: Engineering estimates are transparent arithmetic, never ML/measured chemistry
+test('6. engineering_estimates computed from recipe arithmetic, never fabricated chemistry', () => {
+  const result = predictWastewaterProfile({
+    recipe: { fabric_weight_kg: 500, liquor_ratio: '1:10', process: { ph: 7.3 } }
+  });
+  assert.strictEqual(result.prediction_status, 'not_available');
+  assert.strictEqual(result.predicted_profile.COD, null);
+  assert.strictEqual(result.predicted_profile.BOD, null);
+  assert.ok(result.engineering_estimates.dye_bath_volume_m3 === 5.0, '500 kg × 10 L/kg / 1000 = 5 m³');
+  assert.strictEqual(result.engineering_estimates.expected_bath_pH, 7.3);
+  assert.strictEqual(result.engineering_estimates.basis, 'dye_bath_arithmetic');
+  assert.ok(String(result.predicted_profile.COD ?? 'null') === 'null');
+});
+
+// Test 7: No input → empty engineering estimates (no invented defaults)
+test('7. engineering_estimates empty when no arithmetic basis present', () => {
+  const result = predictWastewaterProfile({ dye_class: 'reactive' });
+  assert.deepStrictEqual(result.engineering_estimates, {});
 });
 
 console.log('\n=== ALL WASTEWATER & ETP TESTS PASSED ===\n');

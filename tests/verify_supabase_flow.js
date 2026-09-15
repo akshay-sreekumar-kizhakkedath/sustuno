@@ -244,7 +244,7 @@ async function main() {
   // Insert test target shade
   const { error: tsErr } = await supabase.from('dye_batch_target_shade').insert([{
     batch_id: createdBatchId,
-    target_L: 50.00,
+    target_l: 50.00,
     target_a: 15.00,
     target_b: -10.00,
     shade_name: 'Test Red (VERIFICATION ONLY)',
@@ -274,7 +274,7 @@ async function main() {
 
     console.log(`  Batch retrieved: fiber=${retrieved.fiber_composition}, fabric=${retrieved.fabric_type}, status=${retrieved.data_quality_status}`);
     console.log(`  Dyes: ${dyes ? dyes.length : 0} row(s)`);
-    console.log(`  Target shade: L=${target?.target_L} a=${target?.target_a} b=${target?.target_b}`);
+    console.log(`  Target shade: L=${target?.target_l} a=${target?.target_a} b=${target?.target_b}`);
     report.batch_retrieve = 'PASS';
   } catch (e) {
     report.batch_retrieve = 'FAIL — ' + e.message;
@@ -363,7 +363,7 @@ async function main() {
   // Insert actual shade result (marked synthetic so it cannot enter training dataset)
   const resultPayload = {
     batch_id: createdBatchId,
-    measured_L: measuredL,
+    measured_l: measuredL,
     measured_a: measuredA,
     measured_b: measuredB,
     delta_e_76: dE,
@@ -432,7 +432,7 @@ async function main() {
 
     const { data: allResults } = await supabase
       .from('dye_batch_shade_results')
-      .select('batch_id, measured_L, measured_a, measured_b, data_source');
+      .select('batch_id, measured_l, measured_a, measured_b, data_source');
 
     const resultsByBatch = {};
     for (const r of allResults || []) {
@@ -449,7 +449,7 @@ async function main() {
         fiber_composition: b.fiber_composition,
         fabric_type: b.fabric_type,
         dye_class: b.dye_class,
-        measured_L: realRes.measured_L || null,
+        measured_l: realRes.measured_l || null,
         measured_a: realRes.measured_a || null,
         measured_b: realRes.measured_b || null,
       };

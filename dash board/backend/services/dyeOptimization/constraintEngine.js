@@ -4,7 +4,6 @@
 // Handles pending human_validation_status explicitly (advisory by default).
 
 const fs = require('fs').promises;
-const path = require('path');
 
 const RULE_FILE = 'D:/SUSTUNO/mater_knowledge_base/rule_base.json';
 
@@ -13,7 +12,7 @@ async function loadRules() {
     const raw = await fs.readFile(RULE_FILE, 'utf-8');
     const parsed = JSON.parse(raw);
     return parsed.rules || [];
-  } catch (e) {
+  } catch {
     return [];
   }
 }

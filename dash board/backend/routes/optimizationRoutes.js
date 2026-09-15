@@ -65,6 +65,102 @@ const {
 const { optimizeRecipe } = require('../services/dyeOptimization/optimizer');
 
 // ========== AI DYE OPTIMIZATION ENDPOINT ==========
+
+// Persist a successful optimization run so the dashboard/analytics can show
+// real history. Persistence is best-effort: a DB failure never fails the API.
+async function persistOptimization(input, result) {
+  const material = (input.material || {});
+  const target = (input.target_shade || {});
+  const machine = (input.machine || {});
+  const process = (input.process || {});
+  const prefs = (input.optimization_preferences || {});
+  const recommended = result.recommended_recipe;
+
+  const sessionStatus =
+    result.status === 'completed' ? 'completed' : result.status === 'partial' ? 'partial' : 'running';
+
+  let objective = 'maximize_shade_match';
+  if (prefs.cost_weight != null && prefs.cost_weight > (prefs.shade_weight || 0)) objective = 'minimize_cost';
+  else if (prefs.water_weight != null && prefs.water_weight > (prefs.shade_weight || 0)) objective = 'minimize_water';
+
+  const session = await dyeOptSessionRepository.create({
+    session_name: `${result.optimization_id} · ${input.dye_class || 'dye'} recipe`,
+    objective,
+    status: sessionStatus,
+  });
+
+  const inputs = [
+    { parameter_name: 'target_l', parameter_value: target.L ?? null, parameter_type: 'numeric', unit: 'L*' },
+    { parameter_name: 'target_a', parameter_value: target.a ?? null, parameter_type: 'numeric', unit: 'a*' },
+    { parameter_name: 'target_b', parameter_value: target.b ?? null, parameter_type: 'numeric', unit: 'b*' },
+    { parameter_name: 'fabric_id', parameter_value: material.fabric_id || null, parameter_type: 'categorical', unit: null },
+    { parameter_name: 'fabric_type', parameter_value: material.fabric_type || null, parameter_type: 'categorical', unit: null },
+    { parameter_name: 'fiber_composition', parameter_value: JSON.stringify(material.fiber_composition || []), parameter_type: 'json', unit: null },
+    { parameter_name: 'weight_kg', parameter_value: material.weight_kg ?? null, parameter_type: 'numeric', unit: 'kg' },
+    { parameter_name: 'gsm', parameter_value: material.gsm ?? null, parameter_type: 'numeric', unit: 'gsm' },
+    { parameter_name: 'dye_class', parameter_value: input.dye_class || null, parameter_type: 'categorical', unit: null },
+    { parameter_name: 'machine_id', parameter_value: machine.machine_id || null, parameter_type: 'categorical', unit: null },
+    { parameter_name: 'liquor_ratio', parameter_value: process.liquor_ratio ?? null, parameter_type: 'numeric', unit: 'L:kg' },
+    { parameter_name: 'temperature_c', parameter_value: process.temperature_c ?? null, parameter_type: 'numeric', unit: '°C' },
+    { parameter_name: 'time_minutes', parameter_value: process.time_minutes ?? null, parameter_type: 'numeric', unit: 'min' },
+    { parameter_name: 'ph', parameter_value: process.ph ?? null, parameter_type: 'numeric', unit: 'pH' },
+    { parameter_name: 'model_status', parameter_value: result.model_status || 'not_available', parameter_type: 'categorical', unit: null },
+  ].filter(x => x.parameter_value !== null && x.parameter_value !== undefined && x.parameter_value !== '');
+
+  const outputs = [];
+  let rank = 1;
+  if (recommended) {
+    const score = typeof recommended.score === 'object' && recommended.score !== null
+      ? recommended.score.total_score
+      : recommended.score;
+    const confidence = score != null && typeof score === 'number' ? +score.toFixed(2) : null;
+
+    for (const dye of recommended.dyes || []) {
+      outputs.push({
+        recipe_component: dye.dye_id || 'Dye',
+        recommended_amount: dye.quantity_kg,
+        unit: 'kg',
+        confidence_score: confidence,
+        rank: rank++,
+      });
+    }
+    for (const chem of recommended.chemicals || []) {
+      outputs.push({
+        recipe_component: chem.chemical_id || 'Chemical',
+        recommended_amount: chem.quantity_kg ?? chem.dosage,
+        unit: chem.unit || 'kg',
+        confidence_score: confidence,
+        rank: rank++,
+      });
+    }
+    if (recommended.estimated_water != null) {
+      const waterAmt = typeof recommended.estimated_water === 'object'
+        ? recommended.estimated_water.liquor_water_l
+        : recommended.estimated_water;
+      if (waterAmt != null) {
+        outputs.push({
+          recipe_component: 'Water (dye-bath estimate)',
+          recommended_amount: waterAmt,
+          unit: 'L',
+          confidence_score: null,
+          rank: rank++,
+        });
+      }
+    }
+  }
+
+  const constraints = [];
+  if (prefs.shade_weight != null) constraints.push({ constraint_type: 'shade_weight', constraint_value: prefs.shade_weight, operator: '=' });
+  if (prefs.cost_weight != null) constraints.push({ constraint_type: 'cost_weight', constraint_value: prefs.cost_weight, operator: '=' });
+  if (prefs.water_weight != null) constraints.push({ constraint_type: 'water_weight', constraint_value: prefs.water_weight, operator: '=' });
+
+  if (inputs.length) await dyeOptInputRepository.createMany(inputs.map(i => ({ session_id: session.id, ...i })));
+  if (outputs.length) await dyeOptOutputRepository.createMany(outputs.map(o => ({ session_id: session.id, ...o })));
+  if (constraints.length) await dyeOptConstraintRepository.createMany(constraints.map(c => ({ session_id: session.id, ...c })));
+
+  return { status: 'ok', session_id: session.id, outputs_count: outputs.length };
+}
+
 router.post('/dye-recipe', async (req, res) => {
   try {
     const result = await optimizeRecipe(req.body || {});
@@ -79,7 +175,16 @@ router.post('/dye-recipe', async (req, res) => {
         },
       });
     }
-    res.status(200).json({ success: true, optimization: result });
+
+    let persistence = null;
+    try {
+      persistence = await persistOptimization(req.body || {}, result);
+    } catch (pErr) {
+      console.warn('Optimization persistence skipped (non-fatal):', pErr.message);
+      persistence = { status: 'failed', detail: pErr.message };
+    }
+
+    res.status(200).json({ success: true, optimization: result, persistence });
   } catch (error) {
     console.error('Optimization error:', error);
     res.status(500).json({ success: false, error: { code: 'OPTIMIZATION_ERROR', message: error.message || 'Optimization failed.' } });

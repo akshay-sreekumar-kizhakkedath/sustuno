@@ -1,0 +1,18 @@
+{
+  "name": "sustuno-tests",
+  "private": true,
+  "type": "commonjs",
+  "version": "1.0.0",
+  "scripts": {
+    "test:optimizer": "node dye_optimizer_tests.js",
+    "test:optimizer-structured": "node dye_optimizer_structured_tests.js",
+    "test:wastewater-etp": "node wastewater_and_etp_tests.js",
+    "test:batch": "node dye_batch_tests.js",
+    "test:ml-pipeline": "node dye_ml_pipeline_tests.js",
+    "test:phase-completion": "node phase_completion_tests.js",
+    "test:all": "node dye_optimizer_tests.js; node dye_optimizer_structured_tests.js; node dye_ml_pipeline_tests.js; node dye_batch_tests.js; node wastewater_and_etp_tests.js; node phase_completion_tests.js;"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

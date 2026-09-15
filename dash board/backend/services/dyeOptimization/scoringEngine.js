@@ -15,7 +15,9 @@ function scoreCandidate(candidate, predictedLab, targetLab, deltaE, cost, prefer
   // Feasibility score: basic process feasibility check (hard/soft constraints already evaluated separately)
   const feasibilityScore = 0.8; // base; reduced if process out of bounds (simplified)
 
-  const total = shadeWeight * shadeScore + costWeight * costScore + 0.3 * feasibilityScore + waterWeight * 0;
+  const waterScore = 0; // water-weighted scoring is not applied until a validated water metric exists (weight currently informational)
+
+  const total = shadeWeight * shadeScore + costWeight * costScore + 0.3 * feasibilityScore + waterWeight * waterScore;
 
   return {
     total_score: +total.toFixed(4),

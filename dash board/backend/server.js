@@ -83,7 +83,7 @@ app.get('/api/health', (req, res) => {
 app.get('/api/health/db', async (req, res) => {
   try {
     // Simple query to check connection
-    const { data, error } = await supabase.from('batches').select('count', { count: 'exact', head: true });
+    const { error } = await supabase.from('batches').select('count', { count: 'exact', head: true });
     if (error) throw error;
     res.json({ status: 'ok', database: 'connected', timestamp: new Date().toISOString() });
   } catch (err) {
@@ -251,27 +251,37 @@ app.get('/api/chemicals/compatibility', (req, res) => {
   res.json(chemRules.slice(0, 50));
 });
 
-// --- IoT Telemetry (simulated endpoint) ---
+// --- IoT Telemetry (explicitly simulated / out-of-scope endpoint) ---
 
 app.get('/api/iot/telemetry', (req, res) => {
-  // Return current water quality KPIs from the dashboard data
-  // In production, this would pull from IoT sensors or a time-series DB
+  // Physical IoT (sensors, gateways, MQTT, PLC) is OUT OF SCOPE for the SUSTUNO V1
+  // software release. This endpoint exists only to document the intended integration
+  // shape. The values below are clearly labeled SIMULATED and must never be mistaken
+  // for live plant data.
   res.json({
-    ph: (Math.random() * 0.5 + 6.9).toFixed(2),
-    ec: (Math.random() * 0.4 + 2.1).toFixed(2),
-    turbidity: (Math.random() * 3 + 12).toFixed(1),
-    temperature: (Math.random() * 4 + 28).toFixed(1),
-    flow_rate: (Math.random() * 5 + 26).toFixed(1),
+    status: 'demo',
+    out_of_scope: true,
+    data_source: 'simulated_demo',
+    message: 'Physical IoT instrumentation is out of scope for this release. No live sensor connected.',
+    metrics: {
+      ph: null,
+      ec: null,
+      turbidity: null,
+      temperature: null,
+      flow_rate: null,
+    },
     timestamp: new Date().toISOString(),
   });
 });
 
-// --- AI Prediction Endpoint ---
+// --- Knowledge-Base Recipe Lookup Endpoint ---
+// NOTE: this is a structured KB RULE LOOKUP, not an ML prediction. It never claims
+// ML confidence. Use /api/optimization/dye-recipe for the full optimizer pipeline
+// (which honestly reports model_status = not_available until a validated model exists).
 
 app.post('/api/predict/dyeing', (req, res) => {
-  const { fabric, dye, machine, shade } = req.body;
+  const { fabric, dye } = req.body;
 
-  // Placeholder: match against recipe rules in KB
   const match = standardRecipes.find(r => {
     const app = r.applicability || {};
     return (
@@ -282,7 +292,10 @@ app.post('/api/predict/dyeing', (req, res) => {
 
   if (match) {
     res.json({
-      confidence: match.confidence,
+      prediction_kind: 'kb_rule_lookup',
+      model_status: 'not_available',
+      is_ml_prediction: false,
+      kb_confidence: match.confidence,
       recipe: match.subject,
       parameters: {
         value: match.value,
@@ -290,11 +303,16 @@ app.post('/api/predict/dyeing', (req, res) => {
         formula: match.formula,
       },
       source: match.source,
+      warnings: ['This is a knowledge-base recipe retrieval, NOT an ML prediction. ML shade prediction model_status is not_available.'],
     });
   } else {
     res.json({
-      confidence: 'low',
-      message: 'No exact recipe match found. Using nearest heuristic.',
+      prediction_kind: 'kb_rule_lookup',
+      model_status: 'not_available',
+      is_ml_prediction: false,
+      kb_confidence: null,
+      message: 'No exact knowledge-base recipe match found. Run the dye optimizer (/api/optimization/dye-recipe) with structured validated inputs instead.',
+      warnings: ['No fabricated prediction or confidence is returned.'],
     });
   }
 });

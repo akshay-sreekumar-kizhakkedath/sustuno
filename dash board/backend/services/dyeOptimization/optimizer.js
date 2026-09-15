@@ -2,7 +2,6 @@
 // Integrates: validation, reference data, rules, generation, constraints, model, ΔE, scoring, ranking, persistence.
 
 const { validateOptimizationRequest } = require('./inputValidator');
-const { retrieveReferenceData } = require('./referenceDataService');
 const { loadRules, evaluateRules } = require('./constraintEngine');
 const { generateCandidates } = require('./candidateGenerator');
 const { predictShadeBatch, getModelStatus } = require('./shadePredictionModel');
@@ -28,10 +27,7 @@ async function optimizeRecipe(request) {
     warnings: validation.warnings || [],
   };
 
-  // 2. Load reference data
-  const referenceData = await retrieveReferenceData(req);
-
-  // 3. Load KB rules
+  // 2. Load KB rules
   const rules = await loadRules();
 
   // 4. Generate candidates (deterministic)
@@ -40,7 +36,6 @@ async function optimizeRecipe(request) {
   // 5. Constraint evaluation + model prediction + scoring
   const results = [];
   const modelStatus = getModelStatus();
-  const recommendedConstraints = [];
 
   // Batch shade prediction: one Python process for all candidates (single model
   // load). When no model exists this returns all-null rows with no subprocess.

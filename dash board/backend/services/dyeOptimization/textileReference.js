@@ -7,7 +7,6 @@
 // state) rather than fabricated. No database tables are created; no IoT; no RAG.
 
 const fs = require('fs');
-const path = require('path');
 
 const RECIPES_FILE = 'D:/SUSTUNO/AI Training dataset/JSON_Files/Standard_Recipes_Master_Dataset.json';
 const KB_MASTER = 'D:/SUSTUNO/mater_knowledge_base/master_knowledge_base.json';
@@ -221,7 +220,7 @@ function parseLiquorRange(text) {
 }
 
 function machineShortId(subject) {
-  const m = String(subject || '').match(/\(([A-Za-z0-9][A-Za-z0-9 \-]+)\)/);
+  const m = String(subject || '').match(/\(([A-Za-z0-9][A-Za-z0-9 -]+)\)/);
   return m ? m[1].trim().replace(/\s+/g, '-') : String(subject || '').slice(0, 24);
 }
 

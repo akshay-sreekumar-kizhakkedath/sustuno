@@ -17,7 +17,7 @@ function estimateRecipeCost(recipe, referencePrices = {}) {
   }
   // Water/process cost approximation based on liquor ratio
   const liquor = (recipe.process_parameters && recipe.process_parameters.liquor_ratio) ? recipe.process_parameters.liquor_ratio : 0;
-  total += liquor * (referencePrices['water_l'] || 0.05) * ((recipe.quantity_kg || 100) || 100);
+  total += liquor * (referencePrices['water_l'] || 0.05) * (recipe.quantity_kg || 100);
   return +total.toFixed(3);
 }
 
