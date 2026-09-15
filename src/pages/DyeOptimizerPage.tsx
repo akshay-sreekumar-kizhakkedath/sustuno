@@ -77,18 +77,27 @@ export function DyeOptimizerPage() {
   const [ww, setWw] = useState<any>(null);
   const [wwBusy, setWwBusy] = useState(false);
 
+  const loadRefs = async () => {
+    setRefsLoading(true);
+    setRefsError(null);
+    const [f, fi, m] = await Promise.all([fetchFabrics(), fetchFibers(), fetchMachines()]);
+    const fails: string[] = [];
+    if (!f) fails.push('fabrics');
+    if (!fi) fails.push('fibers');
+    if (!m) fails.push('machines');
+    if (fails.length === 3) {
+      setRefsError('Unable to connect to backend. Ensure the backend server is running on port 5000. Click retry to try again.');
+    } else if (fails.length > 0) {
+      setRefsError(`Partial data load failure: ${fails.join(', ')}. Some dropdowns may be empty. Click retry to try again.`);
+    }
+    setFabrics(f?.fabrics ?? []);
+    setFibers(fi?.fibers ?? []);
+    setMachines(m?.machines ?? []);
+    setRefsLoading(false);
+  };
+
   useEffect(() => {
-    let live = true;
-    (async () => {
-      const [f, fi, m] = await Promise.all([fetchFabrics(), fetchFibers(), fetchMachines()]);
-      if (!live) return;
-      if (!f && !fi && !m) setRefsError('Unable to retrieve optimization data. Check backend connection.');
-      setFabrics(f?.fabrics ?? []);
-      setFibers(fi?.fibers ?? []);
-      setMachines(m?.machines ?? []);
-      setRefsLoading(false);
-    })();
-    return () => { live = false; };
+    loadRefs();
   }, []);
 
   const fabric = useMemo(() => fabrics.find((x) => x.id === fabricId) || null, [fabrics, fabricId]);
@@ -322,7 +331,7 @@ export function DyeOptimizerPage() {
       />
 
       {refsLoading && <Card><p className="p-5 text-[13px] text-on-surface-variant">Loading fabric and reference data…</p></Card>}
-      {refsError && <Card><p className="p-5 text-[13px] text-red-700">{refsError}</p></Card>}
+      {refsError && <Card><div className="flex items-center justify-between gap-3 p-5"><p className="text-[13px] text-red-700">{refsError}</p><Button variant="secondary" onClick={() => loadRefs()}>Retry</Button></div></Card>}
 
       {!refsLoading && !refsError && (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">

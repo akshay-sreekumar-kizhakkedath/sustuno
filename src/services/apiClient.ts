@@ -4,10 +4,18 @@ const API_BASE = '/api';
 async function getJson(path: string) {
   try {
     const res = await fetch(`${API_BASE}${path}`);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn(`[api] ${path} returned ${res.status} ${res.statusText}`);
+      return null;
+    }
     const json = await res.json();
-    return json.success === false ? null : (json.data ?? json);
-  } catch {
+    if (json.success === false) {
+      console.warn(`[api] ${path} returned success:false`, json.error);
+      return null;
+    }
+    return json.data ?? json;
+  } catch (e: any) {
+    console.warn(`[api] ${path} network error:`, e?.message ?? e);
     return null;
   }
 }
