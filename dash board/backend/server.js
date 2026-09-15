@@ -490,8 +490,8 @@ const reportsRoutes = require('./routes/reportsRoutes');
 app.use('/api/reports', reportsRoutes);
 
 // --- SPA Catch-all: serve React index.html for all non-API routes ---
-// This must come AFTER all API routes so /api/* is not intercepted.
-app.get('*', (req, res) => {
+// Express 5 compatible (uses app.use without path to avoid path-to-regexp wildcard syntax error)
+app.use((req, res) => {
   if (req.path.startsWith('/api')) {
     return res.status(404).json({ error: 'API endpoint not found' });
   }
