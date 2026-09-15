@@ -3,7 +3,8 @@ services:
     name: sustuno-backend
     runtime: node
     plan: free
-    dockerfilePath: dash board/backend/Dockerfile
+    buildCommand: cd "dash board/backend" && npm install
+    startCommand: cd "dash board/backend" && npm start
     envVars:
       - key: NODE_VERSION
         value: 20
