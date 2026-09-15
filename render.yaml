@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: sustuno-backend
+    runtime: node
+    plan: free
+    dockerfilePath: dash board/backend/Dockerfile
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PORT
+        value: 5000
+      - key: CORS_ORIGIN
+        sync: false
