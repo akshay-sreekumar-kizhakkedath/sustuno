@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { PageHeader, Button } from '../components/ui/PageHeader';
 import { Card, CardHeader } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Icon } from '../components/ui/Icon';
-import { fetchBatchIntelligence, fetchFabrics, fetchMachines } from '../services/apiClient';
+import { fetchBatchIntelligence, fetchFabrics, fetchMachines, createProductionOrder, optimizeFromOrder } from '../services/apiClient';
 import { useBatch } from '../context/BatchContext';
 import { BatchWorkflowStepper } from '../components/workflow/BatchWorkflowStepper';
 
 export function ProductionPage() {
   const { batches, activeBatchId, selectBatch, createBatch, refreshBatches, isLoadingBatches } = useBatch();
+  const { batchId } = useParams<{ batchId: string }>();
+  const [orderId, setOrderId] = useSearchParams();
   const [intel, setIntel] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOptimizing, setIsOptimizing] = useState(false);
   const navigate = useNavigate();
 
-  // Form state for creating a new batch
   const [fabrics, setFabrics] = useState<any[]>([]);
   const [machines, setMachines] = useState<any[]>([]);
   const [fabricId, setFabricId] = useState('COTTON-001');
@@ -25,6 +27,73 @@ export function ProductionPage() {
   const [L, setL] = useState(45);
   const [A, setA] = useState(10);
   const [B, setB] = useState(-20);
+  const [customer, setCustomer] = useState('');
+  const [shadeDepth, setShadeDepth] = useState('Medium');
+  const [orderCreated, setOrderCreated] = useState(false);
+  const [activeOrder, setActiveOrder] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchFabrics().then((res) => res?.fabrics && setFabrics(res.fabrics)).catch(() => {});
+    fetchMachines().then((res) => res?.machines && setMachines(res.machines)).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!activeBatchId) { setIntel(null); return; }
+    fetchBatchIntelligence(activeBatchId).then(setIntel).catch(() => setIntel(null));
+  }, [activeBatchId]);
+
+  useEffect(() => {
+    if (batchId) {
+      setActiveOrder(batchId);
+      selectBatch(batchId);
+    }
+  }, [batchId]);
+
+  const handleCreateOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const selectedFabric = fabrics.find((f) => f.id === fabricId);
+      const res = await createProductionOrder({
+        customer,
+        fabric_type: selectedFabric?.name || 'Cotton Single Jersey',
+        fiber_composition: selectedFabric?.composition || [{ fiber: 'Cotton', percentage: 100 }],
+        batch_weight_kg: Number(weightKg),
+        gsm: selectedFabric?.gsm_reference || 180,
+        target_shade: { L: Number(L), a: Number(A), b: Number(B), shade_depth: shadeDepth },
+        dye_class: dyeClass,
+        machine: machineId,
+        shade_depth,
+      });
+      if (res && res.success && res.order) {
+        const newOrderId = res.order.order_number || res.order.batch_id;
+        setActiveOrder(newOrderId);
+        setOrderCreated(true);
+        await refreshBatches();
+        navigate(`/production/orders/${newOrderId}`);
+      } else {
+        alert(res?.error?.message || 'Failed to create order');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOptimizeOrder = async (orderIdVal: string) => {
+    setIsOptimizing(true);
+    try {
+      const res = await optimizeFromOrder(orderIdVal);
+      if (res && res.success) {
+        const batchIdVal = res.batch_id;
+        selectBatch(batchIdVal);
+        navigate(`/dye-optimizer?batch_id=${batchIdVal}`);
+      } else {
+        alert(res?.error?.message || 'Failed to optimize');
+      }
+    } finally {
+      setIsOptimizing(false);
+    }
+  };
 
   useEffect(() => {
     fetchFabrics().then((res) => res?.fabrics && setFabrics(res.fabrics)).catch(() => {});

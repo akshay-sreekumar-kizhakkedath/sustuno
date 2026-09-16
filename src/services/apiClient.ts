@@ -172,3 +172,68 @@ export async function fetchBatchEtpRecommendation(batchId: string) {
   return getJson(`/batches/${encodeURIComponent(batchId)}/etp-recommendation`);
 }
 
+// ================= Connected Lifecycle APIs =================
+export async function createProductionOrder(input: any) {
+  return postJson('/lifecycle/production-order', input);
+}
+
+export async function fetchProductionOrders() {
+  return getJson('/lifecycle/production-orders');
+}
+
+export async function optimizeFromOrder(orderId: string, preferences?: any) {
+  return postJson(`/lifecycle/production-order/${encodeURIComponent(orderId)}/optimize`, preferences || {});
+}
+
+export async function useRecommendedRecipe(batchId: string, recipe?: any) {
+  return postJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/use-recipe`, recipe ? { recipe } : {});
+}
+
+export async function recordActualRecipe(batchId: string, actualDyes: any[], actualChemicals: any[], actualProcess: any) {
+  return postJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/actual-recipe`, { actual_dyes: actualDyes, actual_chemicals: actualChemicals, actual_process: actualProcess });
+}
+
+export async function recordShadeResult(batchId: string, L: number, a: number, b: number, metadata?: any) {
+  return postJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/shade`, { measured_L: L, measured_a: a, measured_b: b, metadata });
+}
+
+export async function fetchBatchIntelligence(batchId: string) {
+  return getJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/intelligence`);
+}
+
+export async function createWastewaterPrediction(batchId: string) {
+  return postJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/wastewater-predict`, {});
+}
+
+export async function recordWastewaterMeasurement(batchId: string, measurements: any[], metadata?: any) {
+  return postJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/wastewater-measurement`, { measurements, metadata });
+}
+
+export async function fetchWastewaterComparison(batchId: string) {
+  return getJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/comparison`);
+}
+
+export async function generateETPFromBatch(batchId: string) {
+  return getJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/etp`);
+}
+
+export async function evaluateTrainingReadiness(batchId: string) {
+  return getJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/training-readiness`);
+}
+
+export async function generateBatchReportFromAPI(batchId: string) {
+  return getJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/report`);
+}
+
+export async function fetchBatchWorkspace(batchId: string) {
+  return getJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/workspace`);
+}
+
+export async function transitionBatchState(batchId: string, toStatus: string, trigger?: string, notes?: string) {
+  return postJson(`/lifecycle/batch/${encodeURIComponent(batchId)}/state-transition`, { to_status: toStatus, trigger, notes });
+}
+
+export async function fetchProductionOrder(orderId: string) {
+  return getJson(`/lifecycle/production-orders/${encodeURIComponent(orderId)}`);
+}
+
