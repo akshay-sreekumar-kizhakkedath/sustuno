@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs').promises;
 const router = express.Router();
 const dataPaths = require('../data/paths');
+const { optimizeBatch, confirmRecipe } = require('../services/workflowService');
 
 const RECIPES_FILE = dataPaths.RECIPES_FILE;
 
@@ -160,6 +161,45 @@ async function persistOptimization(input, result) {
 
   return { status: 'ok', session_id: session.id, outputs_count: outputs.length };
 }
+
+// POST /api/optimization/batches/:id/optimize
+// Runs the optimizer for a specific batch and stores candidates under the batch
+router.post('/batches/:id/optimize', async (req, res) => {
+  try {
+    const result = await optimizeBatch(req.params.id, req.body?.preferences || {});
+    res.json({
+      success: true,
+      data: result,
+      message: `Batch ${result.batch_id} optimization completed.`,
+    });
+  } catch (err) {
+    console.error('Error optimizing batch recipe:', err);
+    res.status(400).json({
+      success: false,
+      error: { code: 'BATCH_OPTIMIZE_ERROR', message: err.message },
+    });
+  }
+});
+
+// POST /api/optimization/batches/:id/confirm
+// Confirms a recipe for the batch and automatically triggers wastewater prediction
+router.post('/batches/:id/confirm', async (req, res) => {
+  try {
+    const { recipe, operator } = req.body || {};
+    const result = await confirmRecipe(req.params.id, recipe, operator);
+    res.json({
+      success: true,
+      data: result,
+      message: `Recipe confirmed for batch ${result.batch_id}. Wastewater prediction generated automatically.`,
+    });
+  } catch (err) {
+    console.error('Error confirming batch recipe:', err);
+    res.status(400).json({
+      success: false,
+      error: { code: 'RECIPE_CONFIRM_ERROR', message: err.message },
+    });
+  }
+});
 
 router.post('/dye-recipe', async (req, res) => {
   try {

@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom'
 import { Icon } from '../ui/Icon'
 import { Badge } from '../ui/Badge'
 import { MODULE_META } from '../../config/navigation'
+import { BatchSelector } from '../workflow/BatchSelector'
 
 export function Topbar() {
   const { pathname } = useLocation()
@@ -22,8 +23,10 @@ export function Topbar() {
         </div>
       </div>
 
-      <div className="hidden items-center gap-3 md:flex">
-        <div className="flex h-9 w-56 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+      <div className="flex items-center gap-3">
+        <BatchSelector />
+        <div className="hidden h-9 w-56 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 md:flex">
+
           <Icon name="search" className="text-[18px] text-outline" />
           <input
             className="w-full bg-transparent text-[13px] text-on-surface outline-none placeholder:text-outline"

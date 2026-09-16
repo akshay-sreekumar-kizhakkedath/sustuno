@@ -134,28 +134,36 @@ CalibrationConfig cal = {
  *  Enter your WiFi credentials below.
  *  The ESP32 will continue reading sensors even if WiFi fails.
  */
-const char* WIFI_SSID     = "YOUR_WIFI_SSID";
-const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
+const char* WIFI_SSID     = "LOQ";
+const char* WIFI_PASSWORD = "useit@321";
 #define WIFI_TIMEOUT_MS   15000   // Give up after 15 seconds
 #define WIFI_RETRY_MS     30000   // Retry WiFi every 30 seconds
 
 /* ================== BACKEND CONFIGURATION ==================== */
 /*
- *  The ESP32 sends JSON data via HTTP POST to your SUSTUNO
- *  backend. Configure the endpoint URL and API key below.
+ *  The ESP32 dynamically obtains the active batch_id via GET /api/iot/active-session
+ *  after WiFi connects. Falls back to the configured constant if the endpoint is unreachable.
  *
- *  Expected backend endpoint:  POST /api/iot/readings
- *  The backend should store readings in Supabase tables:
- *    - sensor_telemetry (time-series data)
- *    - iot_sensors      (sensor registry)
- *    - gateway_status   (device health)
- *    - iot_alerts       (threshold alerts)
+ *  Expected backend endpoint:  GET /api/iot/active-session
+ *  Returns: { active_batch_id, active_device_id, timestamp }
+ *
+ *  The dynamic batch_id is stored in the `dynamicBatchId` character array
+ *  and used when constructing the telemetry payload below.
  */
-const char* BACKEND_URL  = "http://YOUR_BACKEND_IP:5000/api/iot/readings";
-const char* API_KEY       = "YOUR_API_KEY";
-const char* DEVICE_ID     = "SUSTUNO-ESP32-001";
-const char* PLANT_ID      = "PLANT-001";
-const char* BATCH_ID      = "BATCH-001";
+const char* BACKEND_URL         = "https://sustuno-backend.onrender.com/api/iot/readings";
+const char* ACTIVE_SESSION_URL  = "https://sustuno-backend.onrender.com/api/iot/active-session";
+const char* API_KEY             = "sustuno-esp32-key";
+const char* DEVICE_ID           = "SUSTUNO-ESP32-001";
+const char* PLANT_ID            = "PLANT-001";
+const char* BATCH_ID_FALLBACK   = "BATCH-001";
+
+char dynamicBatchId[50] = {0};
+/* Temporary storage for the handshake HTTP response */
+char handshakeBuffer[128];
+
+/* Forward declarations */
+void fetchActiveBatchId();
+void syncNTPTime();
 
 /* ==================== TASK TIMING (ms) ====================== */
 /*
@@ -280,7 +288,7 @@ int  backendFailCount    = 0;
 
 /* Task scheduler */
 unsigned long lastFastSensor  = 0;
-unsigned long lastTemperature = 0;
+unsigned long lastTemperatureTask = 0;
 unsigned long lastFlow        = 0;
 unsigned long lastHealth      = 0;
 unsigned long lastTransmit    = 0;
@@ -713,6 +721,8 @@ void updateSensorHealth() {
 void connectWiFi() {
     if (WiFi.status() == WL_CONNECTED) {
         wifiConnected = true;
+        /* Perform active session handshake to obtain dynamic batch_id */
+        fetchActiveBatchId();
         return;
     }
 
@@ -775,6 +785,49 @@ void syncNTPTime() {
     }
 }
 
+/* ================== ACTIVE SESSION HANDSHAKE ====================== */
+/*
+ *  Fetches the current active batch_id from the backend via GET /api/iot/active-session.
+ *  Updates the global `dynamicBatchId` array if the request succeeds.
+ *  Falls back to BATCH_ID_FALLBACK if the endpoint is unreachable.
+ */
+void fetchActiveBatchId() {
+    HTTPClient http;
+    http.begin(ACTIVE_SESSION_URL);
+    http.addHeader("X-API-Key", API_KEY);
+    int httpCode = http.GET();
+
+    if (httpCode > 0) {
+        if (httpCode >= 200 && httpCode < 300) {
+            strncpy(handshakeBuffer, http.getString().c_str(), sizeof(handshakeBuffer) - 1);
+            handshakeBuffer[sizeof(handshakeBuffer) - 1] = '\0';
+            /* Parse JSON: { active_batch_id: "...", active_device_id: "...", timestamp: "..." } */
+            const char *p = handshakeBuffer;
+            const char *key = "\"active_batch_id\":\"";
+            char *found = strstr(p, key);
+            if (found) {
+                found += strlen(key);
+                char *end = strchr(found, '\"');
+                if (end) {
+                    size_t len = end - found;
+                    if (len >= sizeof(dynamicBatchId)) len = sizeof(dynamicBatchId) - 1;
+                    strncpy(dynamicBatchId, found, len);
+                    dynamicBatchId[len] = '\0';
+                }
+            }
+            if (strlen(dynamicBatchId) == 0) {
+                strncpy(dynamicBatchId, BATCH_ID_FALLBACK, sizeof(dynamicBatchId) - 1);
+                dynamicBatchId[sizeof(dynamicBatchId) - 1] = '\0';
+            }
+        }
+    } else {
+        Serial.printf("[HANDSHAKE] Failed: %s\n", http.errorToString(httpCode).c_str());
+        strncpy(dynamicBatchId, BATCH_ID_FALLBACK, sizeof(dynamicBatchId) - 1);
+        dynamicBatchId[sizeof(dynamicBatchId) - 1] = '\0';
+    }
+    http.end();
+}
+
 String getTimestamp() {
     struct tm timeinfo;
     if (!getLocalTime(&timeinfo)) {
@@ -809,12 +862,17 @@ void sendDataToBackend() {
         return;
     }
 
+    /* Dynamic batch_id: use handshaked value if available, otherwise fallback */
+    char effectiveBatchId[50];
+    strncpy(effectiveBatchId, dynamicBatchId, sizeof(effectiveBatchId) - 1);
+    effectiveBatchId[sizeof(effectiveBatchId) - 1] = '\0';
+
     /* Build JSON payload */
     StaticJsonDocument<1024> doc;
 
     doc["device_id"]  = DEVICE_ID;
     doc["plant_id"]   = PLANT_ID;
-    doc["batch_id"]   = BATCH_ID;
+    doc["batch_id"]   = effectiveBatchId;
     doc["timestamp"]  = getTimestamp();
 
     /* pH sensor */
@@ -867,6 +925,9 @@ void sendDataToBackend() {
     info["wifi_rssi_dbm"] = WiFi.RSSI();
     info["free_heap_bytes"] = ESP.getFreeHeap();
     info["health"] = getSystemHealth();
+    info["phCalibrated"] = cal.phCalibrated;
+    info["tdsCalibrated"] = cal.turbCalibrated; /* TDS has K-factor, turb has slope/offset */
+    info["turbCalibrated"] = cal.turbCalibrated;
 
     /* Serialize */
     char payload[1024];
@@ -973,6 +1034,10 @@ void setup() {
 
     bootTime = millis();
 
+    /* Initialize dynamic batch ID with fallback before any handshake */
+    strncpy(dynamicBatchId, BATCH_ID_FALLBACK, sizeof(dynamicBatchId) - 1);
+    dynamicBatchId[sizeof(dynamicBatchId) - 1] = '\0';
+
     Serial.println();
     Serial.println("  ╔══════════════════════════════════════╗");
     Serial.println("  ║  SUSTUNO ESP32 IoT Gateway v1.0.0   ║");
@@ -983,7 +1048,6 @@ void setup() {
     /* Configure ADC */
     analogSetAttenuation(ADC_11db);   // 0-3.3V range
     analogReadResolution(12);          // 12-bit (0-4095)
-    analogSetCyclesPerSample(8);       // Default ADC cycles
 
     /* Initialize status LED */
     pinMode(PIN_LED, OUTPUT);
@@ -1046,8 +1110,8 @@ void loop() {
     }
 
     /* Task 2: Temperature update (every 2 seconds) */
-    if (now - lastTemperature >= TASK_TEMPERATURE_MS) {
-        lastTemperature = now;
+    if (now - lastTemperatureTask >= TASK_TEMPERATURE_MS) {
+        lastTemperatureTask = now;
         readTemperature();
     }
 

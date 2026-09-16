@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PageHeader, Button } from '../components/ui/PageHeader'
 import { Card, CardHeader } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
@@ -7,6 +8,10 @@ import { LineChart } from '../components/ui/LineChart'
 import { sensors as mockSensors, telemetry as mockTelemetry, tanks as mockTanks, gateway as mockGateway, iotAlerts as mockAlerts } from '../data/iot'
 import { getTelemetry, getTankLevels, getGatewayStatus, getIotAlerts, subscribeTelemetry } from '../../services/sensorService'
 import { supabase } from '../../lib/supabase'
+import { useBatch } from '../context/BatchContext'
+import { BatchWorkflowStepper } from '../components/workflow/BatchWorkflowStepper'
+import { fetchUnifiedBatchComparison } from '../services/apiClient'
+
 
 const toneColor: Record<string, string> = {
   green: '#10b981',
@@ -100,6 +105,8 @@ function buildTelemetryFromLive(rows: any[]): TelemetryData {
 }
 
 export function IotMonitoringPage() {
+  const navigate = useNavigate()
+  const { activeBatchId, activeBatch, completeBatch } = useBatch()
   const [monitoring, setMonitoring] = useState(false)
   const [sensors, setSensors] = useState<SensorData[]>(mockSensors)
   const [telemetry, setTelemetry] = useState<TelemetryData>(mockTelemetry)
@@ -109,7 +116,34 @@ export function IotMonitoringPage() {
   const [lastPacket, setLastPacket] = useState('14:22:18')
   const [systemStarted, setSystemStarted] = useState(false)
   const [systemStarting, setSystemStarting] = useState(false)
+  const [compLoading, setCompLoading] = useState(false)
+  const [completing, setCompleting] = useState(false)
+  const [batchComparison, setBatchComparison] = useState<any>(null)
   const subRef = useRef<ReturnType<typeof subscribeTelemetry> | null>(null)
+
+  // Fetch expected-vs-actual comparison when active batch is in production
+  useEffect(() => {
+    if (!activeBatchId) return
+    if (activeBatch?.lifecycle_status !== 'PRODUCTION_ACTIVE' && activeBatch?.lifecycle_status !== 'ETP_REVIEW') return
+    setCompLoading(true)
+    Promise.all([
+      fetchUnifiedBatchComparison(activeBatchId).catch(() => null),
+    ]).then(([comp]) => {
+      if (comp) setBatchComparison(comp)
+    }).finally(() => setCompLoading(false))
+  }, [activeBatchId, activeBatch?.lifecycle_status])
+
+  const handleCompleteBatch = async () => {
+    if (!activeBatchId) return
+    setCompleting(true)
+    try {
+      await completeBatch(activeBatchId, { completed_via: 'IoT Monitoring Page' })
+      navigate('/etp')
+    } finally {
+      setCompleting(false)
+    }
+  }
+
 
   const fetchLiveData = useCallback(async () => {
     try {
@@ -230,8 +264,39 @@ export function IotMonitoringPage() {
         }
       />
 
+      <BatchWorkflowStepper />
+
+      {/* Active Batch Context Banner */}
+      {activeBatchId && (
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 px-5 py-3">
+          <div className="flex items-center gap-3">
+            <Icon name="sensors" className="text-[22px] text-primary" />
+            <div>
+              <p className="text-[12px] font-bold text-on-surface">
+                Monitoring Batch: <span className="font-mono-data text-primary">{activeBatchId}</span>
+              </p>
+              <p className="text-[11.5px] text-on-surface-variant">
+                Status: {activeBatch?.lifecycle_status || 'PRODUCTION_ACTIVE'} ·{' '}
+                ESP32 Device: SUSTUNO-ESP32-001 ·{' '}
+                Wastewater prediction: {activeBatch?.wastewater_prediction ? 'Available' : 'Pending'}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="secondary"
+              icon="science"
+              onClick={() => navigate('/etp')}
+            >
+              ETP Decision
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* IoT System Control Panel */}
       <Card className="mb-6">
+
         <div className="flex flex-wrap items-center justify-between gap-4 p-5">
           <div className="flex items-center gap-4">
             <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${systemStarted ? 'bg-emerald-100' : 'bg-slate-100'}`}>
@@ -439,6 +504,42 @@ export function IotMonitoringPage() {
           ))}
         </div>
       </Card>
+
+      {/* Expected vs Actual Comparison Widget */}
+      {activeBatchId && (activeBatch?.lifecycle_status === 'PRODUCTION_ACTIVE' || batchComparison) && (
+        <Card className="mt-6">
+          <CardHeader
+            title="Expected vs Actual Sensor Comparison"
+            subtitle={`Batch ${activeBatchId} vs predicted wastewater`}
+            icon="compare_arrows"
+          />
+          <div className="p-5 text-[13px]">
+            {!batchComparison && !compLoading && (
+              <div className="rounded-lg bg-slate-50 p-4">
+                <p className="text-on-surface-variant">
+                  Comparison data is generated automatically once the ESP32 sends telemetry matched against the predicted wastewater profile.
+                  Expected values come from the confirmed recipe. COD, BOD, TDS are marked <strong>not_available</strong> -- not invented.
+                </p>
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
+
+      {/* Complete Batch Action */}
+      {activeBatchId && activeBatch?.lifecycle_status === 'PRODUCTION_ACTIVE' && (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+          <div>
+            <h4 className="text-[14px] font-bold text-emerald-900">Production Monitoring Complete?</h4>
+            <p className="text-[12.5px] text-emerald-800">
+              Finalise the batch to trigger ETP Decision Support and archive telemetry for ML training.
+            </p>
+          </div>
+          <Button variant="primary" icon="check_circle" onClick={handleCompleteBatch} disabled={completing}>
+            {completing ? 'Completing...' : 'Complete and Get ETP Recommendation'}
+          </Button>
+        </div>
+      )}
     </>
   )
 }

@@ -126,3 +126,49 @@ export async function fetchRecipeResources(recipeId: string) {
 export async function fetchProcessDefaults(recipeId: string) {
   return getJson(`/reference/process-defaults?recipe_id=${encodeURIComponent(recipeId)}`);
 }
+
+// ================= Unified Workflow APIs =================
+export async function createProductionBatch(input: any) {
+  return postJson('/production/batches', input);
+}
+
+export async function fetchBatchDossier(batchId: string) {
+  return getJson(`/production/batches/${encodeURIComponent(batchId)}`);
+}
+
+export async function optimizeBatchRecipe(batchId: string, preferences?: any) {
+  return postJson(`/optimization/batches/${encodeURIComponent(batchId)}/optimize`, preferences || {});
+}
+
+export async function confirmBatchRecipe(batchId: string, recipeData: any) {
+  return postJson(`/optimization/batches/${encodeURIComponent(batchId)}/confirm`, recipeData);
+}
+
+export async function startBatchProduction(batchId: string, deviceId?: string) {
+  return postJson(`/production/batches/${encodeURIComponent(batchId)}/start-production`, { device_id: deviceId });
+}
+
+export async function completeBatchProduction(batchId: string, outcomeData?: any) {
+  return postJson(`/production/batches/${encodeURIComponent(batchId)}/complete`, outcomeData || {});
+}
+
+export async function fetchBatchWastewater(batchId: string) {
+  return getJson(`/wastewater/batches/${encodeURIComponent(batchId)}`);
+}
+
+export async function fetchActiveIotSession() {
+  return getJson('/iot/active-session');
+}
+
+export async function fetchBatchIotReadings(batchId: string, limit = 50) {
+  return getJson(`/batches/${encodeURIComponent(batchId)}/iot-readings?limit=${limit}`);
+}
+
+export async function fetchUnifiedBatchComparison(batchId: string) {
+  return getJson(`/batches/${encodeURIComponent(batchId)}/comparison`);
+}
+
+export async function fetchBatchEtpRecommendation(batchId: string) {
+  return getJson(`/batches/${encodeURIComponent(batchId)}/etp-recommendation`);
+}
+

@@ -2,65 +2,145 @@ import { useEffect, useState } from 'react'
 import { PageHeader, Button } from '../components/ui/PageHeader'
 import { Card, CardHeader } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
-import { fetchEtpDecision, fetchEtpRules, fetchWastewaterPrediction } from '../services/apiClient'
+import { Icon } from '../components/ui/Icon'
+import { fetchEtpRules, fetchBatchEtpRecommendation } from '../services/apiClient'
+import { useBatch } from '../context/BatchContext'
+import { BatchWorkflowStepper } from '../components/workflow/BatchWorkflowStepper'
 
 export function EtpDecisionSupportPage() {
-  const [dyeClass, setDyeClass] = useState('Reactive')
-  const [cod, setCod] = useState('')
-  const [ph, setPh] = useState('')
-  const [jar, setJar] = useState('')
+  const { activeBatchId, activeBatch, completeBatch, refreshActiveBatch } = useBatch()
+
   const [decision, setDecision] = useState<any>(null)
   const [rules, setRules] = useState<any>(null)
   const [ww, setWw] = useState<any>(null)
-  const [busy, setBusy] = useState(false)
+  const [autoLoading, setAutoLoading] = useState(false)
+  const [completing, setCompleting] = useState(false)
+  const [batchEtpLoaded, setBatchEtpLoaded] = useState(false)
 
   useEffect(() => { ;(async () => setRules(await fetchEtpRules()))() }, [])
 
-  const run = async () => {
-    setBusy(true)
-    const codNum = cod === '' ? null : Number(cod)
-    const phNum = ph === '' ? null : Number(ph)
-    const payload = {
-      recipe: { dye_class: dyeClass, liquor_ratio: '1:10' },
-      wastewater_profile: { COD: codNum, pH: phNum },
-      plant_config: jar === '' ? {} : { jar_test_data: jar },
+  // Auto-load ETP recommendation from active batch when PRODUCTION_ACTIVE or ETP_REVIEW
+  useEffect(() => {
+    if (!activeBatchId) return
+    if (activeBatch?.lifecycle_status !== 'PRODUCTION_ACTIVE' && activeBatch?.lifecycle_status !== 'ETP_REVIEW') return
+    setAutoLoading(true)
+    fetchBatchEtpRecommendation(activeBatchId)
+      .then((res) => {
+        if (res && res.success && res.data) {
+          setDecision(res.data)
+          setBatchEtpLoaded(true)
+          if (activeBatch?.wastewater_prediction) {
+            setWw(activeBatch.wastewater_prediction)
+          }
+        }
+      })
+      .catch(() => {})
+      .finally(() => setAutoLoading(false))
+  }, [activeBatchId, activeBatch?.lifecycle_status])
+
+  const handleCompleteBatch = async () => {
+    if (!activeBatchId) return
+    setCompleting(true)
+    try {
+      await completeBatch(activeBatchId, {
+        etp_recommendation_applied: decision?.recommendation || 'Advisory reviewed',
+        completed_via: 'ETP Decision Support Page',
+      })
+      await refreshActiveBatch()
+    } finally {
+      setCompleting(false)
     }
-    const [d, w] = await Promise.all([fetchEtpDecision(payload), fetchWastewaterPrediction(payload)])
-    setDecision(d); setWw(w); setBusy(false)
   }
 
   return (
     <>
       <PageHeader
+        title="ETP Decision Support"
         subtitle="Advisory decision support only — never automatic plant control, never regulatory certification."
-        actions={<Button variant="ai" icon="task_alt" onClick={run} disabled={busy}>{busy ? 'Evaluating…' : 'Get Recommendation'}</Button>}
+        actions={
+          <div className="flex items-center gap-2">
+            {activeBatchId && (
+              <Button variant="secondary" icon="auto_awesome" onClick={() => {
+                setAutoLoading(true)
+                fetchBatchEtpRecommendation(activeBatchId).then((res) => {
+                  if (res && res.success && res.data) { setDecision(res.data); setBatchEtpLoaded(true) }
+                }).finally(() => setAutoLoading(false))
+              }} disabled={autoLoading}>
+                {autoLoading ? 'Loading...' : 'Load Batch Recommendation'}
+              </Button>
+            )}
+          </div>
+        }
       />
+
+      <BatchWorkflowStepper />
+
+      {/* Auto-loaded batch advisory banner */}
+      {activeBatchId && batchEtpLoaded && (
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-[12.5px]">
+          <div className="flex items-center gap-2.5">
+            <Icon name="auto_awesome" className="text-[20px] text-emerald-700" />
+            <div>
+              <p className="font-bold text-emerald-900">
+                ETP Recommendation auto-generated for batch <span className="font-mono-data">{activeBatchId}</span>
+              </p>
+              <p className="text-emerald-800">
+                Inputs sourced from confirmed recipe, wastewater prediction, and IoT telemetry — no re-entry required.
+              </p>
+            </div>
+          </div>
+          {activeBatch?.lifecycle_status === 'ETP_REVIEW' && (
+            <Button variant="primary" icon="check_circle" onClick={handleCompleteBatch} disabled={completing}>
+              {completing ? 'Completing...' : 'Complete Batch & Archive'}
+            </Button>
+          )}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {/* Inputs panel — auto-loaded from batch */}
         <Card className="lg:col-span-1">
-          <CardHeader title="Inputs" subtitle="Recipe + wastewater + plant config" icon="science" />
+          <CardHeader
+            title={batchEtpLoaded ? 'Batch Inputs (Auto-loaded)' : 'Batch Inputs'}
+            subtitle={batchEtpLoaded ? `From confirmed recipe · ${activeBatchId}` : 'Awaiting batch data...'}
+            icon="science"
+          />
           <div className="space-y-3 p-5 text-[13px]">
-            <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Dye class</span>
-              <select value={dyeClass} onChange={e => setDyeClass(e.target.value)} className="h-9 w-full rounded-md border px-2.5 outline-none bg-white">
-                <option>Reactive</option><option>Disperse</option><option>Acid</option><option>Vat</option>
-              </select>
-            </label>
-            <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Measured inlet COD (mg/L, optional)</span>
-              <input value={cod} onChange={e => setCod(e.target.value)} placeholder="e.g. 620" className="h-9 w-full rounded-md border px-2.5 outline-none" />
-            </label>
-            <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Measured inlet pH (optional)</span>
-              <input value={ph} onChange={e => setPh(e.target.value)} placeholder="e.g. 7.2" className="h-9 w-full rounded-md border px-2.5 outline-none" />
-            </label>
-            <label className="block"><span className="mb-1 block text-[11.5px] font-semibold text-on-surface-variant">Jar-test reference (optional)</span>
-              <input value={jar} onChange={e => setJar(e.target.value)} placeholder="Leave empty = insufficient dosing data" className="h-9 w-full rounded-md border px-2.5 outline-none" />
-            </label>
-            <p className="text-[11.5px] text-on-surface-variant">Exact dosing requires jar-test lab data plus verified inlet COD/pH. Otherwise dosing returns insufficient_data.</p>
+            {batchEtpLoaded && activeBatch ? (
+              <div className="space-y-3">
+                <div className="rounded-lg bg-slate-50 p-3 text-[12px]">
+                  <p><strong>Dye Class:</strong> {activeBatch.dye_class || 'Reactive'}</p>
+                  <p><strong>Batch Status:</strong> {activeBatch.lifecycle_status}</p>
+                  <p><strong>Recipe Confirmed:</strong> {activeBatch.confirmed_at ? new Date(activeBatch.confirmed_at).toLocaleString() : 'Yes'}</p>
+                </div>
+                {activeBatch.wastewater_prediction && (
+                  <div className="rounded-lg bg-sky-50 p-3 text-[12px]">
+                    <p className="font-semibold text-sky-900">Predicted Wastewater Profile</p>
+                    {Object.entries(activeBatch.wastewater_prediction?.predicted_profile || {}).map(([k, v]: any) => (
+                      <p key={k} className="text-sky-800"><span className="text-sky-600">{k}:</span> {v === null ? 'not_available' : String(v)}</p>
+                    ))}
+                    <p className="mt-1 text-[11px] text-sky-700">
+                      COD/BOD/TDS are not_available until lab measurement. Volume and pH are arithmetic estimates only.
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-[12.5px] text-on-surface-variant">Load batch data from the Production workflow to auto-populate inputs.</p>
+            )}
           </div>
         </Card>
+
+        {/* Result panel */}
         <Card className="lg:col-span-2">
-          <CardHeader title="Recommendation" subtitle={decision ? decision.recommendation_status : 'No evaluation yet'} icon="fact_check"
+          <CardHeader title="ETP Recommendation" subtitle={decision ? decision.recommendation_status : 'No evaluation yet'} icon="fact_check"
             badge={decision ? <Badge tone={decision.recommendation_status === 'advisory_generated' ? 'green' : 'amber'}>{decision.recommendation_status}</Badge> : undefined} />
           <div className="p-5 text-[13px]">
-            {!decision && <p className="text-on-surface-variant">Enter available data and click Get Recommendation. With no measured data the engine honestly returns insufficient_data.</p>}
+            {!decision && <p className="text-on-surface-variant">
+              {activeBatchId
+                ? 'Click "Load Batch Recommendation" to auto-generate ETP advisory using confirmed recipe and IoT telemetry.'
+                : 'Select a batch in the Production workflow to begin.'}
+            </p>}
             {decision && (
               <div className="space-y-3">
                 <p><strong>What:</strong> {decision.recommendation}</p>
@@ -72,6 +152,25 @@ export function EtpDecisionSupportPage() {
                 <div><strong>Rules ({(decision.rules ?? []).length}):</strong> <span className="text-on-surface-variant">all human_validation_status = pending (advisory mode)</span></div>
                 {(decision.warnings ?? []).map((w: string, i: number) => <p key={i} className="rounded bg-amber-50 p-2 text-[12px] text-amber-800">⚠ {w}</p>)}
                 <p className="text-[11.5px] text-on-surface-variant">Assumptions: {(decision.assumptions ?? []).join(' ')} Limitations: {(decision.limitations ?? []).join(' ')}</p>
+
+                {/* Complete Batch */}
+                {activeBatchId && activeBatch?.lifecycle_status === 'ETP_REVIEW' && (
+                  <div className="mt-4 flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+                    <div>
+                      <p className="font-semibold text-emerald-900">Ready to archive this batch?</p>
+                      <p className="text-[12px] text-emerald-800">Completing stores all telemetry and recipe data in the ML training pool.</p>
+                    </div>
+                    <Button variant="primary" icon="model_training" onClick={handleCompleteBatch} disabled={completing}>
+                      {completing ? 'Archiving...' : 'Complete & Archive for ML Training'}
+                    </Button>
+                  </div>
+                )}
+                {activeBatch?.lifecycle_status === 'BATCH_COMPLETED' && (
+                  <div className="flex items-center gap-2 rounded-xl bg-emerald-50 p-3 text-[12.5px] text-emerald-900">
+                    <Icon name="task_alt" className="text-emerald-600" />
+                    <span>Batch <strong>{activeBatchId}</strong> is COMPLETED. All data archived for future model training.</span>
+                  </div>
+                )}
               </div>
             )}
             {ww && (
@@ -83,6 +182,7 @@ export function EtpDecisionSupportPage() {
           </div>
         </Card>
       </div>
+
       <Card className="mt-6">
         <CardHeader title="Knowledge Rules" subtitle="Live /api/etp/rules · pending validation" icon="verified" />
         {!rules ? <p className="p-5 text-[13px] text-on-surface-variant">Loading rules…</p>

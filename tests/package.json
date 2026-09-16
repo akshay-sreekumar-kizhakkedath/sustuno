@@ -10,7 +10,8 @@
     "test:batch": "node dye_batch_tests.js",
     "test:ml-pipeline": "node dye_ml_pipeline_tests.js",
     "test:phase-completion": "node phase_completion_tests.js",
-    "test:all": "node dye_optimizer_tests.js; node dye_optimizer_structured_tests.js; node dye_ml_pipeline_tests.js; node dye_batch_tests.js; node wastewater_and_etp_tests.js; node phase_completion_tests.js;"
+    "test:all": "node dye_optimizer_tests.js; node dye_optimizer_structured_tests.js; node dye_ml_pipeline_tests.js; node dye_batch_tests.js; node wastewater_and_etp_tests.js; node phase_completion_tests.js; node e2e_unified_workflow.js;",
+    "test:e2e-workflow": "node e2e_unified_workflow.js"
   },
   "devDependencies": {
     "playwright-core": "^1.63.0"

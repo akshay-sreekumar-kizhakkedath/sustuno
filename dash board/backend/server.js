@@ -4,6 +4,11 @@ const cors = require('cors');
 const { supabase } = require('./database/supabaseClient');
 const fs = require('fs').promises;
 const path = require('path');
+const {
+  runtimeCache,
+  getBatchDossier,
+  getBatchEtpRecommendation,
+} = require('./services/workflowService');
 
 // Serve React frontend build from public/ (populated by render.yaml build step)
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -281,12 +286,29 @@ app.get('/api/iot/telemetry', (req, res) => {
 //   - iot_alerts        (threshold-based alerts)
 //   - gateway_status    (device health heartbeat)
 
+// --- IoT: Active Session Discovery (for ESP32 dynamic handshake) ---
+app.get('/api/iot/active-session', (req, res) => {
+  res.json({
+    active_batch_id: runtimeCache.activeBatchId || 'BATCH-001',
+    active_device_id: runtimeCache.activeDeviceId || 'SUSTUNO-ESP32-001',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.post('/api/iot/readings', async (req, res) => {
   try {
     const { device_id, plant_id, batch_id, timestamp, sensors, device_info } = req.body;
 
     if (!device_id || !sensors) {
       return res.status(400).json({ error: 'Missing device_id or sensors in payload' });
+    }
+
+    // Auto-bind to active batch if default "BATCH-001" or omitted
+    let effectiveBatchId = batch_id;
+    if (!effectiveBatchId || effectiveBatchId === 'BATCH-001') {
+      if (runtimeCache.activeBatchId) {
+        effectiveBatchId = runtimeCache.activeBatchId;
+      }
     }
 
     const ts = timestamp || new Date().toISOString();
@@ -309,11 +331,11 @@ app.post('/api/iot/readings', async (req, res) => {
         sensor_id: entry.sensor_id,
         device_id,
         plant_id: plant_id || null,
-        batch_id: batch_id || null,
+        batch_id: effectiveBatchId || null,
         value: s.value,
         quality: (s.status === 'OK') ? 'normal'
           : (s.status === 'WARNING') ? 'warning'
-          : (s.status === 'ERROR' || s.status === 'DISCONNECTED' || s.status === 'SATURATED') ? 'critical'
+          : (s.status === 'ERROR' || s.status === 'DISCONNECTED' || s.status === 'SATURATED' || s.status === 'UNCALIBRATED') ? 'warning'
           : 'normal',
         raw_voltage: s.raw_voltage || null,
         probe_voltage: s.probe_voltage || null,
@@ -376,6 +398,7 @@ app.post('/api/iot/readings', async (req, res) => {
 
     res.json({
       status: 'ok',
+      batch_id: effectiveBatchId,
       inserted,
       alerts_generated: alerts.length,
       timestamp: ts,
@@ -387,7 +410,6 @@ app.post('/api/iot/readings', async (req, res) => {
 });
 
 // --- IoT: Get latest readings for a device (for dashboard) ---
-
 app.get('/api/iot/readings/latest', async (req, res) => {
   try {
     const device_id = req.query.device_id || 'SUSTUNO-ESP32-001';
@@ -405,6 +427,51 @@ app.get('/api/iot/readings/latest', async (req, res) => {
   } catch (err) {
     console.error('[IoT] Latest readings error:', err.message);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// --- Batch Intelligence Routes (One Master Batch ID Pipeline) ---
+
+// GET /api/batches/:id/iot-readings
+app.get('/api/batches/:id/iot-readings', async (req, res) => {
+  try {
+    const dossier = await getBatchDossier(req.params.id);
+    if (!dossier) return res.status(404).json({ success: false, error: 'Batch not found' });
+    res.json({
+      success: true,
+      batch_id: dossier.batch_id,
+      telemetry: dossier.telemetry,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/batches/:id/comparison
+app.get('/api/batches/:id/comparison', async (req, res) => {
+  try {
+    const dossier = await getBatchDossier(req.params.id);
+    if (!dossier) return res.status(404).json({ success: false, error: 'Batch not found' });
+    res.json({
+      success: true,
+      batch_id: dossier.batch_id,
+      data: dossier.comparison,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/batches/:id/etp-recommendation
+app.get('/api/batches/:id/etp-recommendation', async (req, res) => {
+  try {
+    const recommendation = await getBatchEtpRecommendation(req.params.id);
+    res.json({
+      success: true,
+      data: recommendation,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 

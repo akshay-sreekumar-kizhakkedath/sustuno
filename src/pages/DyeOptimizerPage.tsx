@@ -1,12 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PageHeader, Button } from '../components/ui/PageHeader';
 import { Card, CardHeader } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
+
 import {
   fetchFabrics, fetchFibers, fetchDyeClasses, fetchMachines,
   fetchRecipeResources, fetchProcessDefaults, fetchWastewaterPrediction,
   runDyeOptimization,
 } from '../services/apiClient';
+import { useBatch } from '../context/BatchContext';
+import { BatchWorkflowStepper } from '../components/workflow/BatchWorkflowStepper';
+
 
 // CIELAB -> sRGB preview (standard conversion, D65). Returns css rgb() string.
 function labToCss(L: number, a: number, b: number): string {
@@ -36,6 +41,10 @@ function compLabel(c: any): string {
 }
 
 export function DyeOptimizerPage() {
+  const navigate = useNavigate();
+  const { activeBatchId, activeBatch, confirmRecipe, startProduction, createBatch } = useBatch();
+  const [confirming, setConfirming] = useState(false);
+
   // ---- reference data ----
   const [fabrics, setFabrics] = useState<any[]>([]);
   const [fibers, setFibers] = useState<any[]>([]);
@@ -76,6 +85,7 @@ export function DyeOptimizerPage() {
   const [formError, setFormError] = useState<string | null>(null);
   const [ww, setWw] = useState<any>(null);
   const [wwBusy, setWwBusy] = useState(false);
+
 
   const loadRefs = async () => {
     setRefsLoading(true);
@@ -289,7 +299,76 @@ export function DyeOptimizerPage() {
     }
   }
 
+  // Sync from active batch if present
+  useEffect(() => {
+    if (activeBatch && fabrics.length > 0) {
+      if (activeBatch.material?.fabric_id && activeBatch.material.fabric_id !== fabricId) {
+        selectFabric(activeBatch.material.fabric_id);
+      }
+      if (activeBatch.material?.weight_kg) setWeightKg(activeBatch.material.weight_kg);
+      if (activeBatch.material?.gsm) setGsm(activeBatch.material.gsm);
+      if (activeBatch.target_shade) {
+        if (activeBatch.target_shade.L !== undefined) setL(activeBatch.target_shade.L);
+        if (activeBatch.target_shade.a !== undefined) setA(activeBatch.target_shade.a);
+        if (activeBatch.target_shade.b !== undefined) setB(activeBatch.target_shade.b);
+      }
+      if (activeBatch.dye_class) setDyeClass(activeBatch.dye_class);
+      if (activeBatch.machine_id) setMachineId(activeBatch.machine_id);
+      if (activeBatch.confirmed_recipe && !result) {
+        setResult({
+          success: true,
+          optimization: {
+            status: 'completed',
+            model_tier: 'demo_synthetic',
+            model_tier_message: `Displaying confirmed recipe for batch ${activeBatch.batch_id || activeBatchId}`,
+            recommended_recipe: activeBatch.confirmed_recipe,
+            target_lab: activeBatch.target_shade || { L, a: A, b: B },
+          },
+        });
+      }
+    }
+  }, [activeBatch, fabrics]);
+
+  async function handleConfirmAndStart() {
+    if (!opt?.recommended_recipe) return;
+    setConfirming(true);
+    try {
+      let targetBatchId = activeBatchId;
+      if (!targetBatchId) {
+        const bRes = await createBatch({
+          material: {
+            fabric_id: fabricId,
+            fabric_type: fabric?.name || 'Cotton Single Jersey',
+            fiber_composition: composition,
+            weight_kg: Number(weightKg),
+            gsm: Number(gsm),
+          },
+          target_shade: { L: Number(L), a: Number(A), b: Number(B), color_space: 'CIELAB', shade_depth: shadeDepth },
+          dye_class: dyeClass,
+          machine: { machine_id: machineId },
+        });
+        if (bRes && bRes.success && bRes.data) {
+          targetBatchId = bRes.data.batch_id || bRes.data.id;
+        }
+      }
+      if (!targetBatchId) {
+        alert('Could not determine batch ID to confirm recipe.');
+        return;
+      }
+      const confRes = await confirmRecipe(targetBatchId, opt.recommended_recipe);
+      if (confRes && confRes.success) {
+        await startProduction(targetBatchId, 'SUSTUNO-ESP32-001');
+        navigate('/iot');
+      } else {
+        alert(confRes?.error?.message || 'Failed to confirm recipe');
+      }
+    } finally {
+      setConfirming(false);
+    }
+  }
+
   async function predictWastewater() {
+
     if (!opt?.recommended_recipe) return;
     setWwBusy(true);
     setWw(null);
@@ -330,7 +409,10 @@ export function DyeOptimizerPage() {
         actions={<Button variant="primary" icon="auto_awesome" onClick={run} disabled={running}>{running ? 'Optimizing…' : 'Generate Optimization'}</Button>}
       />
 
+      <BatchWorkflowStepper />
+
       {refsLoading && <Card><p className="p-5 text-[13px] text-on-surface-variant">Loading fabric and reference data…</p></Card>}
+
       {refsError && <Card><div className="flex items-center justify-between gap-3 p-5"><p className="text-[13px] text-red-700">{refsError}</p><Button variant="secondary" onClick={() => loadRefs()}>Retry</Button></div></Card>}
 
       {!refsLoading && !refsError && (
@@ -615,6 +697,35 @@ export function DyeOptimizerPage() {
 
                   <p className="text-[12px] text-on-surface-variant">{opt.notes} {opt.delta_e_note}</p>
 
+                  {/* ============ RECIPE CONFIRMATION & PRODUCTION HANDOFF ============ */}
+                  {opt.recommended_recipe && (
+                    <div className="rounded-xl border border-primary/30 bg-primary/5 p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h4 className="text-[14px] font-bold text-primary">Confirm Recipe & Launch Production</h4>
+                            {activeBatch?.lifecycle_status === 'RECIPE_CONFIRMED' || activeBatch?.lifecycle_status === 'PRODUCTION_ACTIVE' ? (
+                              <Badge tone="green">RECIPE CONFIRMED</Badge>
+                            ) : (
+                              <Badge tone="purple">ACTION REQUIRED</Badge>
+                            )}
+                          </div>
+                          <p className="mt-1 text-[12px] text-on-surface-variant">
+                            Confirming saves this recipe to <strong>{activeBatchId || 'New Batch'}</strong>, automatically computes expected wastewater volume & parameters, and binds to active ESP32 IoT monitoring.
+                          </p>
+                        </div>
+                        <Button
+                          variant="primary"
+                          icon="play_circle"
+                          onClick={handleConfirmAndStart}
+                          disabled={confirming}
+                        >
+                          {confirming ? 'Confirming...' : 'Confirm Recipe & Start IoT Production'}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="rounded-lg border border-slate-100 p-3 text-[12.5px]">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <p className="font-semibold">Wastewater Handoff</p>
@@ -622,6 +733,7 @@ export function DyeOptimizerPage() {
                         {wwBusy ? 'Predicting…' : 'Predict wastewater for this recipe'}
                       </Button>
                     </div>
+
                     <p className="mt-1 text-[11.5px] text-on-surface-variant">Sends this recipe with its process parameters to wastewater prediction — no re-entry, so the profile stays consistent with the optimization.</p>
                     {ww && (
                       <div className="mt-2 rounded-md bg-slate-50 p-2 text-[12px]">
