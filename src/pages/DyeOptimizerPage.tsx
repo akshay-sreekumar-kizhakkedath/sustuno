@@ -385,6 +385,20 @@ export function DyeOptimizerPage() {
     }
   }
 
+  function proceedToAI() {
+    if (!opt?.recommended_recipe) return;
+    const r = opt.recommended_recipe;
+    sessionStorage.setItem('sustuno_prediction_context', JSON.stringify({
+      source: 'dye-optimizer',
+      recipe: { dye_class: dyeClass, dyes: r.dyes, chemicals: r.chemicals, fabric_id: fabricId },
+      process: r.process_parameters,
+      batch: { fabric_weight_kg: Number(weightKg), gsm: Number(gsm), machine_id: machineId },
+      shade: { L: Number(L), a: Number(A), b: Number(B), shade_depth: shadeDepth },
+      timestamp: new Date().toISOString(),
+    }));
+    navigate('/prediction');
+  }
+
   const opt = result?.optimization || null;
   const tier = opt?.model_tier || null;
   const tierBadge = tier === 'validated_model'
@@ -729,9 +743,14 @@ export function DyeOptimizerPage() {
                   <div className="rounded-lg border border-slate-100 p-3 text-[12.5px]">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <p className="font-semibold">Wastewater Handoff</p>
-                      <Button variant="secondary" icon="water_drop" onClick={predictWastewater} disabled={wwBusy}>
-                        {wwBusy ? 'Predicting…' : 'Predict wastewater for this recipe'}
-                      </Button>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Button variant="secondary" icon="water_drop" onClick={predictWastewater} disabled={wwBusy}>
+                          {wwBusy ? 'Predicting…' : 'Predict wastewater for this recipe'}
+                        </Button>
+                        <Button variant="primary" icon="arrow_forward" onClick={proceedToAI}>
+                          Proceed to AI Prediction
+                        </Button>
+                      </div>
                     </div>
 
                     <p className="mt-1 text-[11.5px] text-on-surface-variant">Sends this recipe with its process parameters to wastewater prediction — no re-entry, so the profile stays consistent with the optimization.</p>

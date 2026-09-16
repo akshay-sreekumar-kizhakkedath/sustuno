@@ -25,10 +25,11 @@ function parseLiquorRatio(input) {
 
 function personalization_engineering_estimates(recipeData) {
   const recipe = recipeData.recipe || recipeData;
-  const process = recipe.process || {};
+  const process = recipe.process || recipeData.process || {};
+  const batch = recipeData.batch || {};
 
-  const liquor = parseLiquorRatio(recipe.liquor_ratio ?? process.liquor_ratio);
-  const weightKg = Number(recipe.fabric_weight_kg ?? process.fabric_weight_kg);
+  const liquor = parseLiquorRatio(recipe.liquor_ratio ?? process.liquor_ratio ?? recipe.process?.liquor_ratio ?? batch.liquor_ratio);
+  const weightKg = Number(recipe.fabric_weight_kg ?? process.fabric_weight_kg ?? batch.fabric_weight_kg);
 
   const estimates = {};
   if (liquor !== null && !isNaN(weightKg) && weightKg > 0) {
@@ -37,7 +38,7 @@ function personalization_engineering_estimates(recipeData) {
     estimates.calculation = 'liquor_ratio × fabric_weight_kg / 1000';
     estimates.basis = 'dye_bath_arithmetic';
   }
-  const bathPh = Number(process.ph ?? process.temperature_ph ?? recipe.ph);
+  const bathPh = Number(recipe.ph ?? process.ph ?? process.temperature_ph ?? recipeData.process?.ph);
   if (!isNaN(bathPh) && bathPh >= 0 && bathPh <= 14) {
     estimates.expected_bath_pH = bathPh;
     estimates.ph_basis = 'recipe process pH (expectation, not a measurement)';

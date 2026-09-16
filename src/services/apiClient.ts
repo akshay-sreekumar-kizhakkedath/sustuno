@@ -81,10 +81,6 @@ export async function fetchWastewaterPrediction(payload: any) {
   return null;
 }
 
-export async function fetchBatchIntelligence(batchId: string) {
-  return getJson(`/dye-batches/${batchId}/intelligence`);
-}
-
 export async function fetchBatchComparison(batchId: string) {
   return getJson(`/dye-batches/${batchId}/comparison`);
 }

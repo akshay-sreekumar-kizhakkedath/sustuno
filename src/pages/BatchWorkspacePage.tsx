@@ -10,12 +10,12 @@ import { BatchWorkflowStepper } from '../components/workflow/BatchWorkflowSteppe
 import {
   fetchBatchWorkspace,
   recordShadeResult,
+  recordWastewaterMeasurement,
+  createWastewaterPrediction,
   generateETPFromBatch,
   generateBatchReportFromAPI,
   evaluateTrainingReadiness,
 } from '../services/apiClient';
-
-const WORKFLOW_STATUSES = [];
 
 
 export function BatchWorkspacePage() {
@@ -349,7 +349,7 @@ export function BatchWorkspacePage() {
               <CardHeader title="Wastewater Analysis" subtitle="Auto-populated from batch context" icon="water_drop"
                 actions={
                   <div className="flex gap-2">
-                    <Button variant="secondary" size="sm" icon="water_drop" onClick={() => createWastewaterPrediction(batchId!)}>Predict</Button>
+                    <Button variant="secondary" icon="water_drop" onClick={() => createWastewaterPrediction(batchId!)}>Predict</Button>
                   </div>
                 }
               />
@@ -388,12 +388,12 @@ export function BatchWorkspacePage() {
                     <input type="text" placeholder="Parameter" id="ww-param" className="h-9 flex-1 rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" />
                     <input type="number" placeholder="Value" id="ww-value" className="h-9 w-24 rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" />
                     <input type="text" placeholder="Unit" id="ww-unit" className="h-9 w-20 rounded-md border border-slate-200 px-2.5 text-[13px] outline-none" />
-                    <Button variant="primary" size="sm" onClick={async () => {
+                    <Button variant="primary" onClick={async () => {
                       const param = (document.getElementById('ww-param') as HTMLInputElement)?.value;
                       const value = Number((document.getElementById('ww-value') as HTMLInputElement)?.value);
                       const unit = (document.getElementById('ww-unit') as HTMLInputElement)?.value || 'mg/L';
                       if (!param || !value) return alert('Parameter and value are required');
-                      const res = await recordWastewaterMeasurement(batchId, [{ parameter: param, value, unit }], { data_source: 'manual_lab', quality: 'validated' });
+                      const res = await recordWastewaterMeasurement(batchId!, [{ parameter: param, value, unit }], { data_source: 'manual_lab', quality: 'validated' });
                       if (res && res.success) { setWorkspace(null); loadWorkspace(); }
                     }}>Add</Button>
                   </div>
@@ -409,7 +409,7 @@ export function BatchWorkspacePage() {
             <Card>
               <CardHeader title="ETP Decision Support" subtitle="Advisory recommendations from batch wastewater data" icon="fact_check"
                 actions={
-                  <Button variant="primary" size="sm" icon="science" onClick={handleETP} disabled={!batchId}>Generate ETP</Button>
+                  <Button variant="primary" icon="science" onClick={handleETP} disabled={!batchId}>Generate ETP</Button>
                 }
               />
               <div className="p-5 text-[13px]">
@@ -500,7 +500,7 @@ export function BatchWorkspacePage() {
             <Card>
               <CardHeader title="Batch Report" subtitle="Complete traceability across the lifecycle" icon="description"
                 actions={
-                  <Button variant="primary" size="sm" icon="auto_awesome" onClick={handleReport}>Generate Report</Button>
+                  <Button variant="primary" icon="auto_awesome" onClick={handleReport}>Generate Report</Button>
                 }
               />
               <div className="p-5 text-[13px]">
@@ -553,7 +553,7 @@ export function BatchWorkspacePage() {
             <Card>
               <CardHeader title="Training Data Readiness" subtitle="Eligibility evaluation for ML dataset" icon="verified"
                 actions={
-                  <Button variant="primary" size="sm" icon="verified" onClick={handleTrainingReadiness}>Evaluate</Button>
+                  <Button variant="primary" icon="verified" onClick={handleTrainingReadiness}>Evaluate</Button>
                 }
               />
               <div className="p-5 text-[13px]">
