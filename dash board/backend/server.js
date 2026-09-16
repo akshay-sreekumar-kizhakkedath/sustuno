@@ -543,6 +543,32 @@ app.use('/api/wastewater', wastewaterRoutes);
 const etpRoutes = require('./routes/etpRoutes');
 app.use('/api/etp', etpRoutes);
 
+const lifecycleRoutes = require('./routes/lifecycleRoutes');
+app.use('/api/lifecycle', lifecycleRoutes);
+
+// GET /api/lifecycle/production-orders/:id
+app.get('/api/lifecycle/production-orders/:id', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('production_orders').select('*').eq('order_number', req.params.id).maybeSingle();
+    if (error) throw error;
+    if (!data) return res.status(404).json({ success: false, error: 'Order not found' });
+    res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/lifecycle/production-orders
+app.get('/api/lifecycle/production-orders', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('production_orders').select('*').order('created_at', { ascending: false }).limit(50);
+    if (error) throw error;
+    res.json({ success: true, data: data || [] });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // --- Production, Overview, Analytics & Reports Routes ---
 const productionRoutes = require('./routes/productionRoutes');
 app.use('/api/production', productionRoutes);
